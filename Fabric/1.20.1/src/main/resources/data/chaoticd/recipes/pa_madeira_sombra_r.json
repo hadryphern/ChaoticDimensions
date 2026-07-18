@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a",
+    "b",
+    "b"
+  ],
+  "key": {
+    "a": {
+      "item": "chaoticd:tabua_sombra"
+    },
+    "b": {
+      "item": "chaoticd:graveto_sombra"
+    }
+  },
+  "result": {
+    "item": "chaoticd:pa_madeira_sombra",
+    "count": 1
+  }
+}

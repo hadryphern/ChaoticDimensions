@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chaoticd:block/fire_log_top",
+    "up": "chaoticd:block/fire_log_top",
+    "north": "chaoticd:block/fire_log_side",
+    "east": "chaoticd:block/fire_log_side",
+    "south": "chaoticd:block/fire_log_side",
+    "west": "chaoticd:block/fire_log_side",
+    "particle": "chaoticd:block/fire_log_top"
+  },
+  "render_type": "solid"
+}

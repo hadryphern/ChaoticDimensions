@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "chaoticd:tabua_sombra"
+    }
+  },
+  "result": {
+    "item": "chaoticd:trap_door_madeira_sombra",
+    "count": 3
+  }
+}

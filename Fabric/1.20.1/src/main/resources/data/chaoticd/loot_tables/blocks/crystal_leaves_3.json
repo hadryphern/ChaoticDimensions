@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "chaoticd:blocks/crystal_leaves_3",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "chaoticd:crystal_leaves_3"
+        }
+      ]
+    }
+  ]
+}

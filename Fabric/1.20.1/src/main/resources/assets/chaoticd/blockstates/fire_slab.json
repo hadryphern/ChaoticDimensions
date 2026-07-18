@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "chaoticd:block/fire_slab"
+    },
+    "type=top": {
+      "model": "chaoticd:block/fire_slab_top"
+    },
+    "type=double": {
+      "model": "chaoticd:block/fire_slab_full"
+    }
+  }
+}

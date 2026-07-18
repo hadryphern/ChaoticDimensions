@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "aaa",
+    "a a"
+  ],
+  "key": {
+    "a": {
+      "item": "chaoticd:aluminium_ingot"
+    }
+  },
+  "result": {
+    "item": "chaoticd:aluminium_armor_helmet",
+    "count": 1
+  }
+}

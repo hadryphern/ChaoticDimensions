@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chaoticd:block/biomasombra_terra",
+    "up": "chaoticd:block/biomasombra_terra",
+    "north": "chaoticd:block/biomasombra_terra",
+    "east": "chaoticd:block/biomasombra_terra",
+    "south": "chaoticd:block/biomasombra_terra",
+    "west": "chaoticd:block/biomasombra_terra",
+    "particle": "chaoticd:block/biomasombra_terra"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "chaoticd:custom/espada_vortex",
+  "textures": {
+    "0": "chaoticd:block/espada_vortex_textura",
+    "particle": "chaoticd:item/espada_vortex_textura"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/fence_side",
+  "textures": {
+    "texture": "chaoticd:block/fire_planks",
+    "particle": "chaoticd:block/fire_planks"
+  },
+  "render_type": "solid"
+}

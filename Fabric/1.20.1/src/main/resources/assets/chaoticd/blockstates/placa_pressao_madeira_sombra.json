@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "chaoticd:block/placa_pressao_madeira_sombra"
+    },
+    "powered=true": {
+      "model": "chaoticd:block/placa_pressao_madeira_sombra_down"
+    }
+  }
+}

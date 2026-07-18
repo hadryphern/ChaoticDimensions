@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chaoticd:block/crystalplanks",
+    "up": "chaoticd:block/crystalplanks",
+    "north": "chaoticd:block/crystalplanks",
+    "east": "chaoticd:block/crystalplanks",
+    "south": "chaoticd:block/crystalplanks",
+    "west": "chaoticd:block/crystalplanks",
+    "particle": "chaoticd:block/crystalplanks"
+  },
+  "render_type": "cutout"
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:stone",
+    "chaoticd:crystal_grass_block",
+    "chaoticd:crystal_dirt",
+    "minecraft:dirt",
+    "minecraft:grass_block"
+  ]
+}

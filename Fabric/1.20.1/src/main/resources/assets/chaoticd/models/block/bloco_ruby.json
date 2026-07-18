@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chaoticd:block/bloco_de_ruby",
+    "up": "chaoticd:block/bloco_de_ruby",
+    "north": "chaoticd:block/bloco_de_ruby",
+    "east": "chaoticd:block/bloco_de_ruby",
+    "south": "chaoticd:block/bloco_de_ruby",
+    "west": "chaoticd:block/bloco_de_ruby",
+    "particle": "chaoticd:block/bloco_de_ruby"
+  },
+  "render_type": "solid"
+}

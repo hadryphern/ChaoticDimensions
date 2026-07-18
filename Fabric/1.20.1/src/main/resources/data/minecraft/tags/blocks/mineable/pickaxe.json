@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:toxic_block",
+    "chaoticd:toxic_ore",
+    "chaoticd:titanium_block",
+    "chaoticd:titanium_ore",
+    "chaoticd:aluminium_block",
+    "chaoticd:aluminium_ore",
+    "chaoticd:cobblestone_negra",
+    "chaoticd:pedra_sombra",
+    "chaoticd:minerio_ruby",
+    "chaoticd:bloco_ruby",
+    "chaoticd:rosalitabloco",
+    "chaoticd:blocosombra",
+    "chaoticd:mineriosombra"
+  ]
+}

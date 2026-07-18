@@ -1,0 +1,8 @@
+{
+  "parent": "block/pressure_plate_up",
+  "textures": {
+    "particle": "chaoticd:block/tabua_sombra",
+    "texture": "chaoticd:block/tabua_sombra"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "chaoticd:block/slab_madeira_sombra"
+    },
+    "type=top": {
+      "model": "chaoticd:block/slab_madeira_sombra_top"
+    },
+    "type=double": {
+      "model": "chaoticd:block/slab_madeira_sombra_full"
+    }
+  }
+}

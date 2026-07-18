@@ -1,0 +1,116 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.esqueleto_sombra.idle": {
+			"loop": true,
+			"animation_length": 3.8333,
+			"bones": {
+				"Cabeca": {
+					"position": {
+						"0.0": {
+							"vector": [0, -2, 0]
+						},
+						"2.0": {
+							"vector": [0, 0, 0]
+						},
+						"3.8333": {
+							"vector": [0, -1, 0]
+						}
+					}
+				},
+				"Bracos": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0.57, 0]
+						},
+						"2.0": {
+							"vector": [0, -2, 0]
+						},
+						"3.8333": {
+							"vector": [0, 0.06, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.esqueleto_sombra.walk": {
+			"loop": true,
+			"animation_length": 2.7917,
+			"bones": {
+				"Cabeca": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, -2, 0]
+						},
+						"2.75": {
+							"vector": [0, -1, 0]
+						}
+					}
+				},
+				"Bracos": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [7.5, 0, 0]
+						},
+						"1.75": {
+							"vector": [-6.87, 0, 0]
+						},
+						"2.75": {
+							"vector": [2.5, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 3]
+						},
+						"1.75": {
+							"vector": [0, 0, -3]
+						},
+						"2.75": {
+							"vector": [0, 0, 1]
+						}
+					}
+				},
+				"pernadireita": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [-17.5, 0, 0]
+						},
+						"2.0": {
+							"vector": [30, 0, 0]
+						},
+						"2.7917": {
+							"vector": [2.5, 0, 0]
+						}
+					}
+				},
+				"pernaesquerda": {
+					"rotation": {
+						"1.0": {
+							"vector": [22.5, 0, 0]
+						},
+						"2.0": {
+							"vector": [-10, 0, 0]
+						},
+						"2.7917": {
+							"vector": [5, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

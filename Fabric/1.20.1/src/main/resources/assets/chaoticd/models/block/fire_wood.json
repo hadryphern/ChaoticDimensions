@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "chaoticd:block/fire_log_side",
+    "particle": "chaoticd:block/fire_log_side"
+  },
+  "render_type": "solid"
+}

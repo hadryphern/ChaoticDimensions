@@ -1,0 +1,9 @@
+{
+  "parent": "block/door_top_left_open",
+  "textures": {
+    "particle": "chaoticd:block/tabua_sombra",
+    "bottom": "chaoticd:block/tabua_sombra",
+    "top": "chaoticd:block/porta_madeira_sombra_cima"
+  },
+  "render_type": "solid"
+}

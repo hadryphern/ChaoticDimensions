@@ -1,0 +1,48 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "chaoticd:block/cerca_madeira_sombra_post"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "chaoticd:block/cerca_madeira_sombra",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "chaoticd:block/cerca_madeira_sombra",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "chaoticd:block/cerca_madeira_sombra",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "chaoticd:block/cerca_madeira_sombra",
+        "y": 90,
+        "uvlock": true
+      }
+    }
+  ]
+}

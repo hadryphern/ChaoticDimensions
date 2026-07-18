@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "chaoticd:item/armadura_de_esmeralda_leggings"
+  }
+}

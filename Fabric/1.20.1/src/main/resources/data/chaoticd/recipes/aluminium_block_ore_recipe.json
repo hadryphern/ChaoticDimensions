@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "chaoticd:aluminium_block"
+    }
+  ],
+  "result": {
+    "item": "chaoticd:aluminium_ingot",
+    "count": 9
+  }
+}

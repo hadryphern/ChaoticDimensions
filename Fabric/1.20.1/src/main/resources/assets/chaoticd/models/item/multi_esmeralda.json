@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "chaoticd:item/multiusos_de_esmeralda"
+  }
+}

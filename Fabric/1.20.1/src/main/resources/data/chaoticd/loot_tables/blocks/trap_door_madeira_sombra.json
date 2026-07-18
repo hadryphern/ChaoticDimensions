@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "chaoticd:blocks/trap_door_madeira_sombra",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "chaoticd:trap_door_madeira_sombra"
+        }
+      ]
+    }
+  ]
+}

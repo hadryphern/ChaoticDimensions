@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "chaoticd:bloco_ruby"
+    }
+  },
+  "result": {
+    "item": "chaoticd:ruby",
+    "count": 9
+  }
+}

@@ -1,0 +1,111 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.creeper_branco",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Pernas",
+					"pivot": [-4, 5, -5]
+				},
+				{
+					"name": "PernaDireitaFrontal",
+					"parent": "Pernas",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4, 0, -6], "size": [4, 6, 4], "uv": [32, 26]}
+					]
+				},
+				{
+					"name": "PernaDireitaAtras",
+					"parent": "Pernas",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4, 0, 2], "size": [4, 6, 4], "uv": [32, 26]}
+					]
+				},
+				{
+					"name": "PernaEsquerdaAtras",
+					"parent": "Pernas",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [0, 0, 2], "size": [4, 6, 4], "uv": [32, 26]}
+					]
+				},
+				{
+					"name": "PernaEsquerdaFrontal",
+					"parent": "Pernas",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [0, 0, -6], "size": [4, 6, 4], "uv": [32, 26]}
+					]
+				},
+				{
+					"name": "Corpos",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Corpo2",
+					"parent": "Corpos",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Corpo1",
+					"parent": "Corpos",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4, 6, -2], "size": [8, 12, 4], "uv": [32, 0]}
+					]
+				},
+				{
+					"name": "Corpo3",
+					"parent": "Corpos",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Bracos",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "BracoEsquerdo",
+					"parent": "Bracos",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "BracoDireito",
+					"parent": "Bracos",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Cabecas",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Cabeca3",
+					"parent": "Cabecas",
+					"pivot": [0, 4, 0]
+				},
+				{
+					"name": "Cabeca2",
+					"parent": "Cabecas",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Cabeca1",
+					"parent": "Cabecas",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4, 18, -4], "size": [8, 8, 8], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

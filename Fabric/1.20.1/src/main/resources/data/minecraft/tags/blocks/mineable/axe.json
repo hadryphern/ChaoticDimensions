@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:crystal_planks",
+    "chaoticd:crystal_log",
+    "chaoticd:fire_planks",
+    "chaoticd:fire_log",
+    "chaoticd:fire_wood",
+    "chaoticd:madeira_bruta_branca",
+    "chaoticd:bloco_madeira_branco",
+    "chaoticd:botao_madeira_sombra",
+    "chaoticd:placa_pressao_madeira_sombra",
+    "chaoticd:portao_madeira_sombra",
+    "chaoticd:trap_door_madeira_sombra",
+    "chaoticd:porta_madeira_sombra",
+    "chaoticd:cerca_madeira_sombra",
+    "chaoticd:escada_madeira_sombra",
+    "chaoticd:slab_madeira_sombra",
+    "chaoticd:tabua_sombra",
+    "chaoticd:madeira_sombra"
+  ]
+}

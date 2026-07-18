@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chaoticd:block/shadow_ore",
+    "up": "chaoticd:block/shadow_ore",
+    "north": "chaoticd:block/shadow_ore",
+    "east": "chaoticd:block/shadow_ore",
+    "south": "chaoticd:block/shadow_ore",
+    "west": "chaoticd:block/shadow_ore",
+    "particle": "chaoticd:block/shadow_ore"
+  },
+  "render_type": "solid"
+}

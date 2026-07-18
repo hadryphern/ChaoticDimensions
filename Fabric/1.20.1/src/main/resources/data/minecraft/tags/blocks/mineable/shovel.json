@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:crystal_dirt",
+    "chaoticd:crystal_grass_block",
+    "chaoticd:bloco_grama_branco",
+    "chaoticd:grama_sombra"
+  ]
+}

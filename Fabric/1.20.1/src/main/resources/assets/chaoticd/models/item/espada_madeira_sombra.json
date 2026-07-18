@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "chaoticd:item/espada_madeira_sombra"
+  }
+}

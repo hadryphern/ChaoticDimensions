@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "a a",
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "chaoticd:aluminium_ingot"
+    }
+  },
+  "result": {
+    "item": "chaoticd:aluminium_armor_chestplate",
+    "count": 1
+  }
+}

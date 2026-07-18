@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "chaoticd:block/fire_leaves",
+    "particle": "chaoticd:block/fire_leaves"
+  }
+}

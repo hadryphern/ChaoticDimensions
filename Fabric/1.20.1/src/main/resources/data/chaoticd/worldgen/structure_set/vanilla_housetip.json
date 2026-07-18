@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "chaoticd:vanilla_housetip",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 20,
+    "separation": 19,
+    "salt": 1748795808
+  }
+}

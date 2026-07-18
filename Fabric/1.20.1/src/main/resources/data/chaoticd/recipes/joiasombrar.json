@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "chaoticd:blocosombra"
+    }
+  },
+  "result": {
+    "item": "chaoticd:joiasombra",
+    "count": 1
+  }
+}

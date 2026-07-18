@@ -1,0 +1,10 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "particle": "chaoticd:block/fire_planks",
+    "bottom": "chaoticd:block/fire_planks",
+    "top": "chaoticd:block/fire_planks",
+    "side": "chaoticd:block/fire_planks"
+  },
+  "render_type": "solid"
+}

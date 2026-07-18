@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "aaa",
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "chaoticd:toxic_ingot"
+    }
+  },
+  "result": {
+    "item": "chaoticd:toxic_block",
+    "count": 1
+  }
+}

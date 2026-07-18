@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "chaoticd:item/pa_de_ametista"
+  }
+}

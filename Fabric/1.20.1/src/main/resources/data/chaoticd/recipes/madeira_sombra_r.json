@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "chaoticd:madeira_sombra"
+    }
+  },
+  "result": {
+    "item": "chaoticd:tabua_sombra",
+    "count": 4
+  }
+}

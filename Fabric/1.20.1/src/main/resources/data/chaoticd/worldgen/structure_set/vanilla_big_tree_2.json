@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "chaoticd:vanilla_big_tree_2",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 9,
+    "salt": 1942884974
+  }
+}

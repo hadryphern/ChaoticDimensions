@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chaoticd:block/ruby_ore",
+    "up": "chaoticd:block/ruby_ore",
+    "north": "chaoticd:block/ruby_ore",
+    "east": "chaoticd:block/ruby_ore",
+    "south": "chaoticd:block/ruby_ore",
+    "west": "chaoticd:block/ruby_ore",
+    "particle": "chaoticd:block/ruby_ore"
+  },
+  "render_type": "solid"
+}

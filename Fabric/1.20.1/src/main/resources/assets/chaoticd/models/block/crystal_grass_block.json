@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chaoticd:block/crystalgrass_bottom",
+    "up": "chaoticd:block/crystalgrass_top",
+    "north": "chaoticd:block/crystalgrass_side",
+    "east": "chaoticd:block/crystalgrass_side",
+    "south": "chaoticd:block/crystalgrass_side",
+    "west": "chaoticd:block/crystalgrass_side",
+    "particle": "chaoticd:block/crystalgrass_bottom"
+  },
+  "render_type": "cutout"
+}
