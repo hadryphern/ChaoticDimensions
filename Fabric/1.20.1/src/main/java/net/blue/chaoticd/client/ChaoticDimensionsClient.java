@@ -6,6 +6,6 @@ import net.fabricmc.api.ClientModInitializer;
 public final class ChaoticDimensionsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        // Client registrations are introduced as each Forge feature is ported.
+        RosalitaClientVisuals.initialize();
     }
 }

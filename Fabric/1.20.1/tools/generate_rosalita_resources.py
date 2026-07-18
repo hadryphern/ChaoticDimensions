@@ -88,6 +88,74 @@ def write_tags() -> None:
     write(f"data/{MOD_ID}/tags/worldgen/biome/is_rosalita.json", {"replace": False, "values": [f"{MOD_ID}:rosalita_biome"]})
 
 
+def tree_config(trunk: dict, foliage: dict, size: dict) -> dict:
+    return {
+        "type": "minecraft:tree",
+        "config": {
+            "decorators": [],
+            "dirt_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "minecraft:dirt"}},
+            "foliage_placer": foliage,
+            "foliage_provider": {"type": "minecraft:simple_state_provider", "state": {
+                "Name": f"{MOD_ID}:rosalita_leaves",
+                "Properties": {"distance": "7", "persistent": "false", "waterlogged": "false"},
+            }},
+            "force_dirt": False,
+            "ignore_vines": True,
+            "minimum_size": size,
+            "trunk_placer": trunk,
+            "trunk_provider": {"type": "minecraft:simple_state_provider", "state": {
+                "Name": "minecraft:oak_log", "Properties": {"axis": "y"},
+            }},
+        },
+    }
+
+
+def write_trees() -> None:
+    two_layers = lambda limit, upper: {"type": "minecraft:two_layers_feature_size", "limit": limit, "lower_size": 0, "upper_size": upper}
+    straight = lambda base, a, b: {"type": "minecraft:straight_trunk_placer", "base_height": base, "height_rand_a": a, "height_rand_b": b}
+    blob = lambda radius, height: {"type": "minecraft:blob_foliage_placer", "height": height, "offset": 0, "radius": radius}
+    configurations = {
+        "rosalita_oak_tree": tree_config(straight(4, 2, 0), blob(2, 3), two_layers(1, 1)),
+        "rosalita_birch_tree": tree_config(straight(6, 2, 1), blob(1, 4), two_layers(1, 1)),
+        "rosalita_pine_tree": tree_config(straight(6, 4, 0), {
+            "type": "minecraft:pine_foliage_placer",
+            "height": {"type": "minecraft:uniform", "value": {"min_inclusive": 3, "max_inclusive": 4}},
+            "offset": 1,
+            "radius": 1,
+        }, two_layers(2, 2)),
+        "rosalita_acacia_tree": tree_config({
+            "type": "minecraft:forking_trunk_placer", "base_height": 5, "height_rand_a": 2, "height_rand_b": 2,
+        }, {"type": "minecraft:acacia_foliage_placer", "offset": 0, "radius": 2}, two_layers(1, 2)),
+    }
+    for name, config in configurations.items():
+        write(f"data/{MOD_ID}/worldgen/configured_feature/{name}.json", config)
+        write(f"data/{MOD_ID}/worldgen/placed_feature/{name}.json", {"feature": f"{MOD_ID}:{name}", "placement": []})
+
+    selector = {
+        "type": "minecraft:random_selector",
+        "config": {
+            "default": {"feature": f"{MOD_ID}:rosalita_acacia_tree", "placement": []},
+            "features": [
+                {"chance": 0.35, "feature": {"feature": f"{MOD_ID}:rosalita_oak_tree", "placement": []}},
+                {"chance": 0.25, "feature": {"feature": f"{MOD_ID}:rosalita_birch_tree", "placement": []}},
+                {"chance": 0.20, "feature": {"feature": f"{MOD_ID}:rosalita_pine_tree", "placement": []}},
+            ],
+        },
+    }
+    write(f"data/{MOD_ID}/worldgen/configured_feature/rosalita_trees.json", selector)
+    write(f"data/{MOD_ID}/worldgen/placed_feature/rosalita_trees.json", {
+        "feature": f"{MOD_ID}:rosalita_trees",
+        "placement": [
+            {"type": "minecraft:count", "count": 5},
+            {"type": "minecraft:in_square"},
+            {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0},
+            {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"},
+            {"type": "minecraft:biome"},
+        ],
+    })
+
+
 if __name__ == "__main__":
     write_blocks()
     write_tags()
+    write_trees()
