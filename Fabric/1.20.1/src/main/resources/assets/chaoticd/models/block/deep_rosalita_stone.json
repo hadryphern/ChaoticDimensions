@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "chaoticd:block/deep_rosalita_stone"
+  }
+}

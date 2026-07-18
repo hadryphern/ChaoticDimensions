@@ -34,7 +34,10 @@ public final class ModCreativeTabs {
             CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
                 .title(Component.translatable("itemGroup.chaoticd.main"))
                 .icon(() -> new ItemStack(Items.COMPASS))
-                .displayItems((parameters, output) -> NEW_CONTENT.forEach(output::accept))
+                .displayItems((parameters, output) -> {
+                    ModItems.newContentValues().forEach(output::accept);
+                    NEW_CONTENT.forEach(output::accept);
+                })
                 .build());
     }
 

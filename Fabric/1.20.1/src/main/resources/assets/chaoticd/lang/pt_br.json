@@ -237,5 +237,14 @@
   "item.chaoticd.espadasombra": "Espada das Sombras",
   "item.chaoticd.armadura_ruby_leggings": "Calça de Ruby",
   "item.chaoticd.espada_madeira_sombra": "Espada de Madeira das Sombras",
-  "item.chaoticd.enxada_esmeralda": "Enxada de Esmeralda"
+  "item.chaoticd.enxada_esmeralda": "Enxada de Esmeralda",
+  "biome.chaoticd.rosalita_biome": "Bioma Rosalita",
+  "block.chaoticd.rosalita_leaves": "Folhas de Rosalita",
+  "block.chaoticd.rosalita_stone": "Pedra Rosalita",
+  "block.chaoticd.deep_rosalita_stone": "Pedra Rosalita Profunda",
+  "block.chaoticd.rosaline_stone": "Pedra Rosaline",
+  "block.chaoticd.rosalita_granite": "Granito Rosalita",
+  "block.chaoticd.rosalita_diorite": "Diorito Rosalita",
+  "block.chaoticd.rosalita_andesite": "Andesito Rosalita",
+  "block.chaoticd.rosalita_sandstone": "Arenito Rosalita"
 }
