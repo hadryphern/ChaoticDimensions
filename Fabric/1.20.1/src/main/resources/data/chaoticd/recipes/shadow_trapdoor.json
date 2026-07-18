@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "chaoticd:tabua_sombra"
+    }
+  },
+  "result": {
+    "item": "chaoticd:shadow_trapdoor",
+    "count": 2
+  }
+}

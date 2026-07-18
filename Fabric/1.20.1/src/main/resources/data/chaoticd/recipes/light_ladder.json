@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    "SSS",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "item": "chaoticd:light_stick"
+    }
+  },
+  "result": {
+    "item": "chaoticd:light_ladder",
+    "count": 3
+  }
+}

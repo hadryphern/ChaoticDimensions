@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_orientable_trapdoor_top",
+  "textures": {
+    "texture": "chaoticd:block/light_trapdoor_detail",
+    "particle": "chaoticd:block/light_trapdoor_detail"
+  },
+  "render_type": "solid"
+}

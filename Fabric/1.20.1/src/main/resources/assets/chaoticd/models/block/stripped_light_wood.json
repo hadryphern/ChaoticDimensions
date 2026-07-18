@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "chaoticd:block/stripped_light_wood",
+    "end": "chaoticd:block/stripped_light_wood"
+  }
+}

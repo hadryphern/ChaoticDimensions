@@ -13,6 +13,14 @@ public final class ModWoodTypes {
         .register(new ResourceLocation(ChaoticDimensions.MOD_ID, "rosalita"));
     public static final WoodType ROSALITA = WoodTypeBuilder.copyOf(WoodType.OAK)
         .register(new ResourceLocation(ChaoticDimensions.MOD_ID, "rosalita"), ROSALITA_SET);
+    public static final BlockSetType LIGHT_SET = BlockSetTypeBuilder.copyOf(BlockSetType.OAK)
+        .register(new ResourceLocation(ChaoticDimensions.MOD_ID, "light"));
+    public static final WoodType LIGHT = WoodTypeBuilder.copyOf(WoodType.OAK)
+        .register(new ResourceLocation(ChaoticDimensions.MOD_ID, "light"), LIGHT_SET);
+    public static final BlockSetType SHADOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.OAK)
+        .register(new ResourceLocation(ChaoticDimensions.MOD_ID, "shadow"));
+    public static final WoodType SHADOW = WoodTypeBuilder.copyOf(WoodType.OAK)
+        .register(new ResourceLocation(ChaoticDimensions.MOD_ID, "shadow"), SHADOW_SET);
 
     private ModWoodTypes() {
     }

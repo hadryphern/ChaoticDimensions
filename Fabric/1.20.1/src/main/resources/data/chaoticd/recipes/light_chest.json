@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "P P",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "chaoticd:bloco_madeira_branco"
+    }
+  },
+  "result": {
+    "item": "chaoticd:light_chest",
+    "count": 1
+  }
+}

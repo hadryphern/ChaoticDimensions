@@ -7,5 +7,6 @@ public final class ChaoticDimensionsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         RosalitaClientVisuals.initialize();
+        LightShadowClientVisuals.initialize();
     }
 }

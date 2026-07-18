@@ -1,9 +1,11 @@
 {
   "replace": false,
   "values": [
-    "chaoticd:rosalita_log",
-    "chaoticd:stripped_rosalita_log",
-    "chaoticd:rosalita_wood",
-    "chaoticd:stripped_rosalita_wood"
+    "chaoticd:madeira_bruta_branca",
+    "chaoticd:madeira_sombra",
+    "chaoticd:light_log",
+    "chaoticd:shadow_wood",
+    "chaoticd:light_wood",
+    "chaoticd:shadow_wood"
   ]
 }

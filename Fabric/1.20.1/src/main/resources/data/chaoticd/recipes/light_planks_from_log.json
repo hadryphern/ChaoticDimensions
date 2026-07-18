@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "chaoticd:madeira_bruta_branca"
+    }
+  ],
+  "result": {
+    "item": "chaoticd:bloco_madeira_branco",
+    "count": 4
+  }
+}

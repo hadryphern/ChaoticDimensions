@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P",
+    "P",
+    "S"
+  ],
+  "key": {
+    "P": {
+      "item": "chaoticd:tabua_sombra"
+    },
+    "S": {
+      "item": "chaoticd:shadow_stick"
+    }
+  },
+  "result": {
+    "item": "chaoticd:shadow_wooden_sword",
+    "count": 1
+  }
+}

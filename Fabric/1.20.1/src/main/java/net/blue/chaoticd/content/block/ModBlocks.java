@@ -50,7 +50,10 @@ public final class ModBlocks {
         "rosalita_door", "rosalita_trapdoor", "rosalita_pressure_plate", "rosalita_button",
         "rosalita_sign", "rosalita_wall_sign", "rosalita_hanging_sign", "rosalita_wall_hanging_sign",
         "rosalita_crafting_table", "rosalita_chest", "rosalita_trapped_chest", "rosalita_barrel",
-        "rosalita_ladder");
+        "rosalita_ladder",
+        "light_log", "stripped_light_log", "light_wood", "stripped_light_wood", "light_leaves", "light_sapling",
+        "light_stairs", "light_slab", "light_fence", "light_fence_gate", "light_door", "light_trapdoor", "light_pressure_plate", "light_button", "light_sign", "light_wall_sign", "light_hanging_sign", "light_wall_hanging_sign", "light_crafting_table", "light_chest", "light_trapped_chest", "light_barrel", "light_ladder", "light_mosaic", "light_mosaic_stairs", "light_mosaic_slab", "light_carved_planks", "light_pillar", "light_panel", "light_lattice",
+        "stripped_shadow_log", "shadow_wood", "stripped_shadow_wood", "shadow_leaves", "shadow_sapling", "shadow_stairs", "shadow_slab", "shadow_fence", "shadow_fence_gate", "shadow_door", "shadow_trapdoor", "shadow_pressure_plate", "shadow_button", "shadow_sign", "shadow_wall_sign", "shadow_hanging_sign", "shadow_wall_hanging_sign", "shadow_crafting_table", "shadow_chest", "shadow_trapped_chest", "shadow_barrel", "shadow_ladder", "shadow_mosaic", "shadow_mosaic_stairs", "shadow_mosaic_slab", "shadow_carved_planks", "shadow_pillar", "shadow_panel", "shadow_lattice");
     private static boolean initialized;
 
     private ModBlocks() {
@@ -68,6 +71,9 @@ public final class ModBlocks {
 
         // Keep this explicit order: item registration and recipes remain stable for users.
         for (String id : "rosalita_leaves,rosalita_stone,deep_rosalita_stone,rosaline_stone,rosalita_granite,rosalita_diorite,rosalita_andesite,rosalita_sandstone,rosalita_log,stripped_rosalita_log,rosalita_wood,stripped_rosalita_wood,rosalita_planks,rosalita_stairs,rosalita_slab,rosalita_fence,rosalita_fence_gate,rosalita_door,rosalita_trapdoor,rosalita_pressure_plate,rosalita_button,rosalita_sign,rosalita_wall_sign,rosalita_hanging_sign,rosalita_wall_hanging_sign,rosalita_crafting_table,rosalita_chest,rosalita_trapped_chest,rosalita_barrel,rosalita_ladder".split(",")) {
+            register(id);
+        }
+        for (String id : "light_log,stripped_light_log,light_wood,stripped_light_wood,light_leaves,light_sapling,light_stairs,light_slab,light_fence,light_fence_gate,light_door,light_trapdoor,light_pressure_plate,light_button,light_sign,light_wall_sign,light_hanging_sign,light_wall_hanging_sign,light_crafting_table,light_chest,light_trapped_chest,light_barrel,light_ladder,light_mosaic,light_mosaic_stairs,light_mosaic_slab,light_carved_planks,light_pillar,light_panel,light_lattice,stripped_shadow_log,shadow_wood,stripped_shadow_wood,shadow_leaves,shadow_sapling,shadow_stairs,shadow_slab,shadow_fence,shadow_fence_gate,shadow_door,shadow_trapdoor,shadow_pressure_plate,shadow_button,shadow_sign,shadow_wall_sign,shadow_hanging_sign,shadow_wall_hanging_sign,shadow_crafting_table,shadow_chest,shadow_trapped_chest,shadow_barrel,shadow_ladder,shadow_mosaic,shadow_mosaic_stairs,shadow_mosaic_slab,shadow_carved_planks,shadow_pillar,shadow_panel,shadow_lattice".split(",")) {
             register(id);
         }
     }
@@ -98,6 +104,42 @@ public final class ModBlocks {
         BlockBehaviour.Properties wood = BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS);
 
         return switch (id) {
+            case "madeira_bruta_branca", "madeira_sombra", "light_log", "stripped_light_log", "light_wood", "stripped_light_wood", "stripped_shadow_log", "shadow_wood", "stripped_shadow_wood", "light_pillar", "shadow_pillar" -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG));
+            case "bloco_folha_branca", "folha_sombra", "light_leaves", "shadow_leaves" -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
+            case "light_sapling", "shadow_sapling" -> new net.minecraft.world.level.block.BushBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
+            case "bloco_madeira_branco", "tabua_sombra", "light_carved_planks", "shadow_carved_planks", "light_panel", "shadow_panel" -> new Block(wood);
+            case "light_lattice", "shadow_lattice" -> new Block(wood.noOcclusion());
+            case "light_mosaic", "shadow_mosaic" -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE));
+            case "light_mosaic_stairs" -> new StairBlock(get("light_mosaic").defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE));
+            case "shadow_mosaic_stairs" -> new StairBlock(get("shadow_mosaic").defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE));
+            case "light_mosaic_slab", "shadow_mosaic_slab" -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE));
+            case "light_stairs" -> new StairBlock(get("bloco_madeira_branco").defaultBlockState(), wood);
+            case "shadow_stairs" -> new StairBlock(get("tabua_sombra").defaultBlockState(), wood);
+            case "light_slab", "shadow_slab" -> new SlabBlock(wood);
+            case "light_fence", "shadow_fence" -> new FenceBlock(wood);
+            case "light_fence_gate" -> new FenceGateBlock(wood, ModWoodTypes.LIGHT);
+            case "shadow_fence_gate" -> new FenceGateBlock(wood, ModWoodTypes.SHADOW);
+            case "light_door" -> new DoorBlock(wood, ModWoodTypes.LIGHT_SET);
+            case "shadow_door" -> new DoorBlock(wood, ModWoodTypes.SHADOW_SET);
+            case "light_trapdoor" -> new TrapDoorBlock(wood, ModWoodTypes.LIGHT_SET);
+            case "shadow_trapdoor" -> new TrapDoorBlock(wood, ModWoodTypes.SHADOW_SET);
+            case "light_pressure_plate" -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, wood, ModWoodTypes.LIGHT_SET);
+            case "shadow_pressure_plate" -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, wood, ModWoodTypes.SHADOW_SET);
+            case "light_button" -> new ButtonBlock(wood, ModWoodTypes.LIGHT_SET, 20, false);
+            case "shadow_button" -> new ButtonBlock(wood, ModWoodTypes.SHADOW_SET, 20, false);
+            case "light_sign" -> new StandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), ModWoodTypes.LIGHT);
+            case "light_wall_sign" -> new WallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), ModWoodTypes.LIGHT);
+            case "light_hanging_sign" -> new CeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN), ModWoodTypes.LIGHT);
+            case "light_wall_hanging_sign" -> new WallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), ModWoodTypes.LIGHT);
+            case "shadow_sign" -> new StandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), ModWoodTypes.SHADOW);
+            case "shadow_wall_sign" -> new WallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), ModWoodTypes.SHADOW);
+            case "shadow_hanging_sign" -> new CeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN), ModWoodTypes.SHADOW);
+            case "shadow_wall_hanging_sign" -> new WallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), ModWoodTypes.SHADOW);
+            case "light_crafting_table", "shadow_crafting_table" -> new CraftingTableBlock(wood);
+            case "light_chest", "shadow_chest" -> new RosalitaChestBlock(wood, () -> net.minecraft.world.level.block.entity.BlockEntityType.CHEST);
+            case "light_trapped_chest", "shadow_trapped_chest" -> new RosalitaTrappedChestBlock(wood);
+            case "light_barrel", "shadow_barrel" -> new RosalitaBarrelBlock(wood);
+            case "light_ladder", "shadow_ladder" -> new LadderBlock(wood.noOcclusion());
             case "escada_madeira_sombra", "fire_stairs" ->
                 new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), wood);
             case "slab_madeira_sombra", "fire_slab" -> new SlabBlock(wood);

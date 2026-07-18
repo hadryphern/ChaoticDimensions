@@ -1,23 +1,8 @@
 {
   "replace": false,
   "values": [
-    "chaoticd:rosalita_log",
-    "chaoticd:stripped_rosalita_log",
-    "chaoticd:rosalita_wood",
-    "chaoticd:stripped_rosalita_wood",
-    "chaoticd:rosalita_planks",
-    "chaoticd:rosalita_stairs",
-    "chaoticd:rosalita_slab",
-    "chaoticd:rosalita_fence",
-    "chaoticd:rosalita_fence_gate",
-    "chaoticd:rosalita_door",
-    "chaoticd:rosalita_trapdoor",
-    "chaoticd:rosalita_pressure_plate",
-    "chaoticd:rosalita_button",
-    "chaoticd:rosalita_crafting_table",
-    "chaoticd:rosalita_chest",
-    "chaoticd:rosalita_trapped_chest",
-    "chaoticd:rosalita_barrel",
-    "chaoticd:rosalita_ladder"
+    "#minecraft:logs",
+    "chaoticd:bloco_madeira_branco",
+    "chaoticd:tabua_sombra"
   ]
 }

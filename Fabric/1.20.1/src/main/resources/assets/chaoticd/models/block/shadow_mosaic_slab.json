@@ -1,0 +1,10 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "particle": "chaoticd:block/shadow_mosaic",
+    "bottom": "chaoticd:block/shadow_mosaic",
+    "top": "chaoticd:block/shadow_mosaic",
+    "side": "chaoticd:block/shadow_mosaic"
+  },
+  "render_type": "solid"
+}

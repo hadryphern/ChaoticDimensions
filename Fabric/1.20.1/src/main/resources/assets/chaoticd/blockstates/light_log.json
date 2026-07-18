@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "chaoticd:block/light_log"
+    },
+    "axis=z": {
+      "model": "chaoticd:block/light_log",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "chaoticd:block/light_log",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

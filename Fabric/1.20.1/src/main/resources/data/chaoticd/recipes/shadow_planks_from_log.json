@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "chaoticd:madeira_sombra"
+    }
+  ],
+  "result": {
+    "item": "chaoticd:tabua_sombra",
+    "count": 4
+  }
+}

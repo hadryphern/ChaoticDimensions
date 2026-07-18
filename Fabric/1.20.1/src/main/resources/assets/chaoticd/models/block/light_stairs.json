@@ -1,0 +1,10 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "particle": "chaoticd:block/biomabranco_tabuamadeira",
+    "bottom": "chaoticd:block/biomabranco_tabuamadeira",
+    "top": "chaoticd:block/biomabranco_tabuamadeira",
+    "side": "chaoticd:block/biomabranco_tabuamadeira"
+  },
+  "render_type": "solid"
+}

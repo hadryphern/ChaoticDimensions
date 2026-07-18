@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "chaoticd:tabua_sombra"
+    },
+    "S": {
+      "item": "chaoticd:shadow_stick"
+    }
+  },
+  "result": {
+    "item": "chaoticd:shadow_fence",
+    "count": 3
+  }
+}
