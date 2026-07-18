@@ -9,16 +9,25 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BarrelBlock;
 import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.CeilingHangingSignBlock;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.CraftingTableBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.LadderBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.TrappedChestBlock;
+import net.minecraft.world.level.block.WallHangingSignBlock;
+import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -35,7 +44,13 @@ public final class ModBlocks {
     private static final Map<String, Block> BLOCKS = new LinkedHashMap<>();
     private static final Set<String> NEW_CONTENT_IDS = Set.of(
         "rosalita_leaves", "rosalita_stone", "deep_rosalita_stone", "rosaline_stone",
-        "rosalita_granite", "rosalita_diorite", "rosalita_andesite", "rosalita_sandstone");
+        "rosalita_granite", "rosalita_diorite", "rosalita_andesite", "rosalita_sandstone",
+        "rosalita_log", "stripped_rosalita_log", "rosalita_wood", "stripped_rosalita_wood",
+        "rosalita_planks", "rosalita_stairs", "rosalita_slab", "rosalita_fence", "rosalita_fence_gate",
+        "rosalita_door", "rosalita_trapdoor", "rosalita_pressure_plate", "rosalita_button",
+        "rosalita_sign", "rosalita_wall_sign", "rosalita_hanging_sign", "rosalita_wall_hanging_sign",
+        "rosalita_crafting_table", "rosalita_chest", "rosalita_trapped_chest", "rosalita_barrel",
+        "rosalita_ladder");
     private static boolean initialized;
 
     private ModBlocks() {
@@ -51,7 +66,8 @@ public final class ModBlocks {
             register(id);
         }
 
-        for (String id : NEW_CONTENT_IDS) {
+        // Keep this explicit order: item registration and recipes remain stable for users.
+        for (String id : "rosalita_leaves,rosalita_stone,deep_rosalita_stone,rosaline_stone,rosalita_granite,rosalita_diorite,rosalita_andesite,rosalita_sandstone,rosalita_log,stripped_rosalita_log,rosalita_wood,stripped_rosalita_wood,rosalita_planks,rosalita_stairs,rosalita_slab,rosalita_fence,rosalita_fence_gate,rosalita_door,rosalita_trapdoor,rosalita_pressure_plate,rosalita_button,rosalita_sign,rosalita_wall_sign,rosalita_hanging_sign,rosalita_wall_hanging_sign,rosalita_crafting_table,rosalita_chest,rosalita_trapped_chest,rosalita_barrel,rosalita_ladder".split(",")) {
             register(id);
         }
     }
@@ -94,6 +110,30 @@ public final class ModBlocks {
             case "botao_madeira_sombra", "fire_button" -> new ButtonBlock(wood, BlockSetType.OAK, 20, false);
             case "fire_log", "fire_wood" -> new RotatedPillarBlock(wood);
             case "rosalita_leaves" -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES));
+            case "rosalita_log", "stripped_rosalita_log", "rosalita_wood", "stripped_rosalita_wood" ->
+                new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG));
+            case "rosalita_planks" -> new Block(wood);
+            case "rosalita_stairs" -> new StairBlock(get("rosalita_planks").defaultBlockState(), wood);
+            case "rosalita_slab" -> new SlabBlock(wood);
+            case "rosalita_fence" -> new FenceBlock(wood);
+            case "rosalita_fence_gate" -> new FenceGateBlock(wood, ModWoodTypes.ROSALITA);
+            case "rosalita_door" -> new DoorBlock(wood, ModWoodTypes.ROSALITA_SET);
+            case "rosalita_trapdoor" -> new TrapDoorBlock(wood, ModWoodTypes.ROSALITA_SET);
+            case "rosalita_pressure_plate" ->
+                new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, wood, ModWoodTypes.ROSALITA_SET);
+            case "rosalita_button" -> new ButtonBlock(wood, ModWoodTypes.ROSALITA_SET, 20, false);
+            case "rosalita_sign" -> new StandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), ModWoodTypes.ROSALITA);
+            case "rosalita_wall_sign" -> new WallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), ModWoodTypes.ROSALITA);
+            case "rosalita_hanging_sign" ->
+                new CeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN), ModWoodTypes.ROSALITA);
+            case "rosalita_wall_hanging_sign" ->
+                new WallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_HANGING_SIGN), ModWoodTypes.ROSALITA);
+            case "rosalita_crafting_table" -> new CraftingTableBlock(wood);
+            case "rosalita_chest" -> new RosalitaChestBlock(wood,
+                () -> net.minecraft.world.level.block.entity.BlockEntityType.CHEST);
+            case "rosalita_trapped_chest" -> new RosalitaTrappedChestBlock(wood);
+            case "rosalita_barrel" -> new RosalitaBarrelBlock(wood);
+            case "rosalita_ladder" -> new LadderBlock(wood.noOcclusion());
             case "rosalita_stone", "rosaline_stone" -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE));
             case "deep_rosalita_stone" -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE));
             case "rosalita_granite" -> new Block(BlockBehaviour.Properties.copy(Blocks.GRANITE));

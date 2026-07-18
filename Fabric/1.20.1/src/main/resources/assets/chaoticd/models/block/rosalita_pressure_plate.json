@@ -1,0 +1,8 @@
+{
+  "parent": "block/pressure_plate_up",
+  "textures": {
+    "particle": "chaoticd:block/rosalita_planks",
+    "texture": "chaoticd:block/rosalita_planks"
+  },
+  "render_type": "solid"
+}

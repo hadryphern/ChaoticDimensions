@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C C",
+    "PPP",
+    "PPP"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "P": {
+      "item": "chaoticd:stripped_rosalita_log"
+    }
+  },
+  "result": {
+    "item": "chaoticd:rosalita_hanging_sign",
+    "count": 6
+  }
+}

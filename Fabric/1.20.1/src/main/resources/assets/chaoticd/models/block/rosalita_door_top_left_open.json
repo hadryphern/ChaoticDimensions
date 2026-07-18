@@ -1,0 +1,9 @@
+{
+  "parent": "block/door_top_left_open",
+  "textures": {
+    "particle": "chaoticd:block/rosalita_planks",
+    "bottom": "chaoticd:block/rosalita_planks",
+    "top": "chaoticd:block/rosalita_door_cima"
+  },
+  "render_type": "solid"
+}

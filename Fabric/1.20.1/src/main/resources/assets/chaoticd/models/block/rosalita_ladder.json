@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/ladder",
+  "textures": {
+    "texture": "chaoticd:block/rosalita_ladder"
+  }
+}

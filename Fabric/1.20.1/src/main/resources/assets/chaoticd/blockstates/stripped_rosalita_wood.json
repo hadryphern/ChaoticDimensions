@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "chaoticd:block/stripped_rosalita_wood"
+    },
+    "axis=z": {
+      "model": "chaoticd:block/stripped_rosalita_wood",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "chaoticd:block/stripped_rosalita_wood",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

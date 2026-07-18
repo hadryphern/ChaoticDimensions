@@ -1,0 +1,10 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "particle": "chaoticd:block/rosalita_planks",
+    "bottom": "chaoticd:block/rosalita_planks",
+    "top": "chaoticd:block/rosalita_planks",
+    "side": "chaoticd:block/rosalita_planks"
+  },
+  "render_type": "solid"
+}

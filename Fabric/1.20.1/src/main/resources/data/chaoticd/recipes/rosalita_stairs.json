@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P  ",
+    "PP ",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "chaoticd:rosalita_planks"
+    }
+  },
+  "result": {
+    "item": "chaoticd:rosalita_stairs",
+    "count": 4
+  }
+}

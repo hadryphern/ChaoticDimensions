@@ -4,13 +4,13 @@ package net.blue.chaoticd.worldgen;
 public final class RosalitaConstants {
     public static final String BIOME_ID = "rosalita_biome";
 
-    public static final int DEEP_SHADOW = 0x46001E;
-    public static final int DARK_SHADOW = 0x770032;
-    public static final int STONE = 0xA80046;
-    public static final int RUBY = 0xD10058;
-    public static final int FOLIAGE = 0xFF006B;
-    public static final int SOFT_HIGHLIGHT = 0xFC6FAA;
-    public static final int LIGHT_HIGHLIGHT = 0xFFA3CA;
+    public static final int DEEP_SHADOW = 0xB93B6C;
+    public static final int DARK_SHADOW = 0xC9477B;
+    public static final int STONE = 0xD95B90;
+    public static final int RUBY = 0xE874A5;
+    public static final int FOLIAGE = 0xF25592;
+    public static final int SOFT_HIGHLIGHT = 0xEE8DB8;
+    public static final int LIGHT_HIGHLIGHT = 0xF3A3C7;
     public static final int SKY = 0xFFC4DD;
     public static final int FOG = 0xF2A8C7;
     public static final int WATER = 0xC85B89;

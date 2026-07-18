@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    "SSS",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "item": "chaoticd:rosalita_stick"
+    }
+  },
+  "result": {
+    "item": "chaoticd:rosalita_ladder",
+    "count": 3
+  }
+}
