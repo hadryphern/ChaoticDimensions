@@ -26,7 +26,7 @@
   "depends": {
     "fabricloader": ">=0.16.14",
     "fabric-api": "*",
-    "terrablender": "*",
+    "terrablender": ">=3.0.1.7",
     "minecraft": "1.20.1",
     "java": ">=17"
   }

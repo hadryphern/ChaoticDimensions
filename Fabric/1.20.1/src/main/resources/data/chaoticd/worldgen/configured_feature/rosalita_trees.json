@@ -14,14 +14,14 @@
         }
       },
       {
-        "chance": 0.25,
+        "chance": 0.3846154,
         "feature": {
           "feature": "chaoticd:rosalita_birch_tree",
           "placement": []
         }
       },
       {
-        "chance": 0.2,
+        "chance": 0.5,
         "feature": {
           "feature": "chaoticd:rosalita_pine_tree",
           "placement": []

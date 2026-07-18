@@ -84,6 +84,11 @@ def write_tags() -> None:
         ],
     })
     write(f"data/{MOD_ID}/tags/blocks/allowed_rosalita_ores.json", {"replace": False, "values": []})
+    write(f"data/{MOD_ID}/tags/items/rosalita_natural_blocks.json", {
+        "replace": False,
+        "values": [f"{MOD_ID}:{LEAVES}", *[f"{MOD_ID}:{block}" for block in BLOCKS]],
+    })
+    write("data/minecraft/tags/items/leaves.json", {"replace": False, "values": [f"{MOD_ID}:{LEAVES}"]})
     write(f"data/{MOD_ID}/tags/entity_types/allowed_in_rosalita_biome.json", {"replace": False, "values": []})
     write(f"data/{MOD_ID}/tags/worldgen/biome/is_rosalita.json", {"replace": False, "values": [f"{MOD_ID}:rosalita_biome"]})
 
@@ -136,9 +141,11 @@ def write_trees() -> None:
         "config": {
             "default": {"feature": f"{MOD_ID}:rosalita_acacia_tree", "placement": []},
             "features": [
+                # random_selector evaluates in order. These conditional chances
+                # result in 35% oak, 25% birch, 20% pine and 20% acacia overall.
                 {"chance": 0.35, "feature": {"feature": f"{MOD_ID}:rosalita_oak_tree", "placement": []}},
-                {"chance": 0.25, "feature": {"feature": f"{MOD_ID}:rosalita_birch_tree", "placement": []}},
-                {"chance": 0.20, "feature": {"feature": f"{MOD_ID}:rosalita_pine_tree", "placement": []}},
+                {"chance": 0.3846154, "feature": {"feature": f"{MOD_ID}:rosalita_birch_tree", "placement": []}},
+                {"chance": 0.5, "feature": {"feature": f"{MOD_ID}:rosalita_pine_tree", "placement": []}},
             ],
         },
     }
