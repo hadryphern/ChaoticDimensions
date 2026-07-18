@@ -155,7 +155,45 @@ def write_trees() -> None:
     })
 
 
+def write_biome_worldgen() -> None:
+    write(f"data/{MOD_ID}/worldgen/configured_feature/rosalita_underground.json", {
+        "type": f"{MOD_ID}:rosalita_underground",
+        "config": {},
+    })
+    write(f"data/{MOD_ID}/worldgen/placed_feature/rosalita_underground.json", {
+        "feature": f"{MOD_ID}:rosalita_underground",
+        "placement": [{"type": "minecraft:biome"}],
+    })
+    write(f"data/{MOD_ID}/worldgen/biome/rosalita_biome.json", {
+        "has_precipitation": True,
+        "temperature": 0.75,
+        "downfall": 0.8,
+        "effects": {
+            "foliage_color": 0xFF006B,
+            "grass_color": 0xD10058,
+            "sky_color": 0xFFC4DD,
+            "fog_color": 0xF2A8C7,
+            "water_color": 0xC85B89,
+            "water_fog_color": 0x6D163B,
+        },
+        "spawners": {
+            "ambient": [], "axolotls": [], "creature": [], "misc": [], "monster": [],
+            "underground_water_creature": [], "water_ambient": [], "water_creature": [],
+        },
+        "spawn_costs": {},
+        "carvers": {"air": ["minecraft:cave", "minecraft:cave_extra_underground", "minecraft:canyon"]},
+        "features": [
+            [],
+            ["minecraft:lake_lava_underground"],
+            [], [], [], [], [], [], [],
+            [f"{MOD_ID}:rosalita_trees", "minecraft:patch_grass_forest", "minecraft:patch_tall_grass"],
+            [f"{MOD_ID}:rosalita_underground"],
+        ],
+    })
+
+
 if __name__ == "__main__":
     write_blocks()
     write_tags()
     write_trees()
+    write_biome_worldgen()

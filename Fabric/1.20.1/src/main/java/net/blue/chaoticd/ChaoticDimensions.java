@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.blue.chaoticd.content.block.ModBlocks;
 import net.blue.chaoticd.content.item.ModItems;
 import net.blue.chaoticd.content.tab.ModCreativeTabs;
+import net.blue.chaoticd.worldgen.ModWorldgen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ public final class ChaoticDimensions implements ModInitializer {
         ModBlocks.initialize();
         ModItems.initialize();
         ModCreativeTabs.initialize();
+        ModWorldgen.initialize();
         LOGGER.info("Initializing Chaotic Dimensions on Fabric");
     }
 }

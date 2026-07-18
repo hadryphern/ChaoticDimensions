@@ -15,8 +15,14 @@
     ],
     "client": [
       "net.blue.chaoticd.client.ChaoticDimensionsClient"
+    ],
+    "terrablender": [
+      "net.blue.chaoticd.worldgen.ChaoticDimensionsTerraBlender"
     ]
   },
+  "mixins": [
+    "chaoticd.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.16.14",
     "fabric-api": "*",

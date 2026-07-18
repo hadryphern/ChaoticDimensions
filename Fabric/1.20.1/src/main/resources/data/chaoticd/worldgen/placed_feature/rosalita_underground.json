@@ -1,0 +1,8 @@
+{
+  "feature": "chaoticd:rosalita_underground",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

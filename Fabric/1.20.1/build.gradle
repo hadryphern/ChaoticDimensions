@@ -40,6 +40,10 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	modImplementation "curse.maven:terrablender-fabric-565956:5378181"
+	// CurseMaven does not expose TerraBlender's nested NightConfig jars to Loom's
+	// development launcher, so provide the exact upstream runtime libraries here.
+	implementation "com.electronwill.night-config:core:3.6.7"
+	implementation "com.electronwill.night-config:toml:3.6.7"
 
 	// Geckolib
 	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.20.1:4.3'
