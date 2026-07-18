@@ -4,8 +4,16 @@
     "chaoticd:madeira_bruta_branca",
     "chaoticd:madeira_sombra",
     "chaoticd:light_log",
-    "chaoticd:shadow_wood",
+    "chaoticd:stripped_light_log",
     "chaoticd:light_wood",
-    "chaoticd:shadow_wood"
+    "chaoticd:stripped_light_wood",
+    "chaoticd:shadow_log",
+    "chaoticd:stripped_shadow_log",
+    "chaoticd:shadow_wood",
+    "chaoticd:stripped_shadow_wood",
+    "chaoticd:rosalita_log",
+    "chaoticd:stripped_rosalita_log",
+    "chaoticd:rosalita_wood",
+    "chaoticd:stripped_rosalita_wood"
   ]
 }

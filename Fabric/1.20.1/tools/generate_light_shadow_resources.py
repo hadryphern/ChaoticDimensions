@@ -11,6 +11,14 @@ def write(path, value):
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
 
+def merge_tag(path, values):
+    target = ROOT / path
+    existing, replace = [], False
+    if target.exists():
+        current = json.loads(target.read_text(encoding="utf-8"))
+        existing, replace = current.get("values", []), current.get("replace", False)
+    write(path, {"replace": replace, "values": list(dict.fromkeys([*existing, *values]))})
+
 def loot(name, drop=None):
     return {"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":f"{MOD}:{drop or name}"}],"conditions":[{"condition":"minecraft:survives_explosion"}]}]}
 
@@ -80,8 +88,8 @@ def family(wood):
 
 def main():
     for wood in FAMILIES: family(wood)
-    write("data/minecraft/tags/blocks/leaves.json", {"replace":False,"values":["chaoticd:bloco_folha_branca","chaoticd:folha_sombra","chaoticd:light_leaves","chaoticd:shadow_leaves"]})
-    write("data/minecraft/tags/blocks/logs.json", {"replace":False,"values":["chaoticd:madeira_bruta_branca","chaoticd:madeira_sombra","chaoticd:light_log","chaoticd:shadow_wood","chaoticd:light_wood","chaoticd:shadow_wood"]})
-    write("data/minecraft/tags/blocks/mineable/axe.json", {"replace":False,"values":["#minecraft:logs","chaoticd:bloco_madeira_branco","chaoticd:tabua_sombra"]})
+    merge_tag("data/minecraft/tags/blocks/leaves.json", ["chaoticd:bloco_folha_branca","chaoticd:folha_sombra","chaoticd:light_leaves","chaoticd:shadow_leaves"])
+    merge_tag("data/minecraft/tags/blocks/logs.json", ["chaoticd:madeira_bruta_branca","chaoticd:madeira_sombra","chaoticd:light_log","chaoticd:stripped_light_log","chaoticd:light_wood","chaoticd:stripped_light_wood","chaoticd:shadow_log","chaoticd:stripped_shadow_log","chaoticd:shadow_wood","chaoticd:stripped_shadow_wood"])
+    merge_tag("data/minecraft/tags/blocks/mineable/axe.json", ["#minecraft:logs","chaoticd:bloco_madeira_branco","chaoticd:tabua_sombra"])
 
 if __name__ == "__main__": main()

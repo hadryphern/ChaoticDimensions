@@ -32,6 +32,18 @@ def write(relative: str, value: object) -> None:
     destination.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def merge_tag(relative: str, values: list[str]) -> None:
+    """Add Rosalita entries without erasing other generated wood families."""
+    destination = ROOT / relative
+    existing: list[str] = []
+    replace = False
+    if destination.exists():
+        current = json.loads(destination.read_text(encoding="utf-8"))
+        existing = current.get("values", [])
+        replace = current.get("replace", False)
+    write(relative, {"replace": replace, "values": list(dict.fromkeys([*existing, *values]))})
+
+
 def normal_loot(block: str) -> dict:
     return {
         "type": "minecraft:block",
@@ -128,8 +140,29 @@ def write_wood_resources() -> None:
         write(f"assets/{MOD_ID}/models/item/{destination}.json", {
             "parent": f"{MOD_ID}:block/{destination}" if destination not in {"rosalita_fence", "rosalita_fence_gate", "rosalita_door", "rosalita_trapdoor", "rosalita_button"}
             else "minecraft:item/generated",
-            **({"textures": {"layer0": f"{MOD_ID}:block/rosalita_planks"}} if destination in {"rosalita_fence", "rosalita_fence_gate", "rosalita_door", "rosalita_trapdoor", "rosalita_button"} else {}),
+            **({"textures": {"layer0": f"{MOD_ID}:block/{'rosalita_door' if destination == 'rosalita_door' else 'rosalita_trapdoor' if destination == 'rosalita_trapdoor' else 'rosalita_planks'}"}}
+               if destination in {"rosalita_fence", "rosalita_fence_gate", "rosalita_door", "rosalita_trapdoor", "rosalita_button"} else {}),
         })
+
+    # The recovered Shadow templates were useful for state layouts, but their
+    # lower door panel and trapdoor still referenced the Shadow plank/door
+    # aliases.  Point every Rosalita model at the concrete Rosalita source PNG
+    # that it is meant to render.
+    models = ROOT / f"assets/{MOD_ID}/models/block"
+    for model in models.glob("rosalita_door*.json"):
+        data = json.loads(model.read_text(encoding="utf-8"))
+        textures = data.get("textures", {})
+        if textures.get("bottom") == f"{MOD_ID}:block/rosalita_planks":
+            textures["bottom"] = f"{MOD_ID}:block/rosalita_door"
+        write(str(model.relative_to(ROOT)), data)
+    for model in models.glob("rosalita_trapdoor*.json"):
+        data = json.loads(model.read_text(encoding="utf-8"))
+        textures = data.get("textures", {})
+        if textures.get("texture") == f"{MOD_ID}:block/rosalita_door_cima":
+            textures["texture"] = f"{MOD_ID}:block/rosalita_trapdoor"
+        if textures.get("particle") == f"{MOD_ID}:block/rosalita_door_cima":
+            textures["particle"] = f"{MOD_ID}:block/rosalita_trapdoor"
+        write(str(model.relative_to(ROOT)), data)
 
     cube("rosalita_crafting_table", "rosalita_crafting_table")
     for block in ("rosalita_chest", "rosalita_trapped_chest", "rosalita_barrel"):
@@ -219,8 +252,8 @@ def write_tags() -> None:
         "replace": False,
         "values": [f"{MOD_ID}:{LEAVES}", *[f"{MOD_ID}:{block}" for block in BLOCKS]],
     })
-    write("data/minecraft/tags/blocks/mineable/axe.json", {"replace": False, "values": [f"{MOD_ID}:{block}" for block in WOOD]})
-    write("data/minecraft/tags/blocks/logs.json", {"replace": False, "values": [f"{MOD_ID}:rosalita_log", f"{MOD_ID}:stripped_rosalita_log", f"{MOD_ID}:rosalita_wood", f"{MOD_ID}:stripped_rosalita_wood"]})
+    merge_tag("data/minecraft/tags/blocks/mineable/axe.json", [f"{MOD_ID}:{block}" for block in WOOD])
+    merge_tag("data/minecraft/tags/blocks/logs.json", [f"{MOD_ID}:rosalita_log", f"{MOD_ID}:stripped_rosalita_log", f"{MOD_ID}:rosalita_wood", f"{MOD_ID}:stripped_rosalita_wood"])
     write("data/minecraft/tags/items/leaves.json", {"replace": False, "values": [f"{MOD_ID}:{LEAVES}"]})
     write(f"data/{MOD_ID}/tags/entity_types/allowed_in_rosalita_biome.json", {"replace": False, "values": []})
     write(f"data/{MOD_ID}/tags/worldgen/biome/is_rosalita.json", {"replace": False, "values": [f"{MOD_ID}:rosalita_biome"]})

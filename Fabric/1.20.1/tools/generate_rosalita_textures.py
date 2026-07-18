@@ -69,32 +69,55 @@ def write_leaves() -> None:
 
 
 def write_wood(name: str, seed: int, stripped: bool = False) -> None:
-    random = Random(seed)
+    """Write bark with deliberate vertical fibres, never procedural speckle.
+
+    The first version mixed x and y in the colour calculation, producing the
+    diagonal/noisy panels that were visible in-game.  Every motif below is a
+    vertical stroke or a short, horizontal knot; this keeps the bark readable
+    at Minecraft's actual 16x16 resolution.
+    """
     image = Image.new("RGBA", (16, 16))
     pixels = image.load()
-    bark = [PALETTE["deep"], PALETTE["shadow"], PALETTE["stone"], PALETTE["ruby"], PALETTE["soft"]]
+    columns = (
+        ("deep", "shadow", "stone", "stone", "ruby", "soft", "ruby", "stone",
+         "shadow", "deep", "shadow", "stone", "ruby", "soft", "stone", "shadow")
+        if not stripped else
+        ("shadow", "stone", "stone", "ruby", "ruby", "soft", "soft", "ruby",
+         "stone", "stone", "ruby", "soft", "soft", "ruby", "stone", "shadow")
+    )
     for y in range(16):
         for x in range(16):
-            groove = (x * (3 if stripped else 5) + y * 2 + seed) % (9 if stripped else 7)
-            color = bark[min(len(bark) - 1, groove // 2)]
-            if (x + seed) % (7 if stripped else 5) == 0:
-                color = PALETTE["light"] if stripped else PALETTE["deep"]
-            if random.randrange(29) == 0:
-                color = PALETTE["pale"]
+            color = PALETTE[columns[x]]
+            # Bark grooves are continuous vertical bands.  The small changes
+            # create natural irregularity without becoming diagonal noise.
+            if not stripped and x in (0, 5, 9, 15):
+                color = PALETTE["deep"]
+            if stripped and x in (0, 15):
+                color = PALETTE["shadow"]
+            if x in (3, 12) and 3 <= y <= 12:
+                color = PALETTE["light"] if stripped else PALETTE["ruby"]
+            if x in (6, 7) and y in (5, 6, 11):
+                color = PALETTE["pale"] if stripped else PALETTE["soft"]
             pixels[x, y] = (*color, 255)
     image.save(OUTPUT / f"{name}.png")
 
 
 def write_log_top(name: str, seed: int) -> None:
+    """Write readable rounded growth rings for the log end."""
     image = Image.new("RGBA", (16, 16), (*PALETTE["soft"], 255))
     pixels = image.load()
     rings = [PALETTE["pale"], PALETTE["light"], PALETTE["ruby"], PALETTE["stone"], PALETTE["shadow"]]
     for y in range(16):
         for x in range(16):
-            distance = max(abs(x - 7.5), abs(y - 7.5))
-            color = rings[min(4, int(distance // 1.8))]
-            if (x * 7 + y * 11 + seed) % 23 == 0:
-                color = PALETTE["pale"]
+            # An oval distance gives rounded rings rather than square frames.
+            dx = (x - 7.5) / 1.03
+            dy = (y - 7.5) / 0.92
+            distance = (dx * dx + dy * dy) ** 0.5
+            ring = min(4, int(distance / 1.65))
+            color = rings[ring]
+            # A stable, compact heartwood centre; no random pixels.
+            if 6 <= x <= 9 and 6 <= y <= 9:
+                color = PALETTE["ruby"] if (x + y) % 2 else PALETTE["pale"]
             pixels[x, y] = (*color, 255)
     image.save(OUTPUT / f"{name}.png")
 
@@ -108,28 +131,58 @@ def write_planks() -> None:
             if y % 4 == 0:
                 color = PALETTE["deep"]
             else:
-                ripple = (x * 5 + y * 3 + plank * 7) % 8
-                color = [PALETTE["soft"], PALETTE["light"], PALETTE["ruby"], PALETTE["pale"]][ripple // 2]
-                if x in (3, 11) and y % 4 == 2:
+                base = ("soft", "ruby", "light", "ruby")[plank]
+                color = PALETTE[base]
+                # Horizontal grain is intentionally aligned with the board.
+                if y % 4 == 2:
+                    color = PALETTE["pale"] if plank % 2 == 0 else PALETTE["soft"]
+                if y % 4 == 3 and x in range(3, 8):
                     color = PALETTE["stone"]
+                if y % 4 == 1 and x in range(10, 14):
+                    color = PALETTE["light"]
             pixels[x, y] = (*color, 255)
     image.save(OUTPUT / "rosalita_planks.png")
 
 
 def write_door_and_trapdoor() -> None:
-    door = Image.new("RGBA", (16, 32), (*PALETTE["soft"], 255))
-    pixels = door.load()
-    for y in range(32):
+    """Create plank-based door halves and a matching framed trapdoor."""
+    def door_half(top: bool) -> Image.Image:
+        image = Image.new("RGBA", (16, 32), (*PALETTE["ruby"], 255))
+        pixels = image.load()
+        for y in range(32):
+            for x in range(16):
+                local_y = y % 16
+                frame = x in (0, 1, 14, 15) or local_y in (0, 1, 14, 15)
+                rail = local_y in (5, 10)
+                panel = 3 <= x <= 12 and 3 <= local_y <= 12
+                if frame:
+                    color = PALETTE["deep"]
+                elif rail:
+                    color = PALETTE["shadow"]
+                elif panel:
+                    color = PALETTE["soft"] if top else PALETTE["ruby"]
+                    if local_y in (4, 8, 12):
+                        color = PALETTE["pale"] if top else PALETTE["light"]
+                else:
+                    color = PALETTE["stone"]
+                if top and x == 11 and local_y == 11:
+                    color = PALETTE["pale"]
+                pixels[x, y] = (*color, 255)
+        return image
+
+    door_half(False).save(OUTPUT / "rosalita_door.png")
+    door_half(True).save(OUTPUT / "rosalita_door_cima.png")
+
+    trapdoor = Image.new("RGBA", (16, 16), (*PALETTE["ruby"], 255))
+    pixels = trapdoor.load()
+    for y in range(16):
         for x in range(16):
-            frame = x in (0, 1, 14, 15) or y in (0, 1, 15, 16, 30, 31)
-            pane = 3 <= x <= 12 and (3 <= y % 16 <= 12)
-            color = PALETTE["deep"] if frame else PALETTE["pale"] if pane else PALETTE["ruby"]
-            if x == 12 and y in (11, 27):
-                color = PALETTE["light"]
+            frame = x in (0, 1, 14, 15) or y in (0, 1, 14, 15)
+            brace = x in (4, 5, 10, 11) or y in (6, 7, 10, 11)
+            color = PALETTE["deep"] if frame else PALETTE["shadow"] if brace else PALETTE["soft"]
+            if not frame and not brace and y in (3, 12):
+                color = PALETTE["pale"]
             pixels[x, y] = (*color, 255)
-    door.save(OUTPUT / "rosalita_door.png")
-    door.save(OUTPUT / "rosalita_door_cima.png")
-    trapdoor = door.crop((0, 0, 16, 16))
     trapdoor.save(OUTPUT / "rosalita_trapdoor.png")
 
 
@@ -144,8 +197,10 @@ def write_utility_blocks() -> None:
         pixels = image.load()
         for y in range(16):
             for x in range(16):
-                if x in (0, 1, 14, 15) or y in (0, 1, 14, 15) or (x + y) % 11 == 0:
+                if x in (0, 1, 14, 15) or y in (0, 1, 14, 15):
                     pixels[x, y] = (*trim, 255)
+                elif y in (5, 10):
+                    pixels[x, y] = (*PALETTE["pale"], 255)
         image.save(OUTPUT / f"{name}.png")
 
     ladder = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
