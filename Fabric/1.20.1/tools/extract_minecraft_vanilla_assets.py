@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CLIENT_JAR = Path.home() / ".gradle/caches/fabric-loom/1.20.1/minecraft-client.jar"
 ASSET_INDEX = Path.home() / ".gradle/caches/fabric-loom/assets/indexes/1.20.1-5.json"
 ASSET_OBJECTS = Path.home() / ".gradle/caches/fabric-loom/assets/objects"
-OUTPUT = ROOT / "minecraft_vanilla_1.20.1"
+OUTPUT = ROOT / ".assets/minecraft_vanilla_1.20.1"
 RESOURCE_PREFIX = "assets/minecraft/"
 
 
