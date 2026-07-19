@@ -1,8 +1,0 @@
-{
-  "parent": "block/template_fence_gate_wall_open",
-  "textures": {
-    "particle": "chaoticd:block/tabua_sombra",
-    "texture": "chaoticd:block/tabua_sombra"
-  },
-  "render_type": "solid"
-}

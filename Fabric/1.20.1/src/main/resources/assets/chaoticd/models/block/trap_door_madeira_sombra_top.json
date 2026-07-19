@@ -1,8 +1,0 @@
-{
-  "parent": "block/template_orientable_trapdoor_top",
-  "textures": {
-    "texture": "chaoticd:block/porta_madeira_sombra_cima",
-    "particle": "chaoticd:block/porta_madeira_sombra_cima"
-  },
-  "render_type": "solid"
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "chaoticd:block/crystalflower_yellow",
-    "particle": "chaoticd:block/crystalflower_yellow"
-  },
-  "render_type": "cutout"
-}

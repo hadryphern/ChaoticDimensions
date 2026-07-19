@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "chaoticd:block/stripped_rosalita_log",
-    "end": "chaoticd:block/stripped_rosalita_log_top"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "parent": "block/door_bottom_left_open",
-  "textures": {
-    "particle": "chaoticd:block/biomabranco_tabuamadeira",
-    "bottom": "chaoticd:block/biomabranco_tabuamadeira",
-    "top": "chaoticd:block/light_door_cima"
-  },
-  "render_type": "solid"
-}

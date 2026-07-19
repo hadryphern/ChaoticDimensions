@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "chaoticd:block/titanium_ore",
-    "particle": "chaoticd:block/titanium_ore"
-  },
-  "render_type": "solid"
-}

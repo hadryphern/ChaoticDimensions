@@ -1,8 +1,0 @@
-{
-  "parent": "block/template_fence_gate_wall",
-  "textures": {
-    "particle": "chaoticd:block/biomabranco_tabuamadeira",
-    "texture": "chaoticd:block/biomabranco_tabuamadeira"
-  },
-  "render_type": "solid"
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "chaoticd:item/light_wooden_shovel"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "block/pressure_plate_down",
-  "textures": {
-    "particle": "chaoticd:block/biomabranco_tabuamadeira",
-    "texture": "chaoticd:block/biomabranco_tabuamadeira"
-  },
-  "render_type": "solid"
-}

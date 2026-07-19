@@ -1,8 +1,0 @@
-{
-  "parent": "block/template_fence_gate_wall_open",
-  "textures": {
-    "particle": "chaoticd:block/fire_planks",
-    "texture": "chaoticd:block/fire_planks"
-  },
-  "render_type": "solid"
-}

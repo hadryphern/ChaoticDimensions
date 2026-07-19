@@ -1,9 +1,0 @@
-{
-  "parent": "block/door_bottom_left_open",
-  "textures": {
-    "particle": "chaoticd:block/rosalita_planks",
-    "bottom": "chaoticd:block/rosalita_door_bottom",
-    "top": "chaoticd:block/rosalita_door_top"
-  },
-  "render_type": "solid"
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "chaoticd:block/vanilla2_folhas",
-    "particle": "chaoticd:block/vanilla2_folhas"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "block/fence_side",
-  "textures": {
-    "texture": "chaoticd:block/rosalita_planks",
-    "particle": "chaoticd:block/rosalita_planks"
-  },
-  "render_type": "solid"
-}

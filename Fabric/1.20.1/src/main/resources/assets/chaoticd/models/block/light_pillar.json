@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "chaoticd:block/light_pillar",
-    "end": "chaoticd:block/light_pillar_top"
-  }
-}

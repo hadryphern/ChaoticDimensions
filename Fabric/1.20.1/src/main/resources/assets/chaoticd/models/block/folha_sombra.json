@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "chaoticd:block/folha_da_arvore_sombra",
-    "particle": "chaoticd:block/folha_da_arvore_sombra"
-  }
-}
