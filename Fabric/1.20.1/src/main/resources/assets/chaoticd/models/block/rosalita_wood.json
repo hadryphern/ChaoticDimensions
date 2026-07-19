@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "chaoticd:block/rosalita_wood",
-    "end": "chaoticd:block/rosalita_wood"
+    "side": "chaoticd:block/rosalita_log",
+    "end": "chaoticd:block/rosalita_log"
   }
 }

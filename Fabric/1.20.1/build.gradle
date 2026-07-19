@@ -72,6 +72,12 @@ java {
 	targetCompatibility = JavaVersion.VERSION_17
 }
 
+// Data generated resources live under src/main/generated.  Make the source
+// archive wait for their producer so Gradle 8 can validate the task graph.
+tasks.named('sourcesJar') {
+	dependsOn(tasks.named('runDatagen'))
+}
+
 jar {
 	inputs.property "archivesName", project.base.archivesName
 

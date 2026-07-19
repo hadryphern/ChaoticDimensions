@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "chaoticd:block/rosalita_door_bottom"
+    "layer0": "chaoticd:block/rosalita_sapling"
   }
 }

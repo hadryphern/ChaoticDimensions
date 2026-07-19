@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "chaoticd:block/rosalita_sapling"
+    },
+    "stage=1": {
+      "model": "chaoticd:block/rosalita_sapling"
+    }
+  }
+}

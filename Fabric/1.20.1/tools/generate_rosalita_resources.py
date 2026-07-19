@@ -16,6 +16,7 @@ BLOCKS = (
     "rosalita_sandstone",
 )
 LEAVES = "rosalita_leaves"
+SAPLING = "rosalita_sapling"
 WOOD = (
     "rosalita_log", "stripped_rosalita_log", "rosalita_wood", "stripped_rosalita_wood",
     "rosalita_planks", "rosalita_stairs", "rosalita_slab", "rosalita_fence", "rosalita_fence_gate",
@@ -73,24 +74,51 @@ def write_blocks() -> None:
     write(f"assets/{MOD_ID}/models/item/{LEAVES}.json", {"parent": f"{MOD_ID}:block/{LEAVES}"})
     write(f"data/{MOD_ID}/loot_tables/blocks/{LEAVES}.json", {
         "type": "minecraft:block",
-        "pools": [{
-            "rolls": 1,
-            "entries": [{
-                "type": "minecraft:alternatives",
-                "children": [
-                    {"type": "minecraft:item", "name": f"{MOD_ID}:{LEAVES}", "conditions": [{
-                        "condition": "minecraft:match_tool",
-                        "predicate": {"items": ["minecraft:shears"]},
-                    }]},
-                    {"type": "minecraft:item", "name": f"{MOD_ID}:{LEAVES}", "conditions": [{
-                        "condition": "minecraft:match_tool",
-                        "predicate": {"enchantments": [{"enchantment": "minecraft:silk_touch", "levels": {"min": 1}}]},
-                    }]},
-                    {"type": "minecraft:empty"},
-                ],
-            }],
-        }],
+        "pools": [
+            {
+                "rolls": 1,
+                "entries": [{
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {"type": "minecraft:item", "name": f"{MOD_ID}:{LEAVES}", "conditions": [{
+                            "condition": "minecraft:match_tool", "predicate": {"items": ["minecraft:shears"]},
+                        }]},
+                        {"type": "minecraft:item", "name": f"{MOD_ID}:{LEAVES}", "conditions": [{
+                            "condition": "minecraft:match_tool",
+                            "predicate": {"enchantments": [{"enchantment": "minecraft:silk_touch", "levels": {"min": 1}}]},
+                        }]},
+                        {"type": "minecraft:item", "name": f"{MOD_ID}:{SAPLING}", "conditions": [{
+                            "condition": "minecraft:random_chance", "chance": 0.05,
+                        }]},
+                        {"type": "minecraft:empty"},
+                    ],
+                }],
+            },
+            {
+                "rolls": 1,
+                "entries": [{"type": "minecraft:item", "name": "minecraft:stick"}],
+                "conditions": [{"condition": "minecraft:random_chance", "chance": 0.02}],
+            },
+        ],
     })
+
+    write(f"assets/{MOD_ID}/blockstates/{SAPLING}.json", {
+        "variants": {"stage=0": {"model": f"{MOD_ID}:block/{SAPLING}"}, "stage=1": {"model": f"{MOD_ID}:block/{SAPLING}"}},
+    })
+    write(f"assets/{MOD_ID}/models/block/{SAPLING}.json", {
+        "parent": "minecraft:block/cross", "textures": {"cross": f"{MOD_ID}:block/{SAPLING}"},
+    })
+    write(f"assets/{MOD_ID}/models/item/{SAPLING}.json", {
+        "parent": "minecraft:item/generated", "textures": {"layer0": f"{MOD_ID}:block/{SAPLING}"},
+    })
+    write(f"data/{MOD_ID}/loot_tables/blocks/{SAPLING}.json", normal_loot(SAPLING))
+    write(f"assets/{MOD_ID}/blockstates/potted_{SAPLING}.json", {
+        "variants": {"": {"model": f"{MOD_ID}:block/potted_{SAPLING}"}},
+    })
+    write(f"assets/{MOD_ID}/models/block/potted_{SAPLING}.json", {
+        "parent": "minecraft:block/flower_pot_cross", "textures": {"plant": f"{MOD_ID}:block/{SAPLING}"},
+    })
+    write(f"data/{MOD_ID}/loot_tables/blocks/potted_{SAPLING}.json", normal_loot(SAPLING))
 
 
 def copy_legacy_asset(kind: str, source: str, destination: str) -> None:
@@ -98,7 +126,7 @@ def copy_legacy_asset(kind: str, source: str, destination: str) -> None:
     origin = ROOT / f"assets/{MOD_ID}/{kind}/{source}.json"
     text = origin.read_text(encoding="utf-8")
     text = text.replace(source, destination).replace("tabua_sombra", "rosalita_planks")
-    text = text.replace("porta_madeira_sombra_cima", "rosalita_door_cima")
+    text = text.replace("porta_madeira_sombra_cima", "rosalita_door_top")
     write(f"assets/{MOD_ID}/{kind}/{destination}.json", json.loads(text))
 
 
@@ -114,7 +142,8 @@ def write_wood_resources() -> None:
     for block, side, end in (
         ("rosalita_log", "rosalita_log", "rosalita_log_top"),
         ("stripped_rosalita_log", "stripped_rosalita_log", "stripped_rosalita_log_top"),
-        ("rosalita_wood", "rosalita_wood", "rosalita_wood"),
+        # The author supplied bark art only.  Wood uses that bark on every face.
+        ("rosalita_wood", "rosalita_log", "rosalita_log"),
         ("stripped_rosalita_wood", "stripped_rosalita_wood", "stripped_rosalita_wood"),
     ):
         write(f"assets/{MOD_ID}/blockstates/{block}.json", {"variants": {
@@ -137,12 +166,19 @@ def write_wood_resources() -> None:
         copy_legacy_asset("blockstates", source, destination)
         for model in (ROOT / f"assets/{MOD_ID}/models/block").glob(f"{source}*.json"):
             copy_legacy_asset("models/block", model.stem, model.stem.replace(source, destination))
-        write(f"assets/{MOD_ID}/models/item/{destination}.json", {
-            "parent": f"{MOD_ID}:block/{destination}" if destination not in {"rosalita_fence", "rosalita_fence_gate", "rosalita_door", "rosalita_trapdoor", "rosalita_button"}
-            else "minecraft:item/generated",
-            **({"textures": {"layer0": f"{MOD_ID}:block/{'rosalita_door' if destination == 'rosalita_door' else 'rosalita_trapdoor' if destination == 'rosalita_trapdoor' else 'rosalita_planks'}"}}
-               if destination in {"rosalita_fence", "rosalita_fence_gate", "rosalita_door", "rosalita_trapdoor", "rosalita_button"} else {}),
-        })
+        if destination == "rosalita_fence":
+            write(f"assets/{MOD_ID}/models/item/{destination}.json", {"parent": f"{MOD_ID}:block/rosalita_fence_inventory"})
+        elif destination == "rosalita_door":
+            write(f"assets/{MOD_ID}/models/item/{destination}.json", {
+                "parent": "minecraft:item/generated", "textures": {"layer0": f"{MOD_ID}:block/rosalita_door_bottom"},
+            })
+        elif destination in {"rosalita_fence_gate", "rosalita_trapdoor", "rosalita_button"}:
+            texture = "rosalita_trapdoor" if destination == "rosalita_trapdoor" else "rosalita_planks"
+            write(f"assets/{MOD_ID}/models/item/{destination}.json", {
+                "parent": "minecraft:item/generated", "textures": {"layer0": f"{MOD_ID}:block/{texture}"},
+            })
+        else:
+            write(f"assets/{MOD_ID}/models/item/{destination}.json", {"parent": f"{MOD_ID}:block/{destination}"})
 
     # The recovered Shadow templates were useful for state layouts, but their
     # lower door panel and trapdoor still referenced the Shadow plank/door
@@ -152,15 +188,17 @@ def write_wood_resources() -> None:
     for model in models.glob("rosalita_door*.json"):
         data = json.loads(model.read_text(encoding="utf-8"))
         textures = data.get("textures", {})
-        if textures.get("bottom") == f"{MOD_ID}:block/rosalita_planks":
-            textures["bottom"] = f"{MOD_ID}:block/rosalita_door"
+        if "bottom" in textures:
+            textures["bottom"] = f"{MOD_ID}:block/rosalita_door_bottom"
+        if "top" in textures:
+            textures["top"] = f"{MOD_ID}:block/rosalita_door_top"
         write(str(model.relative_to(ROOT)), data)
     for model in models.glob("rosalita_trapdoor*.json"):
         data = json.loads(model.read_text(encoding="utf-8"))
         textures = data.get("textures", {})
-        if textures.get("texture") == f"{MOD_ID}:block/rosalita_door_cima":
+        if "texture" in textures:
             textures["texture"] = f"{MOD_ID}:block/rosalita_trapdoor"
-        if textures.get("particle") == f"{MOD_ID}:block/rosalita_door_cima":
+        if "particle" in textures:
             textures["particle"] = f"{MOD_ID}:block/rosalita_trapdoor"
         write(str(model.relative_to(ROOT)), data)
 
@@ -252,9 +290,24 @@ def write_tags() -> None:
         "replace": False,
         "values": [f"{MOD_ID}:{LEAVES}", *[f"{MOD_ID}:{block}" for block in BLOCKS]],
     })
+    logs = [f"{MOD_ID}:rosalita_log", f"{MOD_ID}:stripped_rosalita_log", f"{MOD_ID}:rosalita_wood", f"{MOD_ID}:stripped_rosalita_wood"]
+    merge_tag(f"data/{MOD_ID}/tags/blocks/rosalita_logs.json", logs)
     merge_tag("data/minecraft/tags/blocks/mineable/axe.json", [f"{MOD_ID}:{block}" for block in WOOD])
-    merge_tag("data/minecraft/tags/blocks/logs.json", [f"{MOD_ID}:rosalita_log", f"{MOD_ID}:stripped_rosalita_log", f"{MOD_ID}:rosalita_wood", f"{MOD_ID}:stripped_rosalita_wood"])
-    write("data/minecraft/tags/items/leaves.json", {"replace": False, "values": [f"{MOD_ID}:{LEAVES}"]})
+    merge_tag("data/minecraft/tags/blocks/logs.json", logs)
+    merge_tag("data/minecraft/tags/blocks/logs_that_burn.json", logs)
+    merge_tag("data/minecraft/tags/blocks/leaves.json", [f"{MOD_ID}:{LEAVES}"])
+    merge_tag("data/minecraft/tags/blocks/saplings.json", [f"{MOD_ID}:{SAPLING}"])
+    merge_tag("data/minecraft/tags/blocks/planks.json", [f"{MOD_ID}:rosalita_planks"])
+    merge_tag("data/minecraft/tags/blocks/wooden_stairs.json", [f"{MOD_ID}:rosalita_stairs"])
+    merge_tag("data/minecraft/tags/blocks/wooden_slabs.json", [f"{MOD_ID}:rosalita_slab"])
+    merge_tag("data/minecraft/tags/blocks/wooden_fences.json", [f"{MOD_ID}:rosalita_fence"])
+    merge_tag("data/minecraft/tags/blocks/fence_gates.json", [f"{MOD_ID}:rosalita_fence_gate"])
+    merge_tag("data/minecraft/tags/blocks/wooden_doors.json", [f"{MOD_ID}:rosalita_door"])
+    merge_tag("data/minecraft/tags/blocks/wooden_trapdoors.json", [f"{MOD_ID}:rosalita_trapdoor"])
+    merge_tag("data/minecraft/tags/blocks/wooden_buttons.json", [f"{MOD_ID}:rosalita_button"])
+    merge_tag("data/minecraft/tags/blocks/wooden_pressure_plates.json", [f"{MOD_ID}:rosalita_pressure_plate"])
+    merge_tag("data/minecraft/tags/items/leaves.json", [f"{MOD_ID}:{LEAVES}"])
+    merge_tag("data/minecraft/tags/items/saplings.json", [f"{MOD_ID}:{SAPLING}"])
     write(f"data/{MOD_ID}/tags/entity_types/allowed_in_rosalita_biome.json", {"replace": False, "values": []})
     write(f"data/{MOD_ID}/tags/worldgen/biome/is_rosalita.json", {"replace": False, "values": [f"{MOD_ID}:rosalita_biome"]})
 

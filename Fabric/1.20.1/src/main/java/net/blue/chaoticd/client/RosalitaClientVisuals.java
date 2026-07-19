@@ -16,6 +16,8 @@ public final class RosalitaClientVisuals {
 
     public static void initialize() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.get("rosalita_leaves"), RenderType.cutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.get("rosalita_sapling"), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.get("potted_rosalita_sapling"), RenderType.cutout());
         ColorProviderRegistry.BLOCK.register((state, world, position, tintIndex) -> {
             if (world instanceof ClientLevel level && position != null && level.getBiome(position).is(ModBiomes.ROSALITA_BIOME)) {
                 return BiomeColors.getAverageFoliageColor(world, position);

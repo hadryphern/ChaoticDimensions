@@ -35,7 +35,7 @@ public final class ModItems {
         initialized = true;
 
         for (Map.Entry<String, net.minecraft.world.level.block.Block> entry : ModBlocks.entries()) {
-            if (isSignBlock(entry.getKey())) {
+            if (isSignBlock(entry.getKey()) || entry.getKey().equals("potted_rosalita_sapling")) {
                 continue;
             }
             register(entry.getKey(), new BlockItem(entry.getValue(), new Item.Properties()), ModBlocks.isNewContent(entry.getKey()));

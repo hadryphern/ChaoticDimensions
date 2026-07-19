@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "chaoticd:block/rosalita_planks"
-  }
+  "parent": "chaoticd:block/rosalita_fence_inventory"
 }

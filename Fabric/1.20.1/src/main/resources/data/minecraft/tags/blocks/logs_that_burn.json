@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:rosalita_log",
+    "chaoticd:stripped_rosalita_log",
+    "chaoticd:rosalita_wood",
+    "chaoticd:stripped_rosalita_wood"
+  ]
+}

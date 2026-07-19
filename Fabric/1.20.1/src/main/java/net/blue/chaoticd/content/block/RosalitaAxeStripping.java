@@ -9,7 +9,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-/** Makes every axe, including vanilla axes, strip Rosalita logs like native wood. */
+/**
+ * Reserved for author-provided stripped-log art.
+ *
+ * <p>Rosalita's stripped variants are intentionally not reachable yet: the
+ * required {@code stripped_rosalita_log(.png)} source art was not supplied,
+ * so this class must not swap a correct block for a fabricated visual.</p>
+ */
 public final class RosalitaAxeStripping {
     private RosalitaAxeStripping() {
     }
@@ -21,31 +27,8 @@ public final class RosalitaAxeStripping {
                 return InteractionResult.PASS;
             }
 
-            BlockPos pos = hitResult.getBlockPos();
-            BlockState stripped = strippedState(world.getBlockState(pos));
-            if (stripped == null) {
-                return InteractionResult.PASS;
-            }
-
-            if (!world.isClientSide) {
-                world.setBlock(pos, stripped, 11);
-                held.hurtAndBreak(1, player, broken -> broken.broadcastBreakEvent(hand));
-            }
-            return InteractionResult.sidedSuccess(world.isClientSide);
+            return InteractionResult.PASS;
         });
     }
 
-    private static BlockState strippedState(BlockState state) {
-        if (state.is(ModBlocks.get("rosalita_log"))) {
-            return withAxis(ModBlocks.get("stripped_rosalita_log").defaultBlockState(), state);
-        }
-        if (state.is(ModBlocks.get("rosalita_wood"))) {
-            return withAxis(ModBlocks.get("stripped_rosalita_wood").defaultBlockState(), state);
-        }
-        return null;
-    }
-
-    private static BlockState withAxis(BlockState replacement, BlockState source) {
-        return replacement.setValue(RotatedPillarBlock.AXIS, source.getValue(RotatedPillarBlock.AXIS));
-    }
 }

@@ -2,8 +2,8 @@
   "parent": "block/door_top_right",
   "textures": {
     "particle": "chaoticd:block/rosalita_planks",
-    "bottom": "chaoticd:block/rosalita_door",
-    "top": "chaoticd:block/rosalita_door_cima"
+    "bottom": "chaoticd:block/rosalita_door_bottom",
+    "top": "chaoticd:block/rosalita_door_top"
   },
   "render_type": "solid"
 }
