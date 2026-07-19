@@ -6,11 +6,13 @@ src/main/resources and are never required when the mod runs.
 
 from pathlib import Path
 from random import Random
+from shutil import copyfile
 
 from PIL import Image
 
 
 OUTPUT = Path(__file__).resolve().parents[1] / "src/main/resources/assets/chaoticd/textures/block"
+USER_ASSET_ROOT = Path(__file__).resolve().parents[1] / ".assets/New Assets"
 PALETTE = {
     "deep": (0xB9, 0x3B, 0x6C),
     "shadow": (0xC9, 0x47, 0x7B),
@@ -252,6 +254,28 @@ def write_sign_textures() -> None:
         image.save(output / "rosalita.png")
 
 
+def apply_manual_rosalita_sources() -> None:
+    """Copy author-provided files literally after generated fallback textures.
+
+    `.assets/New Assets` is a private source library.  Nothing here is edited;
+    the selected files are only copied to the standard Fabric resource path.
+    Missing files deliberately leave the deterministic fallback intact.
+    """
+    sources = {
+        "Blocks/Rosalita_Leaves.png": ("rosalita_leaves.png",),
+        "Blocks/Rosalita_Oak.png": ("rosalita_log.png", "rosalita_wood.png"),
+        "Blocks/Rosalita_Oak_Top.png": ("rosalita_log_top.png",),
+        "Blocks/Rosalita_Planks.png": ("rosalita_planks.png",),
+        "Blocks/Rosalita_Trapdoor.png": ("rosalita_trapdoor.png",),
+    }
+    for relative_source, destinations in sources.items():
+        source = USER_ASSET_ROOT / relative_source
+        if not source.is_file():
+            continue
+        for destination in destinations:
+            copyfile(source, OUTPUT / destination)
+
+
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     write_stone("rosalita_stone", 101, [PALETTE["shadow"], PALETTE["stone"], PALETTE["ruby"], PALETTE["highlight"]], 29)
@@ -273,6 +297,7 @@ def main() -> None:
     write_utility_blocks()
     write_item_icons()
     write_sign_textures()
+    apply_manual_rosalita_sources()
 
 
 if __name__ == "__main__":

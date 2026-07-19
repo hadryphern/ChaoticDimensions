@@ -11,16 +11,16 @@ Esta prévia foi composta diretamente dos PNGs-fonte abaixo, com ampliação nea
 
 | Arquivo | Dimensão | SHA-256 |
 | --- | --- | --- |
-| `textures/block/rosalita_log.png` | 16×16 | `78c80a0d12765559c2dc77f9abf27451417355b5179127118743acc3c89e8664` |
-| `textures/block/rosalita_log_top.png` | 16×16 | `f61da7e7fb02d7c4f98c459705eb2fb3ab2668a81caeb1405d2aa4cfbee987c0` |
+| `textures/block/rosalita_log.png` | 16×16 | `b5ef5e0433e4adbd03cbcd1319123b73654a6e64fb1b403ddbef7ea0a402c8ee` |
+| `textures/block/rosalita_log_top.png` | 16×16 | `1e71e1f0529931c2ee71af22352ddb1114a88959f7456d0fca5d53a9acf87279` |
 | `textures/block/stripped_rosalita_log.png` | 16×16 | `ba4949b406a492ce87e0ccf3de3d8f0a1b9f2105af9fb779139e6015bf4e6fe2` |
 | `textures/block/stripped_rosalita_log_top.png` | 16×16 | `f61da7e7fb02d7c4f98c459705eb2fb3ab2668a81caeb1405d2aa4cfbee987c0` |
-| `textures/block/rosalita_wood.png` | 16×16 | `78c80a0d12765559c2dc77f9abf27451417355b5179127118743acc3c89e8664` |
+| `textures/block/rosalita_wood.png` | 16×16 | `b5ef5e0433e4adbd03cbcd1319123b73654a6e64fb1b403ddbef7ea0a402c8ee` |
 | `textures/block/stripped_rosalita_wood.png` | 16×16 | `ba4949b406a492ce87e0ccf3de3d8f0a1b9f2105af9fb779139e6015bf4e6fe2` |
-| `textures/block/rosalita_planks.png` | 16×16 | `185241aa8f4b71e875e0eaf85d05ed9e53197bc56e02795debd8433bd833c9aa` |
+| `textures/block/rosalita_planks.png` | 16×16 | `fd8fc8f7d5669b2e64188179da350e9600878960eb26cf4df21f9719bea7796b` |
 | `textures/block/rosalita_door.png` | 16×32 | `d9ca3e35dd79622ddf7aed0f9ad8263ec4575341f0cc9ef94921093b658806d5` |
 | `textures/block/rosalita_door_cima.png` | 16×32 | `8ae41622a1b87b76b957cd200e7b1a5f4fcdf6ebe061691cf1546cc45a0d78da` |
-| `textures/block/rosalita_trapdoor.png` | 16×16 | `14c0a24b0948facffd80a02db1fa4242c2aad755bf5ae9a11baf7c4db18ec7f6` |
+| `textures/block/rosalita_trapdoor.png` | 16×16 | `001250a5fe57975a9bf6689cf669efa6ab6065f590e034de9a6ff8e5af9c4ed3` |
 | `textures/block/rosalita_crafting_table.png` | 16×16 | `27315cfb5e8bdb6d72922c4357f182dfbd6363d1f3a980fb1e2a9605ee2bc27c` |
 | `textures/block/rosalita_chest.png` | 16×16 | `3d26950689e546193cbefea9cd5c6d30d8d41d23d63d1a865f16ac818ef6486a` |
 | `textures/block/rosalita_trapped_chest.png` | 16×16 | `442a88f1da111ef451e8c65b73ac1667e1e765def02a1390f658b47081f0c8d1` |
@@ -72,11 +72,11 @@ Esta prévia foi composta diretamente dos PNGs-fonte abaixo, com ampliação nea
 ## Cópias encontradas
 
 - `rosalita_log.png`: idêntica à fonte
-  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_log.png` — `78c80a0d12765559c2dc77f9abf27451417355b5179127118743acc3c89e8664`
-  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_log.png` — `78c80a0d12765559c2dc77f9abf27451417355b5179127118743acc3c89e8664`
+  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_log.png` — `b5ef5e0433e4adbd03cbcd1319123b73654a6e64fb1b403ddbef7ea0a402c8ee`
+  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_log.png` — `b5ef5e0433e4adbd03cbcd1319123b73654a6e64fb1b403ddbef7ea0a402c8ee`
 - `rosalita_log_top.png`: idêntica à fonte
-  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_log_top.png` — `f61da7e7fb02d7c4f98c459705eb2fb3ab2668a81caeb1405d2aa4cfbee987c0`
-  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_log_top.png` — `f61da7e7fb02d7c4f98c459705eb2fb3ab2668a81caeb1405d2aa4cfbee987c0`
+  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_log_top.png` — `1e71e1f0529931c2ee71af22352ddb1114a88959f7456d0fca5d53a9acf87279`
+  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_log_top.png` — `1e71e1f0529931c2ee71af22352ddb1114a88959f7456d0fca5d53a9acf87279`
 - `stripped_rosalita_log.png`: idêntica à fonte
   - source: `src/main/resources/assets/chaoticd/textures/block/stripped_rosalita_log.png` — `ba4949b406a492ce87e0ccf3de3d8f0a1b9f2105af9fb779139e6015bf4e6fe2`
   - build: `build/resources/main/assets/chaoticd/textures/block/stripped_rosalita_log.png` — `ba4949b406a492ce87e0ccf3de3d8f0a1b9f2105af9fb779139e6015bf4e6fe2`
@@ -84,14 +84,14 @@ Esta prévia foi composta diretamente dos PNGs-fonte abaixo, com ampliação nea
   - source: `src/main/resources/assets/chaoticd/textures/block/stripped_rosalita_log_top.png` — `f61da7e7fb02d7c4f98c459705eb2fb3ab2668a81caeb1405d2aa4cfbee987c0`
   - build: `build/resources/main/assets/chaoticd/textures/block/stripped_rosalita_log_top.png` — `f61da7e7fb02d7c4f98c459705eb2fb3ab2668a81caeb1405d2aa4cfbee987c0`
 - `rosalita_wood.png`: idêntica à fonte
-  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_wood.png` — `78c80a0d12765559c2dc77f9abf27451417355b5179127118743acc3c89e8664`
-  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_wood.png` — `78c80a0d12765559c2dc77f9abf27451417355b5179127118743acc3c89e8664`
+  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_wood.png` — `b5ef5e0433e4adbd03cbcd1319123b73654a6e64fb1b403ddbef7ea0a402c8ee`
+  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_wood.png` — `b5ef5e0433e4adbd03cbcd1319123b73654a6e64fb1b403ddbef7ea0a402c8ee`
 - `stripped_rosalita_wood.png`: idêntica à fonte
   - source: `src/main/resources/assets/chaoticd/textures/block/stripped_rosalita_wood.png` — `ba4949b406a492ce87e0ccf3de3d8f0a1b9f2105af9fb779139e6015bf4e6fe2`
   - build: `build/resources/main/assets/chaoticd/textures/block/stripped_rosalita_wood.png` — `ba4949b406a492ce87e0ccf3de3d8f0a1b9f2105af9fb779139e6015bf4e6fe2`
 - `rosalita_planks.png`: idêntica à fonte
-  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_planks.png` — `185241aa8f4b71e875e0eaf85d05ed9e53197bc56e02795debd8433bd833c9aa`
-  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_planks.png` — `185241aa8f4b71e875e0eaf85d05ed9e53197bc56e02795debd8433bd833c9aa`
+  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_planks.png` — `fd8fc8f7d5669b2e64188179da350e9600878960eb26cf4df21f9719bea7796b`
+  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_planks.png` — `fd8fc8f7d5669b2e64188179da350e9600878960eb26cf4df21f9719bea7796b`
 - `rosalita_door.png`: idêntica à fonte
   - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_door.png` — `d9ca3e35dd79622ddf7aed0f9ad8263ec4575341f0cc9ef94921093b658806d5`
   - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_door.png` — `d9ca3e35dd79622ddf7aed0f9ad8263ec4575341f0cc9ef94921093b658806d5`
@@ -99,8 +99,8 @@ Esta prévia foi composta diretamente dos PNGs-fonte abaixo, com ampliação nea
   - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_door_cima.png` — `8ae41622a1b87b76b957cd200e7b1a5f4fcdf6ebe061691cf1546cc45a0d78da`
   - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_door_cima.png` — `8ae41622a1b87b76b957cd200e7b1a5f4fcdf6ebe061691cf1546cc45a0d78da`
 - `rosalita_trapdoor.png`: idêntica à fonte
-  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_trapdoor.png` — `14c0a24b0948facffd80a02db1fa4242c2aad755bf5ae9a11baf7c4db18ec7f6`
-  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_trapdoor.png` — `14c0a24b0948facffd80a02db1fa4242c2aad755bf5ae9a11baf7c4db18ec7f6`
+  - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_trapdoor.png` — `001250a5fe57975a9bf6689cf669efa6ab6065f590e034de9a6ff8e5af9c4ed3`
+  - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_trapdoor.png` — `001250a5fe57975a9bf6689cf669efa6ab6065f590e034de9a6ff8e5af9c4ed3`
 - `rosalita_crafting_table.png`: idêntica à fonte
   - source: `src/main/resources/assets/chaoticd/textures/block/rosalita_crafting_table.png` — `27315cfb5e8bdb6d72922c4357f182dfbd6363d1f3a980fb1e2a9605ee2bc27c`
   - build: `build/resources/main/assets/chaoticd/textures/block/rosalita_crafting_table.png` — `27315cfb5e8bdb6d72922c4357f182dfbd6363d1f3a980fb1e2a9605ee2bc27c`
