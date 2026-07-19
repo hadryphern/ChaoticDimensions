@@ -1,40 +1,5 @@
-# gradle
+# Local reference extracted from the user's installed Minecraft client.
+minecraft_vanilla_1.20.1/
 
-.gradle/
-build/
-out/
-classes/
-
-# eclipse
-
-*.launch
-
-# idea
-
-.idea/
-*.iml
-*.ipr
-*.iws
-
-# vscode
-
-.settings/
-.vscode/
-bin/
-.classpath
-.project
-
-# macos
-
-*.DS_Store
-
-# fabric
-
-run/
-
-# java
-
-hs_err_*.log
-replay_*.log
-*.hprof
-*.jfr
+# Python bytecode created while running development asset tools.
+tools/__pycache__/
