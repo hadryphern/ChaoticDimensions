@@ -64,7 +64,15 @@ public final class ModItemGroups {
 
     /** Fifth: enchanted books. Dheathic remains an Ender Dragon reward in survival. */
     private static void addEnchantments(CreativeModeTab.Output entries) {
-        entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.SAPPHIRIC, 1)));
+        for (int level = 1; level <= ModEnchantments.SAPPHIRIC.getMaxLevel(); level++) {
+            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.SAPPHIRIC, level)));
+        }
+        for (int level = 1; level <= ModEnchantments.BIG_BERTHA.getMaxLevel(); level++) {
+            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.BIG_BERTHA, level)));
+        }
+        for (int level = 1; level <= ModEnchantments.ROYAL.getMaxLevel(); level++) {
+            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.ROYAL, level)));
+        }
         entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.DHEATHIC, 1)));
     }
 

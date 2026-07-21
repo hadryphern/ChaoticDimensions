@@ -1,9 +1,13 @@
 {
   "required": true,
-  "package": "net.blue.chaoticd.mixin.client",
+  "package": "net.blue.chaoticd.mixin",
   "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ServerGamePacketListenerImplMixin"
+  ],
   "client": [
-    "KeyboardInputMixin"
+    "client.KeyboardInputMixin",
+    "client.MultiPlayerGameModeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

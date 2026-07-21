@@ -21,6 +21,7 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 /** Server-authoritative behavior for the two custom enchantments. */
 public final class ModGameplayEvents {
     private static final Set<UUID> SURVIVED_DAMAGE_THIS_LIFE = new HashSet<>();
+    private static final ThreadLocal<Boolean> APPLYING_BONUS_SWORD_DAMAGE = ThreadLocal.withInitial(() -> false);
 
     private ModGameplayEvents() {
     }
@@ -31,7 +32,7 @@ public final class ModGameplayEvents {
     }
 
     private static boolean onDamage(LivingEntity victim, DamageSource source, float amount) {
-        applySapphiricFromMelee(victim, source);
+        applySwordEnchantments(victim, source, amount);
 
         if (victim instanceof Player player && amount < player.getHealth()) {
             SURVIVED_DAMAGE_THIS_LIFE.add(player.getUUID());
@@ -40,13 +41,39 @@ public final class ModGameplayEvents {
         return true;
     }
 
-    private static void applySapphiricFromMelee(LivingEntity victim, DamageSource source) {
+    private static void applySwordEnchantments(LivingEntity victim, DamageSource source, float amount) {
         if (!(source.getEntity() instanceof LivingEntity attacker)
-            || source.getDirectEntity() != attacker
-            || EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.SAPPHIRIC, attacker.getMainHandItem()) <= 0) {
+            || source.getDirectEntity() != attacker) {
             return;
         }
+
+        ItemStack sword = attacker.getMainHandItem();
+        int sapphiric = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.SAPPHIRIC, sword);
+        if (sapphiric > 0) {
+            applySapphiricArea(victim, attacker, sapphiric);
+        }
+
+        float multiplier = ModCombatEnchantments.damageMultiplier(sword);
+        if (multiplier > 1.0F && !APPLYING_BONUS_SWORD_DAMAGE.get()) {
+            APPLYING_BONUS_SWORD_DAMAGE.set(true);
+            try {
+                victim.hurt(source, amount * (multiplier - 1.0F));
+            } finally {
+                APPLYING_BONUS_SWORD_DAMAGE.set(false);
+            }
+        }
+    }
+
+    private static void applySapphiricArea(LivingEntity victim, LivingEntity attacker, int level) {
         victim.addEffect(new MobEffectInstance(ModEffects.SAPPHIRIC, 20 * 45), attacker);
+        double radius = ModCombatEnchantments.sapphiricEffectRadius(level);
+        if (radius <= 0.0D) {
+            return;
+        }
+        for (LivingEntity nearby : attacker.level().getEntitiesOfClass(LivingEntity.class,
+            victim.getBoundingBox().inflate(radius), candidate -> candidate != attacker && candidate.isAlive())) {
+            nearby.addEffect(new MobEffectInstance(ModEffects.SAPPHIRIC, 20 * 45), attacker);
+        }
     }
 
     private static void repairDheathicTools(Player player, float damageTaken) {

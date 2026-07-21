@@ -14,7 +14,7 @@ public final class SapphiricEnchantment extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 1;
+        return 5;
     }
 
     @Override
@@ -24,11 +24,11 @@ public final class SapphiricEnchantment extends Enchantment {
 
     @Override
     public int getMinCost(int level) {
-        return 18;
+        return 12 + level * 10;
     }
 
     @Override
     public int getMaxCost(int level) {
-        return 55;
+        return getMinCost(level) + 18;
     }
 }

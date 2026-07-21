@@ -2,6 +2,8 @@ package net.blue.chaoticd.content;
 
 import net.blue.chaoticd.ChaoticDimensions;
 import net.blue.chaoticd.content.enchantment.DheathicEnchantment;
+import net.blue.chaoticd.content.enchantment.BigBerthaEnchantment;
+import net.blue.chaoticd.content.enchantment.RoyalEnchantment;
 import net.blue.chaoticd.content.enchantment.SapphiricEnchantment;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,6 +14,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
 public final class ModEnchantments {
     public static final Enchantment SAPPHIRIC = register("sapphiric", new SapphiricEnchantment());
     public static final Enchantment DHEATHIC = register("dheathic", new DheathicEnchantment());
+    public static final Enchantment BIG_BERTHA = register("big_bertha", new BigBerthaEnchantment());
+    public static final Enchantment ROYAL = register("royal", new RoyalEnchantment());
 
     private ModEnchantments() {
     }
