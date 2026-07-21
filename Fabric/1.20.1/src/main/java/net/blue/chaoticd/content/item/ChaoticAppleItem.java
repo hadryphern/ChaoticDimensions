@@ -2,8 +2,9 @@ package net.blue.chaoticd.content.item;
 
 import java.util.Map;
 import net.blue.chaoticd.ChaoticDimensions;
-import net.blue.chaoticd.content.worldgen.PastelAuroraSkylandFeature;
+import net.blue.chaoticd.content.worldgen.AuroraSafeArrival;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -43,8 +44,10 @@ public final class ChaoticAppleItem extends Item {
         if (!level.isClientSide && entity instanceof ServerPlayer player) {
             ServerLevel aurora = player.server.getLevel(AURORA_DIMENSION);
             if (aurora != null) {
-                PastelAuroraSkylandFeature.ensureArrivalIsland(aurora);
-                player.teleportTo(aurora, 0.5D, 303.0D, 0.5D, player.getYRot(), player.getXRot());
+                AuroraSafeArrival.find(aurora).ifPresentOrElse(
+                    arrival -> player.teleportTo(aurora, arrival.getX() + 0.5D, arrival.getY() + 0.1D,
+                        arrival.getZ() + 0.5D, player.getYRot(), player.getXRot()),
+                    () -> player.displayClientMessage(Component.translatable("message.chaoticd.aurora_no_safe_arrival"), false));
             }
         }
         return result;

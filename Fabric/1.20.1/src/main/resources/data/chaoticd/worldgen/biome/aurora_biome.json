@@ -9,7 +9,24 @@
     "grass_color": 16770792,
     "foliage_color": 15634375
   },
-  "features": [[], [], [], [], [], [], [], [], [], [], []],
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "chaoticd:sapphire_ore",
+      "chaoticd:rosalita_ore"
+    ],
+    [],
+    [],
+    [
+      "chaoticd:pastel_aurora_trees"
+    ],
+    []
+  ],
   "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {

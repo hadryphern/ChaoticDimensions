@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 0.92,
+      "argument2": "chaoticd:aurora/macro"
+    },
+    "argument2": {
+      "type": "minecraft:mul",
+      "argument1": 0.88,
+      "argument2": "chaoticd:aurora/islands"
+    }
+  },
+  "argument2": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 0.2,
+      "argument2": "chaoticd:aurora/edges"
+    },
+    "argument2": -0.22
+  }
+}

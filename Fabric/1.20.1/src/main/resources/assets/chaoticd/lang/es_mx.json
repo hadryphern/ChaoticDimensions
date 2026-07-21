@@ -78,5 +78,6 @@
   "block.chaoticd.pastel_blue_leaves": "Hojas Aurora Azules",
   "block.chaoticd.sapphire_ore": "Mineral de Zafiro",
   "block.chaoticd.rosalita_ore": "Mineral de Rosalita",
-  "item.chaoticd.chaotic_apple": "Manzana Caótica"
+  "item.chaoticd.chaotic_apple": "Manzana Caótica",
+  "message.chaoticd.aurora_no_safe_arrival": "No se encontró una isla segura de Aurora cerca."
 }

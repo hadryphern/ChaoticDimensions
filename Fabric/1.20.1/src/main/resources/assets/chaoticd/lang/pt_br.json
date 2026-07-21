@@ -78,5 +78,6 @@
   "block.chaoticd.pastel_blue_leaves": "Folhas Aurora Azuis",
   "block.chaoticd.sapphire_ore": "Minério de Safira",
   "block.chaoticd.rosalita_ore": "Minério de Rosalita",
-  "item.chaoticd.chaotic_apple": "Maçã Caótica"
+  "item.chaoticd.chaotic_apple": "Maçã Caótica",
+  "message.chaoticd.aurora_no_safe_arrival": "Nenhuma ilha segura de Aurora foi encontrada por perto."
 }

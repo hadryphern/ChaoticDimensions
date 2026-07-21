@@ -78,5 +78,6 @@
   "block.chaoticd.pastel_blue_leaves": "Blue Aurora Leaves",
   "block.chaoticd.sapphire_ore": "Sapphire Ore",
   "block.chaoticd.rosalita_ore": "Rosalita Ore",
-  "item.chaoticd.chaotic_apple": "Chaotic Apple"
+  "item.chaoticd.chaotic_apple": "Chaotic Apple",
+  "message.chaoticd.aurora_no_safe_arrival": "No safe Aurora island was found nearby."
 }

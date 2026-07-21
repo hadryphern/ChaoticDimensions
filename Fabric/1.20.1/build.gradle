@@ -67,3 +67,11 @@ publishing {
 		// retrieving dependencies.
 	}
 }
+
+tasks.register('validateAuroraWorldgen', JavaExec) {
+	group = 'verification'
+	description = 'Loads and statistically validates the Aurora datapack without starting a server.'
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = 'net.blue.chaoticd.validation.AuroraWorldgenValidator'
+	dependsOn testClasses
+}

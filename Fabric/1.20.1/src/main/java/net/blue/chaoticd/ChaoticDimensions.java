@@ -9,7 +9,6 @@ import net.blue.chaoticd.content.ModItemGroups;
 import net.blue.chaoticd.content.ModItems;
 import net.blue.chaoticd.content.ModPotions;
 import net.blue.chaoticd.content.ModRecipes;
-import net.blue.chaoticd.content.ModWorldgen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +26,6 @@ public final class ChaoticDimensions implements ModInitializer {
         ModPotions.initialize();
         ModItemGroups.initialize();
         ModRecipes.initialize();
-        ModWorldgen.initialize();
         ModGameplayEvents.initialize();
         LOGGER.info("Chaotic Dimensions Sapphire content and enchantments loaded");
     }

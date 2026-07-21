@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:squeeze",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": 0.64,
+    "argument2": {
+      "type": "minecraft:interpolated",
+      "argument": {
+        "type": "minecraft:range_choice",
+        "input": "minecraft:y",
+        "min_inclusive": 64.0,
+        "max_exclusive": 312.0,
+        "when_in_range": {
+          "type": "minecraft:max",
+          "argument1": "chaoticd:aurora/primary_density",
+          "argument2": "chaoticd:aurora/secondary_density"
+        },
+        "when_out_of_range": -1.0
+      }
+    }
+  }
+}
