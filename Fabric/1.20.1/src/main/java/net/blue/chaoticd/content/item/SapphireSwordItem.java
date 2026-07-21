@@ -10,9 +10,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import java.util.List;
 
 /** 589-damage sword with a 24-block-radius damage wave after a direct melee hit. */
 public final class SapphireSwordItem extends SwordItem {
@@ -75,5 +80,21 @@ public final class SapphireSwordItem extends SwordItem {
             }
         }
         return used;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
+        float multiplier = ModCombatEnchantments.damageMultiplier(stack);
+        if (multiplier > 1.0F) {
+            tooltip.add(Component.translatable("tooltip.chaoticd.sapphire_sword_damage",
+                Math.round(DIRECT_DAMAGE * multiplier), Math.round(multiplier))
+                .withStyle(ChatFormatting.DARK_PURPLE));
+        }
+        float reach = ModCombatEnchantments.attackReach(stack);
+        if (reach > 0.0F) {
+            tooltip.add(Component.translatable("tooltip.chaoticd.sword_reach", Math.round(reach))
+                .withStyle(ChatFormatting.BLUE));
+        }
     }
 }

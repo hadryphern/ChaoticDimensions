@@ -10,5 +10,7 @@
   "enchantment.chaoticd.dheathic": "Dheathic",
   "enchantment.chaoticd.big_bertha": "Big Bertha",
   "enchantment.chaoticd.royal": "Royal",
+  "tooltip.chaoticd.sapphire_sword_damage": "Dano com encantamento: %s (×%s)",
+  "tooltip.chaoticd.sword_reach": "Alcance da espada: %s blocos",
   "itemGroup.chaoticd.chaotic_dimensions": "Chaotic Dimensions"
 }
