@@ -1,6 +1,10 @@
 {
   "item.chaoticd.sapphire_gem": "Gema de Safira",
   "item.chaoticd.sapphire_sword": "Espada de Safira",
+  "item.chaoticd.sapphire_pickaxe": "Picareta de Safira",
+  "item.chaoticd.sapphire_axe": "Machado de Safira",
+  "item.chaoticd.sapphire_shovel": "Pá de Safira",
+  "item.chaoticd.sapphire_hoe": "Enxada de Safira",
   "effect.chaoticd.sapphiric": "Efeito Safírico",
   "item.minecraft.potion.effect.sapphiric": "Poção do Efeito Safírico",
   "item.minecraft.splash_potion.effect.sapphiric": "Poção Arremessável do Efeito Safírico",

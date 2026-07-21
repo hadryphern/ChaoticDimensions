@@ -1,6 +1,10 @@
 {
   "item.chaoticd.sapphire_gem": "Gema de zafiro",
   "item.chaoticd.sapphire_sword": "Espada de zafiro",
+  "item.chaoticd.sapphire_pickaxe": "Pico de zafiro",
+  "item.chaoticd.sapphire_axe": "Hacha de zafiro",
+  "item.chaoticd.sapphire_shovel": "Pala de zafiro",
+  "item.chaoticd.sapphire_hoe": "Azada de zafiro",
   "effect.chaoticd.sapphiric": "Efecto zafírico",
   "item.minecraft.potion.effect.sapphiric": "Poción de efecto zafírico",
   "item.minecraft.splash_potion.effect.sapphiric": "Poción arrojadiza de efecto zafírico",

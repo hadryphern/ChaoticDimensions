@@ -9,8 +9,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
 
@@ -20,40 +18,8 @@ public final class SapphireSwordItem extends SwordItem {
     public static final float AREA_DAMAGE = 589.0F;
     public static final double AREA_RADIUS = 24.0D;
 
-    private static final Tier SAPPHIRE_TIER = new Tier() {
-        @Override
-        public int getUses() {
-            return 3000;
-        }
-
-        @Override
-        public float getSpeed() {
-            return 12.0F;
-        }
-
-        @Override
-        public float getAttackDamageBonus() {
-            return 0.0F;
-        }
-
-        @Override
-        public int getLevel() {
-            return 4;
-        }
-
-        @Override
-        public int getEnchantmentValue() {
-            return 25;
-        }
-
-        @Override
-        public Ingredient getRepairIngredient() {
-            return Ingredient.of(ModItems.SAPPHIRE_GEM);
-        }
-    };
-
     public SapphireSwordItem(Item.Properties properties) {
-        super(SAPPHIRE_TIER, DIRECT_DAMAGE, -2.4F, properties);
+        super(SapphireTier.INSTANCE, DIRECT_DAMAGE, -2.4F, properties);
     }
 
     @Override

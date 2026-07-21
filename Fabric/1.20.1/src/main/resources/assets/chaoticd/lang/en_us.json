@@ -1,6 +1,10 @@
 {
   "item.chaoticd.sapphire_gem": "Sapphire Gem",
   "item.chaoticd.sapphire_sword": "Sapphire Sword",
+  "item.chaoticd.sapphire_pickaxe": "Sapphire Pickaxe",
+  "item.chaoticd.sapphire_axe": "Sapphire Axe",
+  "item.chaoticd.sapphire_shovel": "Sapphire Shovel",
+  "item.chaoticd.sapphire_hoe": "Sapphire Hoe",
   "effect.chaoticd.sapphiric": "Sapphiric Effect",
   "item.minecraft.potion.effect.sapphiric": "Potion of Sapphiric Effect",
   "item.minecraft.splash_potion.effect.sapphiric": "Splash Potion of Sapphiric Effect",
