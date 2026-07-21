@@ -45,10 +45,10 @@ public final class ModItems {
     public static ItemStack createSapphireTool(SapphireToolType type) {
         ItemStack result = new ItemStack(type.item());
         Map<net.minecraft.world.item.enchantment.Enchantment, Integer> enchantments = switch (type) {
-            case PICKAXE -> Map.of(Enchantments.BLOCK_FORTUNE, 10, Enchantments.BLOCK_EFFICIENCY, 10, Enchantments.UNBREAKING, 10);
-            case AXE -> Map.of(Enchantments.BLOCK_FORTUNE, 10, Enchantments.BLOCK_EFFICIENCY, 10,
-                Enchantments.UNBREAKING, 10, Enchantments.SHARPNESS, 1);
-            case SHOVEL, HOE -> Map.of(Enchantments.BLOCK_EFFICIENCY, 10, Enchantments.UNBREAKING, 10);
+            case PICKAXE -> Map.of(Enchantments.BLOCK_FORTUNE, 50, Enchantments.BLOCK_EFFICIENCY, 50, Enchantments.UNBREAKING, 50);
+            case AXE -> Map.of(Enchantments.BLOCK_FORTUNE, 50, Enchantments.BLOCK_EFFICIENCY, 50,
+                Enchantments.UNBREAKING, 50, Enchantments.SHARPNESS, 50);
+            case SHOVEL, HOE -> Map.of(Enchantments.BLOCK_EFFICIENCY, 50, Enchantments.UNBREAKING, 50);
         };
         EnchantmentHelper.setEnchantments(enchantments, result);
         return result;
