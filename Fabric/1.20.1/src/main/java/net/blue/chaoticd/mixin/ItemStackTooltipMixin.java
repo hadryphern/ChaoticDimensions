@@ -60,7 +60,7 @@ public abstract class ItemStackTooltipMixin {
             for (int index = 0; index < lines.size(); index++) {
                 if (!lines.get(index).getString().equals(label)) continue;
                 lines.set(index, RarityText.forRank(label,
-                    ModItemRarities.enchantmentRank(entry.getKey(), entry.getValue())));
+                    ModItemRarities.enchantmentRank(stack, entry.getKey(), entry.getValue())));
                 break;
             }
         }

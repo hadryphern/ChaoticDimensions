@@ -50,8 +50,11 @@ public final class ModItemRarities {
     public static Rank rank(ItemStack stack) {
         int totalScore = baseRank(stack).threshold();
         for (var entry : EnchantmentHelper.getEnchantments(stack).entrySet()) {
-            Rank enchantmentRank = enchantmentRank(entry.getKey(), entry.getValue());
-            totalScore += enchantmentScore(enchantmentRank);
+            Rank enchantmentRank = enchantmentRank(stack, entry.getKey(), entry.getValue());
+            // Level L is already part of the certified Legendary Sapphire tool set, not a separate promotion.
+            if (!isSapphireLegendaryLevel(stack, entry.getValue())) {
+                totalScore += enchantmentScore(enchantmentRank);
+            }
         }
         return rankForScore(totalScore);
     }
@@ -75,7 +78,8 @@ public final class ModItemRarities {
     }
 
     /** Determines one enchantment's visual rarity independently of the item it is on. */
-    public static Rank enchantmentRank(Enchantment enchantment, int level) {
+    public static Rank enchantmentRank(ItemStack stack, Enchantment enchantment, int level) {
+        if (isSapphireLegendaryLevel(stack, level)) return Rank.LEGENDARY;
         if (isChaoticEnchantment(enchantment)) return Rank.ULTRA_RARE;
         if (isExtendedVanillaLevel(enchantment, level)) return Rank.VERY_RARE;
         return switch (enchantment.getRarity()) {
@@ -84,6 +88,10 @@ public final class ModItemRarities {
             case RARE -> Rank.RARE;
             case VERY_RARE -> Rank.VERY_RARE;
         };
+    }
+
+    private static boolean isSapphireLegendaryLevel(ItemStack stack, int level) {
+        return isSapphire(stack) && level >= 50;
     }
 
     /**
