@@ -1,0 +1,13 @@
+{
+  "type": "chaoticd:aurora_dimension_type",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "chaoticd:aurora_biome",
+      "features": true,
+      "lakes": false,
+      "layers": [],
+      "structure_overrides": []
+    }
+  }
+}
