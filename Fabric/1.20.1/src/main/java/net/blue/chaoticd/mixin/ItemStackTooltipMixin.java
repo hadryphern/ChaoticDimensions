@@ -65,7 +65,7 @@ public abstract class ItemStackTooltipMixin {
                     lines.set(index, Component.literal(label).withStyle(ChatFormatting.DARK_PURPLE));
                 } else if (sapphire) {
                     lines.set(index, RarityText.rainbow(label));
-                } else if (ModItemRarities.isAboveVanillaCap(entry.getKey(), entry.getValue())) {
+                } else if (ModItemRarities.isGoldExtendedLevel(entry.getKey(), entry.getValue())) {
                     lines.set(index, Component.literal(label).withStyle(ChatFormatting.GOLD));
                 }
                 break;

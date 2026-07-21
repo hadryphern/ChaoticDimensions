@@ -51,7 +51,7 @@ public final class ModItemRarities {
             return Rank.ULTRA_RARE;
         }
         if (EnchantmentHelper.getEnchantments(stack).entrySet().stream()
-            .anyMatch(entry -> isAboveVanillaCap(entry.getKey(), entry.getValue()))) {
+            .anyMatch(entry -> isGoldExtendedLevel(entry.getKey(), entry.getValue()))) {
             return Rank.VERY_RARE;
         }
         String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
@@ -72,16 +72,18 @@ public final class ModItemRarities {
             || enchantment == ModEnchantments.DISPARADA;
     }
 
-    public static boolean isAboveVanillaCap(Enchantment enchantment, int level) {
-        int vanillaCap = enchantment == Enchantments.SHARPNESS || enchantment == Enchantments.SMITE
-            || enchantment == Enchantments.BANE_OF_ARTHROPODS || enchantment == Enchantments.BLOCK_EFFICIENCY ? 5
-            : enchantment == Enchantments.UNBREAKING || enchantment == Enchantments.MOB_LOOTING
-            || enchantment == Enchantments.BLOCK_FORTUNE || enchantment == Enchantments.SWEEPING_EDGE
-            || enchantment == Enchantments.THORNS ? 3
-            : enchantment == Enchantments.ALL_DAMAGE_PROTECTION || enchantment == Enchantments.FIRE_PROTECTION
-            || enchantment == Enchantments.BLAST_PROTECTION || enchantment == Enchantments.PROJECTILE_PROTECTION
-            || enchantment == Enchantments.FALL_PROTECTION ? 4
-            : enchantment == Enchantments.KNOCKBACK || enchantment == Enchantments.FIRE_ASPECT ? 2 : Integer.MAX_VALUE;
-        return level > vanillaCap;
+    /** Only the highest new vanilla level earns the gold treatment; intermediate levels stay vanilla-coloured. */
+    public static boolean isGoldExtendedLevel(Enchantment enchantment, int level) {
+        int goldLevel = enchantment == Enchantments.SHARPNESS || enchantment == Enchantments.ALL_DAMAGE_PROTECTION
+            || enchantment == Enchantments.FIRE_PROTECTION || enchantment == Enchantments.BLAST_PROTECTION
+            || enchantment == Enchantments.PROJECTILE_PROTECTION || enchantment == Enchantments.FALL_PROTECTION
+            || enchantment == Enchantments.THORNS ? 15
+            : enchantment == Enchantments.KNOCKBACK ? 20
+            : enchantment == Enchantments.UNBREAKING || enchantment == Enchantments.BLOCK_EFFICIENCY
+            || enchantment == Enchantments.SMITE || enchantment == Enchantments.BANE_OF_ARTHROPODS
+            || enchantment == Enchantments.SWEEPING_EDGE || enchantment == Enchantments.FIRE_ASPECT
+            || enchantment == Enchantments.MOB_LOOTING || enchantment == Enchantments.BLOCK_FORTUNE ? 10
+            : Integer.MAX_VALUE;
+        return level >= goldLevel;
     }
 }
