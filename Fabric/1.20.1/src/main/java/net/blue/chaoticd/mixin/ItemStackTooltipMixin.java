@@ -50,7 +50,7 @@ public abstract class ItemStackTooltipMixin {
                 .withStyle(ChatFormatting.DARK_PURPLE));
         }
         styleEnchantments(stack, lines);
-        lines.add(Component.empty());
+        // Keep every vanilla/mod tooltip line exactly where it belongs; rarity is only the final line.
         lines.add(rankLine(ModItemRarities.rank(stack)));
         callback.setReturnValue(lines);
     }
