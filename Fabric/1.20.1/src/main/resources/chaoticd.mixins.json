@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ServerGamePacketListenerImplMixin",
+    "ItemStackNameMixin",
     "ItemStackTooltipMixin",
     "VanillaEnchantmentLevelMixin",
     "BowItemMixin"

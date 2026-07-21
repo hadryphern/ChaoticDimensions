@@ -2,15 +2,21 @@ package net.blue.chaoticd.mixin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import net.blue.chaoticd.content.ModCombatEnchantments;
+import net.blue.chaoticd.content.ModItemRarities;
+import net.blue.chaoticd.content.RarityText;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,10 +31,6 @@ public abstract class ItemStackTooltipMixin {
         ItemStack stack = (ItemStack) (Object) this;
         float multiplier = ModCombatEnchantments.damageMultiplier(stack);
         float reach = ModCombatEnchantments.attackReach(stack);
-        if (multiplier <= 1.0F && reach <= 0.0F) {
-            return;
-        }
-
         List<Component> lines = new ArrayList<>(callback.getReturnValue());
         if (multiplier > 1.0F) {
             String attackDamageName = Component.translatable("attribute.name.generic.attack_damage").getString();
@@ -47,7 +49,40 @@ public abstract class ItemStackTooltipMixin {
                 Component.translatable("tooltip.chaoticd.attack_reach"))
                 .withStyle(ChatFormatting.DARK_PURPLE));
         }
+        styleEnchantments(stack, lines);
+        lines.add(Component.empty());
+        lines.add(rankLine(ModItemRarities.rank(stack)));
         callback.setReturnValue(lines);
+    }
+
+    private static void styleEnchantments(ItemStack stack, List<Component> lines) {
+        boolean sapphire = ModItemRarities.isSapphire(stack);
+        for (Map.Entry<Enchantment, Integer> entry : EnchantmentHelper.getEnchantments(stack).entrySet()) {
+            String label = entry.getKey().getFullname(entry.getValue()).getString();
+            for (int index = 0; index < lines.size(); index++) {
+                if (!lines.get(index).getString().equals(label)) continue;
+                if (sapphire) {
+                    lines.set(index, RarityText.rainbow(label));
+                } else if (ModItemRarities.isChaoticEnchantment(entry.getKey())) {
+                    lines.set(index, Component.literal(label).withStyle(ChatFormatting.DARK_PURPLE));
+                } else if (ModItemRarities.isAboveVanillaCap(entry.getKey(), entry.getValue())) {
+                    lines.set(index, Component.literal(label).withStyle(ChatFormatting.GOLD));
+                }
+                break;
+            }
+        }
+    }
+
+    private static Component rankLine(ModItemRarities.Rank rank) {
+        String label = Component.translatable(rank.translationKey()).getString();
+        return switch (rank) {
+            case LEGENDARY -> RarityText.rainbow(label);
+            case FORBIDDEN -> RarityText.gradient(label, 0xAAAAAA, 0xFFFFFF);
+            case EXTRAVAGANT -> RarityText.gradient(label, 0xFFD700, 0x55DFFF);
+            case GOD -> RarityText.gradient(label, 0xFFD700, 0xFFFFFF);
+            case ENDGAME -> RarityText.gradient(label, 0xAA00FF, 0xFF55FF, 0x5555FF, 0x111111);
+            default -> Component.literal(label).withStyle(Style.EMPTY.withColor(rank.color()));
+        };
     }
 
     private static double finalAttackDamage(ItemStack stack, Player player) {
