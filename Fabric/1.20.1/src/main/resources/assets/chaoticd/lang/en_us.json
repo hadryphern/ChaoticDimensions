@@ -68,5 +68,14 @@
   "rarity.chaoticd.legendary": "Legendary",
   "rarity.chaoticd.extravagant": "Extravagant",
   "rarity.chaoticd.god": "God",
-  "rarity.chaoticd.endgame": "End Game"
+  "rarity.chaoticd.endgame": "End Game",
+  "block.chaoticd.pastel_soil": "Pastel Soil",
+  "block.chaoticd.pastel_grass": "Pastel Grass",
+  "block.chaoticd.pastel_aurora_log": "Pastel Aurora Log",
+  "block.chaoticd.pastel_aurora_planks": "Pastel Aurora Planks",
+  "block.chaoticd.pastel_pink_leaves": "Pink Aurora Leaves",
+  "block.chaoticd.pastel_purple_leaves": "Purple Aurora Leaves",
+  "block.chaoticd.pastel_blue_leaves": "Blue Aurora Leaves",
+  "block.chaoticd.sapphire_ore": "Sapphire Ore",
+  "block.chaoticd.rosalita_ore": "Rosalita Ore"
 }

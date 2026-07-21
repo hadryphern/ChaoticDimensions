@@ -68,5 +68,14 @@
   "rarity.chaoticd.legendary": "Legendario",
   "rarity.chaoticd.extravagant": "Extravagante",
   "rarity.chaoticd.god": "Dios",
-  "rarity.chaoticd.endgame": "Final del juego"
+  "rarity.chaoticd.endgame": "Final del juego",
+  "block.chaoticd.pastel_soil": "Tierra Pastel",
+  "block.chaoticd.pastel_grass": "Césped Pastel",
+  "block.chaoticd.pastel_aurora_log": "Tronco Aurora Pastel",
+  "block.chaoticd.pastel_aurora_planks": "Tablones Aurora Pastel",
+  "block.chaoticd.pastel_pink_leaves": "Hojas Aurora Rosadas",
+  "block.chaoticd.pastel_purple_leaves": "Hojas Aurora Moradas",
+  "block.chaoticd.pastel_blue_leaves": "Hojas Aurora Azules",
+  "block.chaoticd.sapphire_ore": "Mineral de Zafiro",
+  "block.chaoticd.rosalita_ore": "Mineral de Rosalita"
 }

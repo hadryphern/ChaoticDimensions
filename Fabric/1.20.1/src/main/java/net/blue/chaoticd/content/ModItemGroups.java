@@ -44,7 +44,15 @@ public final class ModItemGroups {
 
     /** First: all block items, ordered by their block family. */
     private static void addBlocks(CreativeModeTab.Output entries) {
-        // Future blocks belong here.
+        entries.accept(ModBlocks.PASTEL_SOIL);
+        entries.accept(ModBlocks.PASTEL_GRASS);
+        entries.accept(ModBlocks.PASTEL_AURORA_LOG);
+        entries.accept(ModBlocks.PASTEL_AURORA_PLANKS);
+        entries.accept(ModBlocks.PASTEL_PINK_LEAVES);
+        entries.accept(ModBlocks.PASTEL_PURPLE_LEAVES);
+        entries.accept(ModBlocks.PASTEL_BLUE_LEAVES);
+        entries.accept(ModBlocks.SAPPHIRE_ORE);
+        entries.accept(ModBlocks.ROSALITA_ORE);
     }
 
     /** Second: sword, axe, pickaxe, shovel and hoe, matching the agreed visual order. */
