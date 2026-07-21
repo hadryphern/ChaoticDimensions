@@ -2,5 +2,10 @@
   "item.chaoticd.sapphire_gem": "Gema de Safira",
   "item.chaoticd.sapphire_sword": "Espada de Safira",
   "effect.chaoticd.sapphiric": "Efeito Safírico",
-  "item.minecraft.potion.effect.sapphiric": "Poção do Efeito Safírico"
+  "item.minecraft.potion.effect.sapphiric": "Poção do Efeito Safírico",
+  "item.minecraft.splash_potion.effect.sapphiric": "Poção Arremessável do Efeito Safírico",
+  "item.minecraft.lingering_potion.effect.sapphiric": "Poção Persistente do Efeito Safírico",
+  "item.minecraft.tipped_arrow.effect.sapphiric": "Flecha do Efeito Safírico",
+  "enchantment.chaoticd.sapphiric": "Safírico",
+  "enchantment.chaoticd.dheathic": "Dheathic"
 }

@@ -1,10 +1,7 @@
 package net.blue.chaoticd.content.item;
 
-import net.blue.chaoticd.content.ModEffects;
 import net.blue.chaoticd.content.ModItems;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
@@ -61,15 +58,11 @@ public final class SapphireSwordItem extends SwordItem {
             return used;
         }
 
-        // Only the entity actually struck in melee receives the Sapphiric effect.
-        target.addEffect(new MobEffectInstance(ModEffects.SAPPHIRIC, 20 * 45), attacker);
-
         AABB area = target.getBoundingBox().inflate(AREA_RADIUS);
         for (LivingEntity nearby : attacker.level().getEntitiesOfClass(LivingEntity.class, area,
             candidate -> candidate != attacker && candidate != target && candidate.isAlive())) {
-            nearby.hurt(attacker instanceof Player player
-                ? attacker.damageSources().playerAttack(player)
-                : attacker.damageSources().mobAttack(attacker), AREA_DAMAGE);
+            // A magic source has no melee attacker, so Sapphiric never propagates via the area wave.
+            nearby.hurt(attacker.damageSources().magic(), AREA_DAMAGE);
         }
         return used;
     }

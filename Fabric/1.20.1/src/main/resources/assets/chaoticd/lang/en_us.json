@@ -2,5 +2,10 @@
   "item.chaoticd.sapphire_gem": "Sapphire Gem",
   "item.chaoticd.sapphire_sword": "Sapphire Sword",
   "effect.chaoticd.sapphiric": "Sapphiric Effect",
-  "item.minecraft.potion.effect.sapphiric": "Potion of Sapphiric Effect"
+  "item.minecraft.potion.effect.sapphiric": "Potion of Sapphiric Effect",
+  "item.minecraft.splash_potion.effect.sapphiric": "Splash Potion of Sapphiric Effect",
+  "item.minecraft.lingering_potion.effect.sapphiric": "Lingering Potion of Sapphiric Effect",
+  "item.minecraft.tipped_arrow.effect.sapphiric": "Arrow of Sapphiric Effect",
+  "enchantment.chaoticd.sapphiric": "Sapphiric",
+  "enchantment.chaoticd.dheathic": "Dheathic"
 }

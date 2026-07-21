@@ -14,7 +14,7 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 
-/** A normal vanilla potion bottle carrying the Sapphiric effect for 45 seconds. */
+/** Vanilla potion containers carrying the Sapphiric effect for 45 seconds. */
 public final class ModPotions {
     public static final Potion SAPPHIRIC = Registry.register(BuiltInRegistries.POTION,
         new ResourceLocation(ChaoticDimensions.MOD_ID, "sapphiric"),
@@ -25,7 +25,16 @@ public final class ModPotions {
 
     public static void initialize() {
         PotionBrewing.addMix(Potions.AWKWARD, ModItems.SAPPHIRE_GEM, SAPPHIRIC);
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries ->
-            entries.accept(PotionUtils.setPotion(new ItemStack(Items.POTION), SAPPHIRIC)));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> {
+            entries.accept(potion(Items.POTION));
+            entries.accept(potion(Items.SPLASH_POTION));
+            entries.accept(potion(Items.LINGERING_POTION));
+        });
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries ->
+            entries.accept(potion(Items.TIPPED_ARROW)));
+    }
+
+    private static ItemStack potion(net.minecraft.world.item.Item container) {
+        return PotionUtils.setPotion(new ItemStack(container), SAPPHIRIC);
     }
 }
