@@ -1,6 +1,9 @@
 package net.blue.chaoticd;
 
 import net.fabricmc.api.ModInitializer;
+import net.blue.chaoticd.content.ModEffects;
+import net.blue.chaoticd.content.ModItems;
+import net.blue.chaoticd.content.ModPotions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +14,9 @@ public final class ChaoticDimensions implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Chaotic Dimensions clean foundation loaded");
+        ModEffects.initialize();
+        ModItems.initialize();
+        ModPotions.initialize();
+        LOGGER.info("Chaotic Dimensions Sapphire content loaded");
     }
 }

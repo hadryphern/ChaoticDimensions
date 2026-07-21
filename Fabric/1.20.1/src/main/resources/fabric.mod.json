@@ -12,8 +12,14 @@
   "entrypoints": {
     "main": [
       "net.blue.chaoticd.ChaoticDimensions"
+    ],
+    "client": [
+      "net.blue.chaoticd.client.ChaoticDimensionsClient"
     ]
   },
+  "mixins": [
+    "chaoticd.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.16.14",
     "fabric-api": "*",
