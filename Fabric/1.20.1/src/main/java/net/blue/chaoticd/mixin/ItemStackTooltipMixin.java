@@ -61,10 +61,10 @@ public abstract class ItemStackTooltipMixin {
             String label = entry.getKey().getFullname(entry.getValue()).getString();
             for (int index = 0; index < lines.size(); index++) {
                 if (!lines.get(index).getString().equals(label)) continue;
-                if (sapphire) {
-                    lines.set(index, RarityText.rainbow(label));
-                } else if (ModItemRarities.isChaoticEnchantment(entry.getKey())) {
+                if (ModItemRarities.isChaoticEnchantment(entry.getKey())) {
                     lines.set(index, Component.literal(label).withStyle(ChatFormatting.DARK_PURPLE));
+                } else if (sapphire) {
+                    lines.set(index, RarityText.rainbow(label));
                 } else if (ModItemRarities.isAboveVanillaCap(entry.getKey(), entry.getValue())) {
                     lines.set(index, Component.literal(label).withStyle(ChatFormatting.GOLD));
                 }

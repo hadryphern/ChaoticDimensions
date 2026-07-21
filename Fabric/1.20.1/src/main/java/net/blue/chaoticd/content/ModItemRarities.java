@@ -50,6 +50,10 @@ public final class ModItemRarities {
             || EnchantmentHelper.getEnchantments(stack).keySet().stream().anyMatch(ModItemRarities::isChaoticEnchantment)) {
             return Rank.ULTRA_RARE;
         }
+        if (EnchantmentHelper.getEnchantments(stack).entrySet().stream()
+            .anyMatch(entry -> isAboveVanillaCap(entry.getKey(), entry.getValue()))) {
+            return Rank.VERY_RARE;
+        }
         String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
         if (id.contains("netherite")) return Rank.EXTREMELY_RARE;
         if (id.contains("diamond")) return Rank.RARE;

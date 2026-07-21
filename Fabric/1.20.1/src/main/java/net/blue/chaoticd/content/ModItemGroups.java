@@ -47,13 +47,13 @@ public final class ModItemGroups {
         // Future blocks belong here.
     }
 
-    /** Second: tools, then weapons, each family kept together. */
+    /** Second: sword, axe, pickaxe, shovel and hoe, matching the agreed visual order. */
     private static void addToolsAndWeapons(CreativeModeTab.Output entries) {
-        entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.PICKAXE));
+        entries.accept(ModItems.createSapphireSword());
         entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.AXE));
+        entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.PICKAXE));
         entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.SHOVEL));
         entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.HOE));
-        entries.accept(ModItems.createSapphireSword());
     }
 
     /** Third: gems, ingots, raw materials, then ore blocks. */
