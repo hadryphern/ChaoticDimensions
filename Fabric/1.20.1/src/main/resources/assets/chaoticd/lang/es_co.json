@@ -8,16 +8,5 @@
   "item.minecraft.tipped_arrow.effect.sapphiric": "Flecha de efecto zafírico",
   "enchantment.chaoticd.sapphiric": "Zafírico",
   "enchantment.chaoticd.dheathic": "Dheathic",
-  "itemGroup.chaoticd.materials": "Chaotic Dimensions — Materiales",
-  "itemGroup.chaoticd.enchantments": "Chaotic Dimensions — Encantamientos",
-  "itemGroup.chaoticd.potions": "Chaotic Dimensions — Pociones",
-  "itemGroup.chaoticd.tools": "Chaotic Dimensions — Herramientas",
-  "itemGroup.chaoticd.weapons": "Chaotic Dimensions — Armas",
-  "itemGroup.chaoticd.armor": "Chaotic Dimensions — Armaduras",
-  "itemGroup.chaoticd.blocks": "Chaotic Dimensions — Bloques",
-  "itemGroup.chaoticd.ores": "Chaotic Dimensions — Minerales",
-  "itemGroup.chaoticd.nature": "Chaotic Dimensions — Naturaleza",
-  "itemGroup.chaoticd.food": "Chaotic Dimensions — Comida",
-  "itemGroup.chaoticd.spawn_eggs": "Chaotic Dimensions — Huevos de aparición",
-  "itemGroup.chaoticd.useful": "Chaotic Dimensions — Útiles"
+  "itemGroup.chaoticd.chaotic_dimensions": "Chaotic Dimensions"
 }

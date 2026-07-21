@@ -8,16 +8,5 @@
   "item.minecraft.tipped_arrow.effect.sapphiric": "Arrow of Sapphiric Effect",
   "enchantment.chaoticd.sapphiric": "Sapphiric",
   "enchantment.chaoticd.dheathic": "Dheathic",
-  "itemGroup.chaoticd.materials": "Chaotic Dimensions — Materials",
-  "itemGroup.chaoticd.enchantments": "Chaotic Dimensions — Enchantments",
-  "itemGroup.chaoticd.potions": "Chaotic Dimensions — Potions",
-  "itemGroup.chaoticd.tools": "Chaotic Dimensions — Tools",
-  "itemGroup.chaoticd.weapons": "Chaotic Dimensions — Weapons",
-  "itemGroup.chaoticd.armor": "Chaotic Dimensions — Armor",
-  "itemGroup.chaoticd.blocks": "Chaotic Dimensions — Blocks",
-  "itemGroup.chaoticd.ores": "Chaotic Dimensions — Ores",
-  "itemGroup.chaoticd.nature": "Chaotic Dimensions — Nature",
-  "itemGroup.chaoticd.food": "Chaotic Dimensions — Food",
-  "itemGroup.chaoticd.spawn_eggs": "Chaotic Dimensions — Spawn Eggs",
-  "itemGroup.chaoticd.useful": "Chaotic Dimensions — Useful"
+  "itemGroup.chaoticd.chaotic_dimensions": "Chaotic Dimensions"
 }

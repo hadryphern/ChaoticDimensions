@@ -13,53 +13,85 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 /**
- * The native Minecraft equivalent of Chaotic Dimensions sub-tabs.
- * Minecraft 1.20.1 has no nested creative tabs, so each category is a dedicated tab with the same prefix.
+ * The single, ordered creative tab for this mod.
+ *
+ * Keep the section methods and their call order intact. New content must be added only to its matching
+ * section so the tab never becomes a random collection of items.
  */
 public final class ModItemGroups {
-    public static final CreativeModeTab MATERIALS = register("materials", "itemGroup.chaoticd.materials",
-        () -> new ItemStack(ModItems.SAPPHIRE_GEM), (parameters, entries) -> entries.accept(ModItems.SAPPHIRE_GEM));
-    public static final CreativeModeTab ENCHANTMENTS = register("enchantments", "itemGroup.chaoticd.enchantments",
-        () -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.SAPPHIRIC, 1)),
-        (parameters, entries) -> entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.SAPPHIRIC, 1))));
-    public static final CreativeModeTab POTIONS = register("potions", "itemGroup.chaoticd.potions",
-        () -> ModPotions.potion(Items.POTION), (parameters, entries) -> {
-            entries.accept(ModPotions.potion(Items.POTION));
-            entries.accept(ModPotions.potion(Items.SPLASH_POTION));
-            entries.accept(ModPotions.potion(Items.LINGERING_POTION));
-            entries.accept(ModPotions.potion(Items.TIPPED_ARROW));
-        });
-    public static final CreativeModeTab TOOLS = empty("tools", "itemGroup.chaoticd.tools", Items.DIAMOND_PICKAXE);
-    public static final CreativeModeTab WEAPONS = register("weapons", "itemGroup.chaoticd.weapons",
-        ModItems::createSapphireSword, (parameters, entries) -> entries.accept(ModItems.createSapphireSword()));
-    public static final CreativeModeTab ARMOR = empty("armor", "itemGroup.chaoticd.armor", Items.DIAMOND_CHESTPLATE);
-    public static final CreativeModeTab BLOCKS = empty("blocks", "itemGroup.chaoticd.blocks", Items.STONE);
-    public static final CreativeModeTab ORES = empty("ores", "itemGroup.chaoticd.ores", Items.IRON_ORE);
-    public static final CreativeModeTab NATURE = empty("nature", "itemGroup.chaoticd.nature", Items.OAK_SAPLING);
-    public static final CreativeModeTab FOOD = empty("food", "itemGroup.chaoticd.food", Items.APPLE);
-    public static final CreativeModeTab SPAWN_EGGS = empty("spawn_eggs", "itemGroup.chaoticd.spawn_eggs", Items.PIG_SPAWN_EGG);
-    public static final CreativeModeTab USEFUL = empty("useful", "itemGroup.chaoticd.useful", Items.CRAFTING_TABLE);
+    public static final CreativeModeTab CHAOTIC_DIMENSIONS = Registry.register(
+        BuiltInRegistries.CREATIVE_MODE_TAB,
+        new ResourceLocation(ChaoticDimensions.MOD_ID, "chaotic_dimensions"),
+        FabricItemGroup.builder()
+            .title(Component.translatable("itemGroup.chaoticd.chaotic_dimensions"))
+            .icon(ModItems::createSapphireSword)
+            .displayItems((parameters, entries) -> {
+                addBlocks(entries);
+                addToolsAndWeapons(entries);
+                addMaterialsAndOres(entries);
+                addArmor(entries);
+                addEnchantments(entries);
+                addPotions(entries);
+                addNature(entries);
+                addFood(entries);
+                addSpawnEggs(entries);
+                addUsefulItems(entries);
+            })
+            .build());
 
     private ModItemGroups() {
     }
 
-    private static CreativeModeTab empty(String id, String title, net.minecraft.world.item.Item icon) {
-        return register(id, title, () -> new ItemStack(icon), (parameters, entries) -> { });
+    /** First: all block items, ordered by their block family. */
+    private static void addBlocks(CreativeModeTab.Output entries) {
+        // Future blocks belong here.
     }
 
-    private static CreativeModeTab register(String id, String title,
-                                            java.util.function.Supplier<ItemStack> icon,
-                                            CreativeModeTab.DisplayItemsGenerator entries) {
-        return Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
-            new ResourceLocation(ChaoticDimensions.MOD_ID, id),
-            FabricItemGroup.builder()
-                .title(Component.translatable(title))
-                .icon(icon)
-                .displayItems(entries)
-                .build());
+    /** Second: tools, then weapons, each family kept together. */
+    private static void addToolsAndWeapons(CreativeModeTab.Output entries) {
+        entries.accept(ModItems.createSapphireSword());
+    }
+
+    /** Third: gems, ingots, raw materials, then ore blocks. */
+    private static void addMaterialsAndOres(CreativeModeTab.Output entries) {
+        entries.accept(ModItems.SAPPHIRE_GEM);
+    }
+
+    /** Fourth: all armor pieces, grouped by material. */
+    private static void addArmor(CreativeModeTab.Output entries) {
+        // Future armor belongs here.
+    }
+
+    /** Fifth: enchanted books. Dheathic stays an Ender Dragon reward in survival. */
+    private static void addEnchantments(CreativeModeTab.Output entries) {
+        entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.SAPPHIRIC, 1)));
+    }
+
+    /** Sixth: drinkable potion, splash potion, lingering potion, then tipped arrow. */
+    private static void addPotions(CreativeModeTab.Output entries) {
+        entries.accept(ModPotions.potion(Items.POTION));
+        entries.accept(ModPotions.potion(Items.SPLASH_POTION));
+        entries.accept(ModPotions.potion(Items.LINGERING_POTION));
+        entries.accept(ModPotions.potion(Items.TIPPED_ARROW));
+    }
+
+    private static void addNature(CreativeModeTab.Output entries) {
+        // Future natural content belongs here.
+    }
+
+    private static void addFood(CreativeModeTab.Output entries) {
+        // Future food belongs here.
+    }
+
+    private static void addSpawnEggs(CreativeModeTab.Output entries) {
+        // Future spawn eggs belong here.
+    }
+
+    private static void addUsefulItems(CreativeModeTab.Output entries) {
+        // Future utility items belong here.
     }
 
     public static void initialize() {
-        // Loading this class performs the registry entries above.
+        // Loading this class performs the registry entry above.
     }
 }
