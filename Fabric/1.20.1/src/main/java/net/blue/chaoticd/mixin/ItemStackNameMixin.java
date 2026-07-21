@@ -3,7 +3,6 @@ package net.blue.chaoticd.mixin;
 import net.blue.chaoticd.content.ModItemRarities;
 import net.blue.chaoticd.content.RarityText;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,8 +20,6 @@ public abstract class ItemStackNameMixin {
         }
         Component original = callback.getReturnValue();
         ModItemRarities.Rank rank = ModItemRarities.rank(stack);
-        callback.setReturnValue(rank == ModItemRarities.Rank.LEGENDARY
-            ? RarityText.rainbow(original.getString())
-            : Component.literal(original.getString()).setStyle(Style.EMPTY.withColor(rank.color())));
+        callback.setReturnValue(RarityText.forRank(original.getString(), rank));
     }
 }

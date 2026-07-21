@@ -45,14 +45,22 @@ public final class ModItemRarities {
     }
 
     public static Rank rank(ItemStack stack) {
+        Rank result = baseRank(stack);
+        int nonCommonEnchantments = 0;
+        for (var entry : EnchantmentHelper.getEnchantments(stack).entrySet()) {
+            Rank enchantmentRank = enchantmentRank(entry.getKey(), entry.getValue());
+            result = higher(result, enchantmentRank);
+            if (enchantmentRank != Rank.COMMON) nonCommonEnchantments++;
+        }
+        // A combination of three meaningful enchantments promotes the item one extra tier.
+        return promote(result, nonCommonEnchantments / 3);
+    }
+
+    private static Rank baseRank(ItemStack stack) {
         if (isSapphire(stack)) return Rank.LEGENDARY;
         if (PotionUtils.getPotion(stack) == ModPotions.SAPPHIRIC
-            || EnchantmentHelper.getEnchantments(stack).keySet().stream().anyMatch(ModItemRarities::isChaoticEnchantment)) {
+            ) {
             return Rank.ULTRA_RARE;
-        }
-        if (EnchantmentHelper.getEnchantments(stack).entrySet().stream()
-            .anyMatch(entry -> isGoldExtendedLevel(entry.getKey(), entry.getValue()))) {
-            return Rank.VERY_RARE;
         }
         String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
         if (id.contains("netherite")) return Rank.EXTREMELY_RARE;
@@ -66,24 +74,43 @@ public final class ModItemRarities {
         };
     }
 
+    /** Determines one enchantment's visual rarity independently of the item it is on. */
+    public static Rank enchantmentRank(Enchantment enchantment, int level) {
+        if (isChaoticEnchantment(enchantment)) return Rank.ULTRA_RARE;
+        if (isExtendedVanillaLevel(enchantment, level)) return Rank.VERY_RARE;
+        return switch (enchantment.getRarity()) {
+            case COMMON -> Rank.COMMON;
+            case UNCOMMON -> Rank.UNCOMMON;
+            case RARE -> Rank.RARE;
+            case VERY_RARE -> Rank.VERY_RARE;
+        };
+    }
+
+    private static Rank higher(Rank first, Rank second) {
+        return first.ordinal() >= second.ordinal() ? first : second;
+    }
+
+    private static Rank promote(Rank rank, int levels) {
+        return Rank.values()[Math.min(rank.ordinal() + levels, Rank.ENDGAME.ordinal())];
+    }
+
     public static boolean isChaoticEnchantment(Enchantment enchantment) {
         return enchantment == ModEnchantments.SAPPHIRIC || enchantment == ModEnchantments.DHEATHIC
             || enchantment == ModEnchantments.BIG_BERTHA || enchantment == ModEnchantments.ROYAL
             || enchantment == ModEnchantments.DISPARADA;
     }
 
-    /** Only the highest new vanilla level earns the gold treatment; intermediate levels stay vanilla-coloured. */
-    public static boolean isGoldExtendedLevel(Enchantment enchantment, int level) {
-        int goldLevel = enchantment == Enchantments.SHARPNESS || enchantment == Enchantments.ALL_DAMAGE_PROTECTION
-            || enchantment == Enchantments.FIRE_PROTECTION || enchantment == Enchantments.BLAST_PROTECTION
-            || enchantment == Enchantments.PROJECTILE_PROTECTION || enchantment == Enchantments.FALL_PROTECTION
-            || enchantment == Enchantments.THORNS ? 15
-            : enchantment == Enchantments.KNOCKBACK ? 20
-            : enchantment == Enchantments.UNBREAKING || enchantment == Enchantments.BLOCK_EFFICIENCY
-            || enchantment == Enchantments.SMITE || enchantment == Enchantments.BANE_OF_ARTHROPODS
-            || enchantment == Enchantments.SWEEPING_EDGE || enchantment == Enchantments.FIRE_ASPECT
-            || enchantment == Enchantments.MOB_LOOTING || enchantment == Enchantments.BLOCK_FORTUNE ? 10
-            : Integer.MAX_VALUE;
-        return level >= goldLevel;
+    /** Any level beyond the vanilla cap is Very Rare; it is still coloured by rarity, never by item material. */
+    private static boolean isExtendedVanillaLevel(Enchantment enchantment, int level) {
+        int vanillaCap = enchantment == Enchantments.SHARPNESS || enchantment == Enchantments.SMITE
+            || enchantment == Enchantments.BANE_OF_ARTHROPODS || enchantment == Enchantments.BLOCK_EFFICIENCY ? 5
+            : enchantment == Enchantments.UNBREAKING || enchantment == Enchantments.MOB_LOOTING
+            || enchantment == Enchantments.BLOCK_FORTUNE || enchantment == Enchantments.SWEEPING_EDGE
+            || enchantment == Enchantments.THORNS ? 3
+            : enchantment == Enchantments.ALL_DAMAGE_PROTECTION || enchantment == Enchantments.FIRE_PROTECTION
+            || enchantment == Enchantments.BLAST_PROTECTION || enchantment == Enchantments.PROJECTILE_PROTECTION
+            || enchantment == Enchantments.FALL_PROTECTION ? 4
+            : enchantment == Enchantments.KNOCKBACK || enchantment == Enchantments.FIRE_ASPECT ? 2 : Integer.MAX_VALUE;
+        return level > vanillaCap;
     }
 }

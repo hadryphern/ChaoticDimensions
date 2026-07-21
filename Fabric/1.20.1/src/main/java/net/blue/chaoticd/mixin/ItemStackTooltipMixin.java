@@ -8,7 +8,6 @@ import net.blue.chaoticd.content.ModItemRarities;
 import net.blue.chaoticd.content.RarityText;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -56,18 +55,12 @@ public abstract class ItemStackTooltipMixin {
     }
 
     private static void styleEnchantments(ItemStack stack, List<Component> lines) {
-        boolean sapphire = ModItemRarities.isSapphire(stack);
         for (Map.Entry<Enchantment, Integer> entry : EnchantmentHelper.getEnchantments(stack).entrySet()) {
             String label = entry.getKey().getFullname(entry.getValue()).getString();
             for (int index = 0; index < lines.size(); index++) {
                 if (!lines.get(index).getString().equals(label)) continue;
-                if (ModItemRarities.isChaoticEnchantment(entry.getKey())) {
-                    lines.set(index, Component.literal(label).withStyle(ChatFormatting.DARK_PURPLE));
-                } else if (sapphire) {
-                    lines.set(index, RarityText.rainbow(label));
-                } else if (ModItemRarities.isGoldExtendedLevel(entry.getKey(), entry.getValue())) {
-                    lines.set(index, Component.literal(label).withStyle(ChatFormatting.GOLD));
-                }
+                lines.set(index, RarityText.forRank(label,
+                    ModItemRarities.enchantmentRank(entry.getKey(), entry.getValue())));
                 break;
             }
         }
@@ -75,14 +68,7 @@ public abstract class ItemStackTooltipMixin {
 
     private static Component rankLine(ModItemRarities.Rank rank) {
         String label = Component.translatable(rank.translationKey()).getString();
-        return switch (rank) {
-            case LEGENDARY -> RarityText.rainbow(label);
-            case FORBIDDEN -> RarityText.gradient(label, 0xAAAAAA, 0xFFFFFF);
-            case EXTRAVAGANT -> RarityText.gradient(label, 0xFFD700, 0x55DFFF);
-            case GOD -> RarityText.gradient(label, 0xFFD700, 0xFFFFFF);
-            case ENDGAME -> RarityText.gradient(label, 0xAA00FF, 0xFF55FF, 0x5555FF, 0x111111);
-            default -> Component.literal(label).withStyle(Style.EMPTY.withColor(rank.color()));
-        };
+        return RarityText.forRank(label, rank);
     }
 
     private static double finalAttackDamage(ItemStack stack, Player player) {

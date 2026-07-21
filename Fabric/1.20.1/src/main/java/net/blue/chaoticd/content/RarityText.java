@@ -23,4 +23,15 @@ public final class RarityText {
         }
         return result;
     }
+
+    public static Component forRank(String text, ModItemRarities.Rank rank) {
+        return switch (rank) {
+            case LEGENDARY -> rainbow(text);
+            case FORBIDDEN -> gradient(text, 0xAAAAAA, 0xFFFFFF);
+            case EXTRAVAGANT -> gradient(text, 0xFFD700, 0x55DFFF);
+            case GOD -> gradient(text, 0xFFD700, 0xFFFFFF);
+            case ENDGAME -> gradient(text, 0xAA00FF, 0xFF55FF, 0x5555FF, 0x111111);
+            default -> Component.literal(text).setStyle(Style.EMPTY.withColor(rank.color()));
+        };
+    }
 }
