@@ -3,14 +3,10 @@ package net.blue.chaoticd.content;
 import net.blue.chaoticd.ChaoticDimensions;
 import net.blue.chaoticd.content.enchantment.DheathicEnchantment;
 import net.blue.chaoticd.content.enchantment.SapphiricEnchantment;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 /** Registers the two Sapphire-era enchantments and the obtainable Sapphiric book. */
 public final class ModEnchantments {
@@ -26,8 +22,6 @@ public final class ModEnchantments {
     }
 
     public static void initialize() {
-        // Dheathic deliberately is not placed in Creative: the Ender Dragon is its sole normal source.
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries ->
-            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(SAPPHIRIC, 1))));
+        // Books are placed in the dedicated Chaotic Dimensions Enchantments category.
     }
 }

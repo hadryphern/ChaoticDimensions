@@ -1,14 +1,11 @@
 package net.blue.chaoticd.content;
 
 import net.blue.chaoticd.ChaoticDimensions;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -25,16 +22,10 @@ public final class ModPotions {
 
     public static void initialize() {
         PotionBrewing.addMix(Potions.AWKWARD, ModItems.SAPPHIRE_GEM, SAPPHIRIC);
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> {
-            entries.accept(potion(Items.POTION));
-            entries.accept(potion(Items.SPLASH_POTION));
-            entries.accept(potion(Items.LINGERING_POTION));
-        });
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries ->
-            entries.accept(potion(Items.TIPPED_ARROW)));
+        // Containers are shown in the dedicated Chaotic Dimensions Potions category.
     }
 
-    private static ItemStack potion(net.minecraft.world.item.Item container) {
+    public static ItemStack potion(net.minecraft.world.item.Item container) {
         return PotionUtils.setPotion(new ItemStack(container), SAPPHIRIC);
     }
 }

@@ -1,7 +1,5 @@
 package net.blue.chaoticd.content.recipe;
 
-import java.util.Map;
-import net.blue.chaoticd.content.ModEnchantments;
 import net.blue.chaoticd.content.ModItems;
 import net.blue.chaoticd.content.ModRecipes;
 import net.minecraft.core.RegistryAccess;
@@ -13,7 +11,6 @@ import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 /** Two Sapphire Gems above a stick; results are born with both defining enchantments. */
 public final class SapphireSwordRecipe extends CustomRecipe {
@@ -52,11 +49,7 @@ public final class SapphireSwordRecipe extends CustomRecipe {
 
     @Override
     public ItemStack assemble(CraftingContainer inventory, RegistryAccess registries) {
-        ItemStack result = new ItemStack(ModItems.SAPPHIRE_SWORD);
-        EnchantmentHelper.setEnchantments(Map.of(
-            ModEnchantments.SAPPHIRIC, 1,
-            ModEnchantments.DHEATHIC, 1), result);
-        return result;
+        return ModItems.createSapphireSword();
     }
 
     @Override

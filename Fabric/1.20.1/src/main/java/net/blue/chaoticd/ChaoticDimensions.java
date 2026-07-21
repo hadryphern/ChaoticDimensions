@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.blue.chaoticd.content.ModEffects;
 import net.blue.chaoticd.content.ModEnchantments;
 import net.blue.chaoticd.content.ModGameplayEvents;
+import net.blue.chaoticd.content.ModItemGroups;
 import net.blue.chaoticd.content.ModItems;
 import net.blue.chaoticd.content.ModPotions;
 import net.blue.chaoticd.content.ModRecipes;
@@ -21,6 +22,7 @@ public final class ChaoticDimensions implements ModInitializer {
         ModEffects.initialize();
         ModItems.initialize();
         ModPotions.initialize();
+        ModItemGroups.initialize();
         ModRecipes.initialize();
         ModGameplayEvents.initialize();
         LOGGER.info("Chaotic Dimensions Sapphire content and enchantments loaded");
