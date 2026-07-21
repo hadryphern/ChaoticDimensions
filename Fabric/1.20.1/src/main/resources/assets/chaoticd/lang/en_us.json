@@ -10,6 +10,6 @@
   "enchantment.chaoticd.dheathic": "Dheathic",
   "enchantment.chaoticd.big_bertha": "Big Bertha",
   "enchantment.chaoticd.royal": "Royal",
-  "tooltip.chaoticd.attack_reach": "%s Attack Reach",
+  "tooltip.chaoticd.attack_reach": "Attack Reach",
   "itemGroup.chaoticd.chaotic_dimensions": "Chaotic Dimensions"
 }

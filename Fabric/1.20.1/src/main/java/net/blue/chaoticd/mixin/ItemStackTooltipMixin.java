@@ -34,15 +34,17 @@ public abstract class ItemStackTooltipMixin {
             String attackDamageName = Component.translatable("attribute.name.generic.attack_damage").getString();
             for (int index = 0; index < lines.size(); index++) {
                 if (lines.get(index).getString().contains(attackDamageName)) {
-                    lines.set(index, Component.literal(format(finalAttackDamage(stack, player) * multiplier) + " ")
-                        .append(Component.translatable("attribute.name.generic.attack_damage"))
+                    lines.set(index, Component.translatable("attribute.modifier.plus.0",
+                        format(finalAttackDamage(stack, player) * multiplier),
+                        Component.translatable("attribute.name.generic.attack_damage"))
                         .withStyle(ChatFormatting.DARK_PURPLE));
                     break;
                 }
             }
         }
         if (reach > 0.0F) {
-            lines.add(Component.translatable("tooltip.chaoticd.attack_reach", format(reach))
+            lines.add(Component.translatable("attribute.modifier.plus.0", format(reach),
+                Component.translatable("tooltip.chaoticd.attack_reach"))
                 .withStyle(ChatFormatting.DARK_PURPLE));
         }
         callback.setReturnValue(lines);
