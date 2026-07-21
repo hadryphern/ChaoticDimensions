@@ -3,6 +3,7 @@ package net.blue.chaoticd.content;
 import net.blue.chaoticd.ChaoticDimensions;
 import net.blue.chaoticd.content.item.SapphireSwordItem;
 import net.blue.chaoticd.content.item.SapphireTier;
+import net.blue.chaoticd.content.item.ChaoticAppleItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.food.FoodProperties;
 
 import java.util.Map;
 
@@ -25,6 +27,8 @@ public final class ModItems {
     public static final Item SAPPHIRE_AXE = register("sapphire_axe", new AxeItem(SapphireTier.INSTANCE, 7.0F, -3.0F, new Item.Properties()));
     public static final Item SAPPHIRE_SHOVEL = register("sapphire_shovel", new ShovelItem(SapphireTier.INSTANCE, 1.5F, -3.0F, new Item.Properties()));
     public static final Item SAPPHIRE_HOE = register("sapphire_hoe", new HoeItem(SapphireTier.INSTANCE, -2, -1.0F, new Item.Properties()));
+    public static final Item CHAOTIC_APPLE = register("chaotic_apple", new ChaoticAppleItem(new Item.Properties()
+        .food(new FoodProperties.Builder().nutrition(8).saturationMod(1.2F).alwaysEat().build())));
 
     private ModItems() {
     }

@@ -104,7 +104,7 @@ public final class ModItemGroups {
     }
 
     private static void addFood(CreativeModeTab.Output entries) {
-        // Future food belongs here.
+        entries.accept(ModItems.CHAOTIC_APPLE.getDefaultInstance());
     }
 
     private static void addSpawnEggs(CreativeModeTab.Output entries) {

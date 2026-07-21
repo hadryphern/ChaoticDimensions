@@ -77,5 +77,6 @@
   "block.chaoticd.pastel_purple_leaves": "Purple Aurora Leaves",
   "block.chaoticd.pastel_blue_leaves": "Blue Aurora Leaves",
   "block.chaoticd.sapphire_ore": "Sapphire Ore",
-  "block.chaoticd.rosalita_ore": "Rosalita Ore"
+  "block.chaoticd.rosalita_ore": "Rosalita Ore",
+  "item.chaoticd.chaotic_apple": "Chaotic Apple"
 }
