@@ -62,9 +62,10 @@ public final class ModItemGroups {
         // Future armor belongs here.
     }
 
-    /** Fifth: enchanted books. Dheathic stays an Ender Dragon reward in survival. */
+    /** Fifth: enchanted books. Dheathic remains an Ender Dragon reward in survival. */
     private static void addEnchantments(CreativeModeTab.Output entries) {
         entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.SAPPHIRIC, 1)));
+        entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.DHEATHIC, 1)));
     }
 
     /** Sixth: drinkable potion, splash potion, lingering potion, then tipped arrow. */
