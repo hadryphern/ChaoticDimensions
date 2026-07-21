@@ -73,6 +73,9 @@ public final class ModItemGroups {
         for (int level = 1; level <= ModEnchantments.ROYAL.getMaxLevel(); level++) {
             entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.ROYAL, level)));
         }
+        for (int level = 1; level <= ModEnchantments.DISPARADA.getMaxLevel(); level++) {
+            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.DISPARADA, level)));
+        }
         entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.DHEATHIC, 1)));
     }
 

@@ -5,6 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 /** A treasure-only repair enchantment for tiered tools and weapons. */
 public final class DheathicEnchantment extends Enchantment {
@@ -35,5 +36,10 @@ public final class DheathicEnchantment extends Enchantment {
     @Override
     public boolean isDiscoverable() {
         return false;
+    }
+
+    @Override
+    public boolean checkCompatibility(Enchantment other) {
+        return other != Enchantments.MENDING && other != Enchantments.SILK_TOUCH && super.checkCompatibility(other);
     }
 }
