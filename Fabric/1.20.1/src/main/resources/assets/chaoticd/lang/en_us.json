@@ -10,7 +10,6 @@
   "enchantment.chaoticd.dheathic": "Dheathic",
   "enchantment.chaoticd.big_bertha": "Big Bertha",
   "enchantment.chaoticd.royal": "Royal",
-  "tooltip.chaoticd.sapphire_sword_damage": "Enchanted damage: %s (×%s)",
-  "tooltip.chaoticd.sword_reach": "Sword reach: %s blocks",
+  "tooltip.chaoticd.attack_reach": "%s Attack Reach",
   "itemGroup.chaoticd.chaotic_dimensions": "Chaotic Dimensions"
 }

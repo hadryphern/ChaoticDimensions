@@ -3,7 +3,8 @@
   "package": "net.blue.chaoticd.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ServerGamePacketListenerImplMixin"
+    "ServerGamePacketListenerImplMixin",
+    "ItemStackTooltipMixin"
   ],
   "client": [
     "client.KeyboardInputMixin",
