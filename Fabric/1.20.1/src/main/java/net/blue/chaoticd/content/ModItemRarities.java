@@ -10,29 +10,32 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 /** Central visual rarity rules. Extend this class whenever new Chaotic Dimensions item families are added. */
 public final class ModItemRarities {
     public enum Rank {
-        COMMON("rarity.chaoticd.common", 0x55DFFF),
-        UNCOMMON("rarity.chaoticd.uncommon", 0x55FF55),
-        RARE("rarity.chaoticd.rare", 0x55FFFF),
-        VERY_RARE("rarity.chaoticd.very_rare", 0xFF55FF),
-        EXTREMELY_RARE("rarity.chaoticd.extremely_rare", 0x5555FF),
-        ULTRA_RARE("rarity.chaoticd.ultra_rare", 0xAA00FF),
-        IMPOSSIBLE("rarity.chaoticd.impossible", 0xFF5555),
-        FORBIDDEN("rarity.chaoticd.forbidden", 0xAAAAAA),
-        LEGENDARY("rarity.chaoticd.legendary", 0xFFD700),
-        EXTRAVAGANT("rarity.chaoticd.extravagant", 0xFFD700),
-        GOD("rarity.chaoticd.god", 0xFFD700),
-        ENDGAME("rarity.chaoticd.endgame", 0xAA00FF);
+        COMMON("rarity.chaoticd.common", 0x55DFFF, 0),
+        UNCOMMON("rarity.chaoticd.uncommon", 0x55FF55, 4),
+        RARE("rarity.chaoticd.rare", 0x55FFFF, 10),
+        VERY_RARE("rarity.chaoticd.very_rare", 0xFF55FF, 20),
+        EXTREMELY_RARE("rarity.chaoticd.extremely_rare", 0x5555FF, 36),
+        ULTRA_RARE("rarity.chaoticd.ultra_rare", 0xAA00FF, 60),
+        IMPOSSIBLE("rarity.chaoticd.impossible", 0xFF5555, 100),
+        FORBIDDEN("rarity.chaoticd.forbidden", 0xAAAAAA, 170),
+        LEGENDARY("rarity.chaoticd.legendary", 0xFFD700, 280),
+        EXTRAVAGANT("rarity.chaoticd.extravagant", 0xFFD700, 430),
+        GOD("rarity.chaoticd.god", 0xFFD700, 620),
+        ENDGAME("rarity.chaoticd.endgame", 0xAA00FF, 850);
 
         private final String translationKey;
         private final int color;
+        private final int threshold;
 
-        Rank(String translationKey, int color) {
+        Rank(String translationKey, int color, int threshold) {
             this.translationKey = translationKey;
             this.color = color;
+            this.threshold = threshold;
         }
 
         public String translationKey() { return translationKey; }
         public int color() { return color; }
+        public int threshold() { return threshold; }
     }
 
     private ModItemRarities() {
@@ -45,15 +48,12 @@ public final class ModItemRarities {
     }
 
     public static Rank rank(ItemStack stack) {
-        Rank result = baseRank(stack);
-        int nonCommonEnchantments = 0;
+        int totalScore = baseRank(stack).threshold();
         for (var entry : EnchantmentHelper.getEnchantments(stack).entrySet()) {
             Rank enchantmentRank = enchantmentRank(entry.getKey(), entry.getValue());
-            result = higher(result, enchantmentRank);
-            if (enchantmentRank != Rank.COMMON) nonCommonEnchantments++;
+            totalScore += enchantmentScore(enchantmentRank);
         }
-        // A combination of three meaningful enchantments promotes the item one extra tier.
-        return promote(result, nonCommonEnchantments / 3);
+        return rankForScore(totalScore);
     }
 
     private static Rank baseRank(ItemStack stack) {
@@ -86,12 +86,33 @@ public final class ModItemRarities {
         };
     }
 
-    private static Rank higher(Rank first, Rank second) {
-        return first.ordinal() >= second.ordinal() ? first : second;
+    /**
+     * Enchantment score grows slower than the rank thresholds. This prevents a single powerful book
+     * from instantly making a normal item Legendary, while combinations still matter.
+     */
+    private static int enchantmentScore(Rank rank) {
+        return switch (rank) {
+            case COMMON -> 1;
+            case UNCOMMON -> 2;
+            case RARE -> 6;
+            case VERY_RARE -> 16;
+            case EXTREMELY_RARE -> 25;
+            case ULTRA_RARE -> 40;
+            case IMPOSSIBLE -> 65;
+            case FORBIDDEN -> 100;
+            case LEGENDARY -> 150;
+            case EXTRAVAGANT -> 210;
+            case GOD -> 300;
+            case ENDGAME -> 420;
+        };
     }
 
-    private static Rank promote(Rank rank, int levels) {
-        return Rank.values()[Math.min(rank.ordinal() + levels, Rank.ENDGAME.ordinal())];
+    private static Rank rankForScore(int score) {
+        Rank result = Rank.COMMON;
+        for (Rank candidate : Rank.values()) {
+            if (score >= candidate.threshold()) result = candidate;
+        }
+        return result;
     }
 
     public static boolean isChaoticEnchantment(Enchantment enchantment) {
