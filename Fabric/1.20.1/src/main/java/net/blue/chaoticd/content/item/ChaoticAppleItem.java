@@ -2,6 +2,7 @@ package net.blue.chaoticd.content.item;
 
 import java.util.Map;
 import net.blue.chaoticd.ChaoticDimensions;
+import net.blue.chaoticd.content.worldgen.PastelAuroraSkylandFeature;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -42,7 +43,8 @@ public final class ChaoticAppleItem extends Item {
         if (!level.isClientSide && entity instanceof ServerPlayer player) {
             ServerLevel aurora = player.server.getLevel(AURORA_DIMENSION);
             if (aurora != null) {
-                player.teleportTo(aurora, 0.5D, 302.0D, 0.5D, player.getYRot(), player.getXRot());
+                PastelAuroraSkylandFeature.ensureArrivalIsland(aurora);
+                player.teleportTo(aurora, 0.5D, 303.0D, 0.5D, player.getYRot(), player.getXRot());
             }
         }
         return result;

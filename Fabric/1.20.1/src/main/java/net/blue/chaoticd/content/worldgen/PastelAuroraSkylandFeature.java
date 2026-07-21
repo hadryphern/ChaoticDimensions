@@ -4,7 +4,8 @@ import com.mojang.serialization.Codec;
 import net.blue.chaoticd.content.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,10 +24,19 @@ public final class PastelAuroraSkylandFeature extends Feature<NoneFeatureConfigu
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        WorldGenLevel level = context.level();
-        RandomSource random = context.random();
-        BlockPos origin = context.origin();
-        int radius = 44 + random.nextInt(25);
+        createIsland(context.level(), context.origin(), context.random(), 44 + context.random().nextInt(25));
+        return true;
+    }
+
+    /** Creates the permanent safe arrival island before an apple teleports a player into Aurora. */
+    public static void ensureArrivalIsland(ServerLevel level) {
+        BlockPos center = new BlockPos(0, 300, 0);
+        if (!level.getBlockState(center).is(ModBlocks.PASTEL_GRASS)) {
+            createIsland(level, center, RandomSource.create(level.getSeed() ^ 0xA0A0A123L), 58);
+        }
+    }
+
+    private static void createIsland(LevelAccessor level, BlockPos origin, RandomSource random, int radius) {
         int top = origin.getY();
 
         for (int dx = -radius; dx <= radius; dx++) {
@@ -57,7 +67,6 @@ public final class PastelAuroraSkylandFeature extends Feature<NoneFeatureConfigu
         int waterfallZ = random.nextBoolean() ? radius / 3 : -radius / 3;
         int waterfallSurface = top - (int) Math.round(Math.sqrt(waterfallX * waterfallX + waterfallZ * waterfallZ) / radius * 7.0D);
         level.setBlock(origin.offset(waterfallX, waterfallSurface - top + 1, waterfallZ), Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
-        return true;
     }
 
     private static BlockState islandBlock(RandomSource random) {
@@ -67,7 +76,7 @@ public final class PastelAuroraSkylandFeature extends Feature<NoneFeatureConfigu
         return SOIL;
     }
 
-    private static void placeTree(WorldGenLevel level, BlockPos base, RandomSource random) {
+    private static void placeTree(LevelAccessor level, BlockPos base, RandomSource random) {
         int trunkHeight = 5 + random.nextInt(4);
         for (int y = 0; y < trunkHeight; y++) {
             level.setBlock(base.above(y), ModBlocks.PASTEL_AURORA_LOG.defaultBlockState(), Block.UPDATE_CLIENTS);
@@ -83,7 +92,7 @@ public final class PastelAuroraSkylandFeature extends Feature<NoneFeatureConfigu
                 for (int dz = -3; dz <= 3; dz++) {
                     if (dx * dx + dz * dz + dy * dy > 11 || random.nextFloat() < 0.12F) continue;
                     BlockPos pos = crown.offset(dx, dy, dz);
-                    if (level.isEmptyBlock(pos)) level.setBlock(pos, leaves, Block.UPDATE_CLIENTS);
+                    if (level.getBlockState(pos).isAir()) level.setBlock(pos, leaves, Block.UPDATE_CLIENTS);
                 }
             }
         }
