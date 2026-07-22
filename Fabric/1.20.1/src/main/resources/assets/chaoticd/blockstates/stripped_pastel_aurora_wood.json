@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": { "model": "chaoticd:block/stripped_pastel_aurora_wood" },
+    "axis=z": { "model": "chaoticd:block/stripped_pastel_aurora_wood_horizontal", "x": 90 },
+    "axis=x": { "model": "chaoticd:block/stripped_pastel_aurora_wood_horizontal", "x": 90, "y": 90 }
+  }
+}

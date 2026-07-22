@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"chaoticd:pastel_aurora_log"}],"result":{"item":"chaoticd:pastel_aurora_planks","count":4}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "tag": "chaoticd:pastel_aurora_logs"
+    }
+  ],
+  "result": {
+    "item": "chaoticd:pastel_aurora_planks",
+    "count": 4
+  }
+}

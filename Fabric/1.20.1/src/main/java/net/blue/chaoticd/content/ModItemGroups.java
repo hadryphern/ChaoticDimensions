@@ -44,13 +44,17 @@ public final class ModItemGroups {
 
     /** First: all block items, ordered by their block family. */
     private static void addBlocks(CreativeModeTab.Output entries) {
-        entries.accept(ModBlocks.PASTEL_SOIL);
-        entries.accept(ModBlocks.PASTEL_GRASS);
         entries.accept(ModBlocks.PASTEL_AURORA_LOG);
+        entries.accept(ModBlocks.PASTEL_AURORA_WOOD);
+        entries.accept(ModBlocks.STRIPPED_PASTEL_AURORA_LOG);
+        entries.accept(ModBlocks.STRIPPED_PASTEL_AURORA_WOOD);
         entries.accept(ModBlocks.PASTEL_AURORA_PLANKS);
         entries.accept(ModBlocks.PASTEL_PINK_LEAVES);
         entries.accept(ModBlocks.PASTEL_PURPLE_LEAVES);
         entries.accept(ModBlocks.PASTEL_BLUE_LEAVES);
+        entries.accept(ModBlocks.PASTEL_GRASS);
+        entries.accept(ModBlocks.PASTEL_SOIL);
+        entries.accept(ModBlocks.PASTEL_AURORA_STONE);
         entries.accept(ModBlocks.SAPPHIRE_ORE);
         entries.accept(ModBlocks.ROSALITA_ORE);
     }

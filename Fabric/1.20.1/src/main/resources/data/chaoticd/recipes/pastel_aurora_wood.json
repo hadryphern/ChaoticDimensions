@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "chaoticd:pastel_aurora_log"
+    }
+  },
+  "result": {
+    "item": "chaoticd:pastel_aurora_wood",
+    "count": 3
+  }
+}

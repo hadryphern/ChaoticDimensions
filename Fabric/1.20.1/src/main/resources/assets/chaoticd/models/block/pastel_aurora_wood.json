@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "chaoticd:block/pastel_aurora_log",
+    "end": "chaoticd:block/pastel_aurora_log"
+  }
+}

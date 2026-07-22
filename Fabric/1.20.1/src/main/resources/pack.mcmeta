@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "pack_format": 15,
+    "description": "Chaotic Dimensions resources for Minecraft 1.20.1"
+  },
+  "language": {
+    "es_co": {
+      "name": "Español (Colombia)",
+      "region": "Colombia",
+      "bidirectional": false
+    }
+  }
+}

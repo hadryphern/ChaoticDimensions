@@ -75,3 +75,15 @@ tasks.register('validateAuroraWorldgen', JavaExec) {
 	mainClass = 'net.blue.chaoticd.validation.AuroraWorldgenValidator'
 	dependsOn testClasses
 }
+
+tasks.register('validateAuroraAssets', JavaExec) {
+	group = 'verification'
+	description = 'Validates Aurora PNG dimensions/alpha and every local block model reference.'
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = 'net.blue.chaoticd.validation.AuroraAssetsValidator'
+	dependsOn testClasses
+}
+
+tasks.named('check') {
+	dependsOn validateAuroraAssets, validateAuroraWorldgen
+}

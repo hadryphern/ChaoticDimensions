@@ -1,1 +1,7 @@
-{"replace":false,"values":["chaoticd:pastel_aurora_log","chaoticd:pastel_aurora_planks"]}
+{
+  "replace": false,
+  "values": [
+    "#chaoticd:pastel_aurora_logs",
+    "chaoticd:pastel_aurora_planks"
+  ]
+}

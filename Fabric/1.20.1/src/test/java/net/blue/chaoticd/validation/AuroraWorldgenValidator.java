@@ -55,7 +55,7 @@ public final class AuroraWorldgenValidator {
         Bootstrap.bootStrap();
         reopenIntrusiveRegistry(BuiltInRegistries.BLOCK);
         reopenIntrusiveRegistry(BuiltInRegistries.ITEM);
-        ModBlocks.initialize();
+        require(ModBlocks.PASTEL_AURORA_STONE, "Aurora blocks were not initialized");
         BuiltInRegistries.BLOCK.freeze();
         BuiltInRegistries.ITEM.freeze();
 
@@ -80,7 +80,7 @@ public final class AuroraWorldgenValidator {
 
             Registry<NoiseGeneratorSettings> settingsRegistry = worldgen.registryOrThrow(Registries.NOISE_SETTINGS);
             NoiseGeneratorSettings settings = require(settingsRegistry.get(SETTINGS_ID), "Aurora noise settings were not loaded");
-            check(settings.defaultBlock().is(ModBlocks.PASTEL_SOIL), "Unexpected default terrain block");
+            check(settings.defaultBlock().is(ModBlocks.PASTEL_AURORA_STONE), "Unexpected default terrain block");
             check(settings.defaultFluid().isAir(), "Aurora default fluid must be air");
             check(settings.noiseSettings().minY() == -64 && settings.noiseSettings().height() == 384,
                 "Noise height does not match the dimension type");

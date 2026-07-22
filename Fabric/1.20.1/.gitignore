@@ -31,6 +31,10 @@ bin/
 # fabric
 
 run/
+logs/
+
+# Local reference and working-source assets; never package or publish them.
+.assets/
 
 # java
 
@@ -38,10 +42,3 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
-
-# Local reference extracted from the user's installed Minecraft client.
-minecraft_vanilla_1.20.1/
-.assets/
-
-# Python bytecode created while running development asset tools.
-tools/__pycache__/

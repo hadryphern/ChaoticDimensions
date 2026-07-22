@@ -9,8 +9,8 @@
           "Name": "chaoticd:rosalita_ore"
         },
         "target": {
-          "predicate_type": "minecraft:block_match",
-          "block": "chaoticd:pastel_soil"
+          "predicate_type": "minecraft:tag_match",
+          "tag": "chaoticd:aurora_ore_replaceables"
         }
       }
     ]

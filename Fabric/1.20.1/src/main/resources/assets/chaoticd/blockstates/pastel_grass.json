@@ -1,1 +1,6 @@
-{"variants":{"":{"model":"chaoticd:block/pastel_grass"}}}
+{
+  "variants": {
+    "snowy=false": { "model": "chaoticd:block/pastel_grass" },
+    "snowy=true": { "model": "chaoticd:block/pastel_grass" }
+  }
+}

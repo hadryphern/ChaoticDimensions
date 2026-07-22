@@ -12,7 +12,7 @@ import net.blue.chaoticd.content.ModRecipes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Empty Fabric foundation for the next Chaotic Dimensions implementation. */
+/** Main Fabric entry point for Chaotic Dimensions content and gameplay systems. */
 public final class ChaoticDimensions implements ModInitializer {
     public static final String MOD_ID = "chaoticd";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -27,6 +27,6 @@ public final class ChaoticDimensions implements ModInitializer {
         ModItemGroups.initialize();
         ModRecipes.initialize();
         ModGameplayEvents.initialize();
-        LOGGER.info("Chaotic Dimensions Sapphire content and enchantments loaded");
+        LOGGER.info("Chaotic Dimensions content, Aurora blocks and enchantments loaded");
     }
 }
