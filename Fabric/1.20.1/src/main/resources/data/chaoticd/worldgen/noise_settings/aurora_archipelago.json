@@ -16,7 +16,7 @@
   },
   "noise_router": {
     "barrier": 0.0,
-    "continents": "chaoticd:aurora/macro",
+    "continents": "chaoticd:aurora/cluster_field",
     "depth": "chaoticd:aurora/primary_vertical",
     "erosion": "chaoticd:aurora/edges",
     "final_density": "chaoticd:aurora/final_density",

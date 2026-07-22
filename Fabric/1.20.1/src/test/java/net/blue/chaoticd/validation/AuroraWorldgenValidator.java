@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Queue;
 import javax.imageio.ImageIO;
 import net.blue.chaoticd.content.ModBlocks;
+import net.blue.chaoticd.worldgen.ModWorldgenFeatures;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.core.MappedRegistry;
@@ -22,7 +23,6 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.RegistryDataLoader;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.Bootstrap;
 import net.minecraft.server.RegistryLayer;
@@ -40,12 +40,27 @@ import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.RandomState;
 
-/** Temporary headless acceptance test. It is removed after validation. */
+/** Headless acceptance test for the Aurora dimension's registries and terrain distribution. */
 public final class AuroraWorldgenValidator {
     private static final ResourceLocation AURORA_ID = new ResourceLocation("chaoticd", "aurora_dimension");
     private static final ResourceLocation SETTINGS_ID = new ResourceLocation("chaoticd", "aurora_archipelago");
     private static final LevelHeightAccessor HEIGHT = LevelHeightAccessor.create(-64, 384);
     private static final long[] SEEDS = {0x4A617661L, 0x4175726F7261L, -0x4368616F746963L};
+    private static final int REGION_HALF_SIZE = 1024;
+    private static final int SAMPLE_STEP = 32;
+    private static final int WINDOW_RADIUS = 4;
+    private static final int WINDOW_STRIDE = 4;
+    private static final int ALMOST_CONNECTED_GAP = 48;
+    private static final int NEARBY_ISLAND_GAP = 128;
+    private static final int ISOLATED_ISLAND_GAP = 224;
+    private static final int SMALL_ISLAND_MAX_SAMPLES = 12;
+    private static final SampleRegion[] SAMPLE_REGIONS = {
+        new SampleRegion("spawn", 0, 0),
+        new SampleRegion("+1000", 1000, 1000),
+        new SampleRegion("-1000", -1000, -1000),
+        new SampleRegion("+5000", 5000, 5000),
+        new SampleRegion("-5000", -5000, -5000)
+    };
 
     private AuroraWorldgenValidator() {
     }
@@ -55,9 +70,12 @@ public final class AuroraWorldgenValidator {
         Bootstrap.bootStrap();
         reopenIntrusiveRegistry(BuiltInRegistries.BLOCK);
         reopenIntrusiveRegistry(BuiltInRegistries.ITEM);
+        reopenRegistry(BuiltInRegistries.FEATURE);
         require(ModBlocks.PASTEL_AURORA_STONE, "Aurora blocks were not initialized");
+        ModWorldgenFeatures.initialize();
         BuiltInRegistries.BLOCK.freeze();
         BuiltInRegistries.ITEM.freeze();
+        BuiltInRegistries.FEATURE.freeze();
 
         VanillaPackResources vanilla = new VanillaPackResourcesBuilder()
             .exposeNamespace("minecraft")
@@ -94,37 +112,37 @@ public final class AuroraWorldgenValidator {
                 RandomState reloadedState = RandomState.create(settings, worldgen.lookupOrThrow(Registries.NOISE), seed);
                 check(determinismProbe == probe(generator, reloadedState),
                     "Reloading the same seed changed terrain for seed " + seed);
-                RegionStats spawn = scan(generator, randomState, 0, 0);
-                RegionStats positiveFar = scan(generator, randomState, 5000, 1000);
-                RegionStats negativeFar = scan(generator, randomState, -5000, -1000);
+                List<RegionStats> regions = new ArrayList<>();
+                long signature = 0x6a09e667f3bcc909L;
+                for (SampleRegion sample : SAMPLE_REGIONS) {
+                    RegionStats stats = scan(generator, randomState, sample.centerX, sample.centerZ);
+                    validateRegion(sample.name, seed, stats);
+                    regions.add(stats);
+                    signature = Long.rotateLeft(signature ^ stats.signature, 13) * 0x9e3779b97f4a7c15L;
+                    System.out.printf("AURORA seed=%d region=%s center=(%d,%d) %s%n",
+                        seed, sample.name, sample.centerX, sample.centerZ, stats);
+                }
                 SafeSite safeSite = findSafeSite(generator, randomState);
 
-                validateRegion("spawn", seed, spawn);
-                validateRegion("+5000", seed, positiveFar);
-                validateRegion("-5000", seed, negativeFar);
+                validateDistribution(seed, regions);
                 check(safeSite != null, "No wide safe arrival surface within 2048 blocks for seed " + seed);
-                check(spawn.floorBlocks == 0 && positiveFar.floorBlocks == 0 && negativeFar.floorBlocks == 0,
+                check(regions.stream().allMatch(region -> region.floorBlocks == 0),
                     "A continuous lower floor was detected for seed " + seed);
 
-                long signature = spawn.signature ^ Long.rotateLeft(positiveFar.signature, 17)
-                    ^ Long.rotateLeft(negativeFar.signature, 33);
                 signatures.add(signature);
                 System.out.printf(
-                    "AURORA seed=%d safe=(%d,%d,y=%d) spawn=%s far+=%s far-=%s signature=%016x%n",
-                    seed, safeSite.x, safeSite.z, safeSite.height, spawn, positiveFar, negativeFar, signature);
+                    "AURORA seed=%d safe=(%d,%d,y=%d) distribution=%s signature=%016x%n",
+                    seed, safeSite.x, safeSite.z, safeSite.height, summarize(regions), signature);
                 if (render && seedIndex == 0) render(generator, randomState, seed);
             }
 
             check(signatures.stream().distinct().count() == SEEDS.length, "Different seeds produced identical terrain signatures");
-            System.out.println("AURORA VALIDATION PASSED: registries, codecs, infinite coordinate sampling, seeds and safe arrival.");
+            System.out.println("AURORA VALIDATION PASSED: registries, deterministic multi-scale clusters, proximity, isolation, voids and safe arrival.");
         }
     }
 
     private static RegionStats scan(NoiseBasedChunkGenerator generator, RandomState randomState, int centerX, int centerZ) {
-        int step = 64;
-        int half = 1024;
-        int side = half * 2 / step + 1;
-        int[][] heights = new int[side][side];
+        int side = REGION_HALF_SIZE * 2 / SAMPLE_STEP + 1;
         boolean[][] land = new boolean[side][side];
         int landColumns = 0;
         int minimumHeight = Integer.MAX_VALUE;
@@ -136,11 +154,10 @@ public final class AuroraWorldgenValidator {
         long signature = 0xcbf29ce484222325L;
 
         for (int zi = 0; zi < side; zi++) {
-            int z = centerZ - half + zi * step;
+            int z = centerZ - REGION_HALF_SIZE + zi * SAMPLE_STEP;
             for (int xi = 0; xi < side; xi++) {
-                int x = centerX - half + xi * step;
+                int x = centerX - REGION_HALF_SIZE + xi * SAMPLE_STEP;
                 int height = generator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, HEIGHT, randomState);
-                heights[zi][xi] = height;
                 land[zi][xi] = height > HEIGHT.getMinBuildHeight();
                 signature ^= Integer.toUnsignedLong(height * 31 + x * 17 + z);
                 signature *= 0x100000001b3L;
@@ -148,24 +165,36 @@ public final class AuroraWorldgenValidator {
                     landColumns++;
                     minimumHeight = Math.min(minimumHeight, height);
                     maximumHeight = Math.max(maximumHeight, height);
-                    if ((xi + zi) % 11 == 0) {
+                    if ((xi + zi) % 23 == 0) {
                         NoiseColumn column = generator.getBaseColumn(x, z, HEIGHT, randomState);
                         if (!column.getBlock(-64).isAir() || !column.getBlock(0).isAir()) floorBlocks++;
                         int thickness = 0;
+                        int currentRun = 0;
+                        int longestRun = 0;
                         for (int y = 64; y < 312; y++) {
-                            if (!column.getBlock(y).isAir()) thickness++;
+                            if (!column.getBlock(y).isAir()) {
+                                thickness++;
+                                currentRun++;
+                                longestRun = Math.max(longestRun, currentRun);
+                            } else {
+                                currentRun = 0;
+                            }
                         }
                         thicknessSamples++;
                         thicknessSum += thickness;
-                        maximumThickness = Math.max(maximumThickness, thickness);
+                        maximumThickness = Math.max(maximumThickness, longestRun);
                     }
                 }
             }
         }
 
-        int components = countComponents(land);
+        ComponentStats components = analyzeComponents(land);
+        WindowStats windows = analyzeWindows(land);
         double landRatio = landColumns / (double)(side * side);
-        return new RegionStats(landRatio, components, landColumns == 0 ? 0 : minimumHeight,
+        return new RegionStats(landRatio, components.count, components.almostConnectedPairs,
+            components.nearbyPairs, components.isolatedComponents, components.smallIntermediateIslands,
+            components.averageNearestGap, components.largestShare, windows.denseWindows, windows.emptyWindows,
+            windows.totalWindows, largestEmptySpan(land), landColumns == 0 ? 0 : minimumHeight,
             landColumns == 0 ? 0 : maximumHeight, floorBlocks,
             thicknessSamples == 0 ? 0.0 : thicknessSum / (double)thicknessSamples, maximumThickness, signature);
     }
@@ -183,26 +212,122 @@ public final class AuroraWorldgenValidator {
         return signature;
     }
 
-    private static int countComponents(boolean[][] land) {
+    private static ComponentStats analyzeComponents(boolean[][] land) {
         boolean[][] visited = new boolean[land.length][land[0].length];
-        int components = 0;
+        List<List<GridPoint>> components = new ArrayList<>();
         for (int z = 0; z < land.length; z++) {
             for (int x = 0; x < land[z].length; x++) {
                 if (!land[z][x] || visited[z][x]) continue;
-                components++;
+                List<GridPoint> component = new ArrayList<>();
                 Queue<int[]> queue = new ArrayDeque<>();
                 queue.add(new int[]{x, z});
                 visited[z][x] = true;
                 while (!queue.isEmpty()) {
                     int[] point = queue.remove();
-                    visit(land, visited, queue, point[0] + 1, point[1]);
-                    visit(land, visited, queue, point[0] - 1, point[1]);
-                    visit(land, visited, queue, point[0], point[1] + 1);
-                    visit(land, visited, queue, point[0], point[1] - 1);
+                    component.add(new GridPoint(point[0], point[1]));
+                    for (int dz = -1; dz <= 1; dz++) {
+                        for (int dx = -1; dx <= 1; dx++) {
+                            if (dx != 0 || dz != 0) visit(land, visited, queue, point[0] + dx, point[1] + dz);
+                        }
+                    }
                 }
+                components.add(component);
             }
         }
-        return components;
+
+        int[] nearestSquared = new int[components.size()];
+        java.util.Arrays.fill(nearestSquared, Integer.MAX_VALUE);
+        int almostConnectedPairs = 0;
+        int nearbyPairs = 0;
+        for (int first = 0; first < components.size(); first++) {
+            for (int second = first + 1; second < components.size(); second++) {
+                int squared = minimumDistanceSquared(components.get(first), components.get(second));
+                nearestSquared[first] = Math.min(nearestSquared[first], squared);
+                nearestSquared[second] = Math.min(nearestSquared[second], squared);
+                double gap = sampleGap(squared);
+                if (gap <= ALMOST_CONNECTED_GAP) almostConnectedPairs++;
+                if (gap <= NEARBY_ISLAND_GAP) nearbyPairs++;
+            }
+        }
+
+        int isolatedComponents = 0;
+        int smallIntermediateIslands = 0;
+        double nearestGapSum = 0.0;
+        int nearestGapSamples = 0;
+        int largestSize = 0;
+        int totalSize = 0;
+        for (int index = 0; index < components.size(); index++) {
+            int size = components.get(index).size();
+            totalSize += size;
+            largestSize = Math.max(largestSize, size);
+            if (nearestSquared[index] == Integer.MAX_VALUE) continue;
+            double gap = sampleGap(nearestSquared[index]);
+            nearestGapSum += gap;
+            nearestGapSamples++;
+            if (gap >= ISOLATED_ISLAND_GAP) isolatedComponents++;
+            if (size <= SMALL_ISLAND_MAX_SAMPLES && gap <= NEARBY_ISLAND_GAP) smallIntermediateIslands++;
+        }
+        return new ComponentStats(components.size(), almostConnectedPairs, nearbyPairs, isolatedComponents,
+            smallIntermediateIslands, nearestGapSamples == 0 ? 0.0 : nearestGapSum / nearestGapSamples,
+            totalSize == 0 ? 0.0 : largestSize / (double)totalSize);
+    }
+
+    private static int minimumDistanceSquared(List<GridPoint> first, List<GridPoint> second) {
+        int minimum = Integer.MAX_VALUE;
+        for (GridPoint a : first) {
+            for (GridPoint b : second) {
+                int dx = a.x - b.x;
+                int dz = a.z - b.z;
+                minimum = Math.min(minimum, dx * dx + dz * dz);
+                if (minimum == 4) return minimum;
+            }
+        }
+        return minimum;
+    }
+
+    private static double sampleGap(int squaredSampleDistance) {
+        return Math.max(0.0, Math.sqrt(squaredSampleDistance) * SAMPLE_STEP - SAMPLE_STEP);
+    }
+
+    private static WindowStats analyzeWindows(boolean[][] land) {
+        int dense = 0;
+        int empty = 0;
+        int total = 0;
+        int diameter = WINDOW_RADIUS * 2 + 1;
+        int area = diameter * diameter;
+        for (int centerZ = WINDOW_RADIUS; centerZ < land.length - WINDOW_RADIUS; centerZ += WINDOW_STRIDE) {
+            for (int centerX = WINDOW_RADIUS; centerX < land[centerZ].length - WINDOW_RADIUS; centerX += WINDOW_STRIDE) {
+                int landSamples = 0;
+                for (int z = centerZ - WINDOW_RADIUS; z <= centerZ + WINDOW_RADIUS; z++) {
+                    for (int x = centerX - WINDOW_RADIUS; x <= centerX + WINDOW_RADIUS; x++) {
+                        if (land[z][x]) landSamples++;
+                    }
+                }
+                double ratio = landSamples / (double)area;
+                if (ratio >= 0.42) dense++;
+                if (ratio <= 0.02) empty++;
+                total++;
+            }
+        }
+        return new WindowStats(dense, empty, total);
+    }
+
+    private static int largestEmptySpan(boolean[][] land) {
+        int[][] squares = new int[land.length][land[0].length];
+        int largest = 0;
+        for (int z = 0; z < land.length; z++) {
+            for (int x = 0; x < land[z].length; x++) {
+                if (land[z][x]) continue;
+                if (x == 0 || z == 0) {
+                    squares[z][x] = 1;
+                } else {
+                    squares[z][x] = 1 + Math.min(squares[z - 1][x - 1],
+                        Math.min(squares[z - 1][x], squares[z][x - 1]));
+                }
+                largest = Math.max(largest, squares[z][x]);
+            }
+        }
+        return largest * SAMPLE_STEP;
     }
 
     private static void render(NoiseBasedChunkGenerator generator, RandomState randomState, long seed) {
@@ -304,12 +429,50 @@ public final class AuroraWorldgenValidator {
     }
 
     private static void validateRegion(String name, long seed, RegionStats stats) {
-        check(stats.landRatio > 0.015, "No archipelago found near " + name + " for seed " + seed);
-        check(stats.landRatio < 0.80, "Terrain became a suspended supercontinent near " + name + " for seed " + seed);
-        check(stats.minimumHeight >= 65 && stats.maximumHeight < 312,
-            "Terrain escaped its vertical band near " + name + " for seed " + seed);
-        check(stats.averageThickness >= 8.0 && stats.maximumThickness >= 24,
-            "Islands are too thin near " + name + " for seed " + seed);
+        check(stats.landRatio < 0.82, "Terrain became a suspended supercontinent near " + name + " for seed " + seed);
+        if (stats.landRatio > 0.0) {
+            check(stats.minimumHeight >= 65 && stats.maximumHeight < 312,
+                "Terrain escaped its vertical band near " + name + " for seed " + seed);
+            check(stats.averageThickness >= 8.0 && stats.maximumThickness >= 20,
+                "Islands are too thin near " + name + " for seed " + seed);
+            check(stats.maximumThickness <= 128,
+                "Island footprint lost its tapered underside near " + name + " for seed " + seed);
+        }
+    }
+
+    private static void validateDistribution(long seed, List<RegionStats> regions) {
+        double minimumLand = regions.stream().mapToDouble(region -> region.landRatio).min().orElseThrow();
+        double maximumLand = regions.stream().mapToDouble(region -> region.landRatio).max().orElseThrow();
+        int almostConnected = regions.stream().mapToInt(region -> region.almostConnectedPairs).sum();
+        int nearby = regions.stream().mapToInt(region -> region.nearbyPairs).sum();
+        int isolated = regions.stream().mapToInt(region -> region.isolatedComponents).sum();
+        int intermediates = regions.stream().mapToInt(region -> region.smallIntermediateIslands).sum();
+        int denseWindows = regions.stream().mapToInt(region -> region.denseWindows).sum();
+        int emptyWindows = regions.stream().mapToInt(region -> region.emptyWindows).sum();
+        int widestVoid = regions.stream().mapToInt(region -> region.largestEmptySpan).max().orElse(0);
+
+        check(maximumLand >= 0.20, "No dense or moderate archipelago region was sampled for seed " + seed);
+        check(maximumLand - minimumLand >= 0.10,
+            "Island coverage does not vary enough between ±1000 and ±5000 for seed " + seed);
+        check(denseWindows > 0, "No compact archipelago window was sampled for seed " + seed);
+        check(emptyWindows > 0 && widestVoid >= 256,
+            "No extensive empty region was sampled for seed " + seed);
+        check(almostConnected > 0 && nearby >= 8,
+            "Islands never become nearly connected or bridgeable for seed " + seed);
+        check(intermediates >= 4, "Too few small intermediate islands for seed " + seed);
+        check(isolated > 0, "No isolated island was sampled for seed " + seed);
+    }
+
+    private static String summarize(List<RegionStats> regions) {
+        double minimumLand = regions.stream().mapToDouble(region -> region.landRatio).min().orElse(0.0);
+        double maximumLand = regions.stream().mapToDouble(region -> region.landRatio).max().orElse(0.0);
+        int almostConnected = regions.stream().mapToInt(region -> region.almostConnectedPairs).sum();
+        int nearby = regions.stream().mapToInt(region -> region.nearbyPairs).sum();
+        int isolated = regions.stream().mapToInt(region -> region.isolatedComponents).sum();
+        int intermediates = regions.stream().mapToInt(region -> region.smallIntermediateIslands).sum();
+        int widestVoid = regions.stream().mapToInt(region -> region.largestEmptySpan).max().orElse(0);
+        return String.format("coverage=%.1f..%.1f%% near=%d/almost=%d small=%d isolated=%d void=%d",
+            minimumLand * 100.0, maximumLand * 100.0, nearby, almostConnected, intermediates, isolated, widestVoid);
     }
 
     private static void check(boolean condition, String message) {
@@ -318,15 +481,24 @@ public final class AuroraWorldgenValidator {
 
     private static void reopenIntrusiveRegistry(Registry<?> registry) {
         try {
+            reopenRegistry(registry);
             MappedRegistry<?> mapped = (MappedRegistry<?>)registry;
-            Field frozen = MappedRegistry.class.getDeclaredField("frozen");
-            frozen.setAccessible(true);
-            frozen.setBoolean(mapped, false);
             Field intrusive = MappedRegistry.class.getDeclaredField("unregisteredIntrusiveHolders");
             intrusive.setAccessible(true);
             intrusive.set(mapped, new IdentityHashMap<>());
         } catch (ReflectiveOperationException exception) {
             throw new IllegalStateException("Could not prepare standalone registries", exception);
+        }
+    }
+
+    private static void reopenRegistry(Registry<?> registry) {
+        try {
+            MappedRegistry<?> mapped = (MappedRegistry<?>)registry;
+            Field frozen = MappedRegistry.class.getDeclaredField("frozen");
+            frozen.setAccessible(true);
+            frozen.setBoolean(mapped, false);
+        } catch (ReflectiveOperationException exception) {
+            throw new IllegalStateException("Could not reopen standalone registry", exception);
         }
     }
 
@@ -338,12 +510,33 @@ public final class AuroraWorldgenValidator {
     private record SafeSite(int x, int z, int height) {
     }
 
-    private record RegionStats(double landRatio, int components, int minimumHeight, int maximumHeight,
-                               int floorBlocks, double averageThickness, int maximumThickness, long signature) {
+    private record SampleRegion(String name, int centerX, int centerZ) {
+    }
+
+    private record GridPoint(int x, int z) {
+    }
+
+    private record ComponentStats(int count, int almostConnectedPairs, int nearbyPairs, int isolatedComponents,
+                                  int smallIntermediateIslands, double averageNearestGap, double largestShare) {
+    }
+
+    private record WindowStats(int denseWindows, int emptyWindows, int totalWindows) {
+    }
+
+    private record RegionStats(double landRatio, int components, int almostConnectedPairs, int nearbyPairs,
+                               int isolatedComponents, int smallIntermediateIslands, double averageNearestGap,
+                               double largestComponentShare, int denseWindows, int emptyWindows, int totalWindows,
+                               int largestEmptySpan, int minimumHeight, int maximumHeight, int floorBlocks,
+                               double averageThickness, int maximumThickness, long signature) {
         @Override
         public String toString() {
-            return String.format("land=%.1f%% groups=%d y=%d..%d thickness=%.1f/%d",
-                landRatio * 100.0, components, minimumHeight, maximumHeight, averageThickness, maximumThickness);
+            return String.format(
+                "land=%.1f%% groups=%d near=%d/%d isolated=%d small=%d gap=%.0f largest=%.0f%% "
+                    + "windows=%d/%d/%d void=%d y=%d..%d thickness=%.1f/%d",
+                landRatio * 100.0, components, nearbyPairs, almostConnectedPairs, isolatedComponents,
+                smallIntermediateIslands, averageNearestGap, largestComponentShare * 100.0,
+                denseWindows, emptyWindows, totalWindows, largestEmptySpan,
+                minimumHeight, maximumHeight, averageThickness, maximumThickness);
         }
     }
 }

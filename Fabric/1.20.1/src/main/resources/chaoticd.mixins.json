@@ -4,12 +4,13 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ServerGamePacketListenerImplMixin",
-    "ItemStackNameMixin",
-    "ItemStackTooltipMixin",
     "VanillaEnchantmentLevelMixin",
     "BowItemMixin"
   ],
   "client": [
+    "EnchantedBookTooltipMixin",
+    "ItemStackNameMixin",
+    "ItemStackTooltipMixin",
     "client.KeyboardInputMixin",
     "client.GameRendererMixin",
     "client.MultiPlayerGameModeMixin"

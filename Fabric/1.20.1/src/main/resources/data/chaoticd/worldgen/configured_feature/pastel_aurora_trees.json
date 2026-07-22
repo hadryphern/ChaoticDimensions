@@ -1,23 +1,238 @@
 {
-  "type": "minecraft:random_selector",
+  "type": "chaoticd:aurora_tree",
   "config": {
-    "default": {
-      "feature": "chaoticd:pastel_blue_tree",
-      "placement": []
+    "trunk_state": {
+      "Name": "chaoticd:pastel_aurora_log",
+      "Properties": {
+        "axis": "y"
+      }
     },
-    "features": [
+    "ground_states": [
       {
-        "chance": 0.33333334,
-        "feature": {
-          "feature": "chaoticd:pastel_pink_tree",
-          "placement": []
+        "Name": "chaoticd:pastel_grass",
+        "Properties": {
+          "snowy": "false"
         }
       },
       {
-        "chance": 0.5,
-        "feature": {
-          "feature": "chaoticd:pastel_purple_tree",
-          "placement": []
+        "Name": "chaoticd:pastel_soil"
+      }
+    ],
+    "foliage_palette": [
+      {
+        "state": {
+          "Name": "chaoticd:pastel_pink_leaves",
+          "Properties": {
+            "distance": "7",
+            "persistent": "false",
+            "waterlogged": "false"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "state": {
+          "Name": "chaoticd:pastel_purple_leaves",
+          "Properties": {
+            "distance": "7",
+            "persistent": "false",
+            "waterlogged": "false"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "state": {
+          "Name": "chaoticd:pastel_blue_leaves",
+          "Properties": {
+            "distance": "7",
+            "persistent": "false",
+            "waterlogged": "false"
+          }
+        },
+        "weight": 1
+      }
+    ],
+    "max_horizontal_reach": 8,
+    "profiles": [
+      {
+        "name": "young_simple",
+        "weight": 36,
+        "size": {
+          "min_height": 4,
+          "max_height": 7,
+          "min_trunk_width": 1,
+          "max_trunk_width": 1,
+          "min_segments": 2,
+          "max_segments": 3
+        },
+        "shape": {
+          "inclination_chance": 0.16,
+          "bend_chance": 0.22,
+          "bend_strength": 0.16,
+          "min_branches": 0,
+          "max_branches": 2,
+          "branch_start_fraction": 0.68,
+          "min_branch_length": 2,
+          "max_branch_length": 3,
+          "max_branch_width": 1,
+          "secondary_branch_chance": 0.0,
+          "root_chance": 0.05,
+          "max_root_length": 1
+        },
+        "canopy": {
+          "min_radius": 2,
+          "max_radius": 3,
+          "min_blobs": 2,
+          "max_blobs": 4,
+          "density": 0.74,
+          "vertical_scale": 0.9,
+          "min_tip_radius": 1,
+          "max_tip_radius": 2
+        }
+      },
+      {
+        "name": "slender_high",
+        "weight": 24,
+        "size": {
+          "min_height": 8,
+          "max_height": 13,
+          "min_trunk_width": 1,
+          "max_trunk_width": 1,
+          "min_segments": 4,
+          "max_segments": 6
+        },
+        "shape": {
+          "inclination_chance": 0.38,
+          "bend_chance": 0.5,
+          "bend_strength": 0.27,
+          "min_branches": 2,
+          "max_branches": 5,
+          "branch_start_fraction": 0.48,
+          "min_branch_length": 2,
+          "max_branch_length": 4,
+          "max_branch_width": 1,
+          "secondary_branch_chance": 0.08,
+          "root_chance": 0.08,
+          "max_root_length": 1
+        },
+        "canopy": {
+          "min_radius": 2,
+          "max_radius": 4,
+          "min_blobs": 3,
+          "max_blobs": 6,
+          "density": 0.67,
+          "vertical_scale": 1.18,
+          "min_tip_radius": 1,
+          "max_tip_radius": 2
+        }
+      },
+      {
+        "name": "branching_mature",
+        "weight": 23,
+        "size": {
+          "min_height": 7,
+          "max_height": 12,
+          "min_trunk_width": 1,
+          "max_trunk_width": 2,
+          "min_segments": 4,
+          "max_segments": 7
+        },
+        "shape": {
+          "inclination_chance": 0.52,
+          "bend_chance": 0.65,
+          "bend_strength": 0.38,
+          "min_branches": 5,
+          "max_branches": 9,
+          "branch_start_fraction": 0.34,
+          "min_branch_length": 3,
+          "max_branch_length": 6,
+          "max_branch_width": 1,
+          "secondary_branch_chance": 0.22,
+          "root_chance": 0.25,
+          "max_root_length": 2
+        },
+        "canopy": {
+          "min_radius": 3,
+          "max_radius": 5,
+          "min_blobs": 5,
+          "max_blobs": 9,
+          "density": 0.64,
+          "vertical_scale": 1.05,
+          "min_tip_radius": 1,
+          "max_tip_radius": 2
+        }
+      },
+      {
+        "name": "ancient_wide",
+        "weight": 15,
+        "size": {
+          "min_height": 10,
+          "max_height": 17,
+          "min_trunk_width": 2,
+          "max_trunk_width": 3,
+          "min_segments": 6,
+          "max_segments": 9
+        },
+        "shape": {
+          "inclination_chance": 0.58,
+          "bend_chance": 0.78,
+          "bend_strength": 0.44,
+          "min_branches": 8,
+          "max_branches": 13,
+          "branch_start_fraction": 0.25,
+          "min_branch_length": 4,
+          "max_branch_length": 6,
+          "max_branch_width": 2,
+          "secondary_branch_chance": 0.35,
+          "root_chance": 0.7,
+          "max_root_length": 3
+        },
+        "canopy": {
+          "min_radius": 4,
+          "max_radius": 6,
+          "min_blobs": 8,
+          "max_blobs": 13,
+          "density": 0.6,
+          "vertical_scale": 0.9,
+          "min_tip_radius": 2,
+          "max_tip_radius": 3
+        }
+      },
+      {
+        "name": "monumental",
+        "weight": 2,
+        "size": {
+          "min_height": 18,
+          "max_height": 28,
+          "min_trunk_width": 3,
+          "max_trunk_width": 3,
+          "min_segments": 8,
+          "max_segments": 12
+        },
+        "shape": {
+          "inclination_chance": 0.64,
+          "bend_chance": 0.85,
+          "bend_strength": 0.48,
+          "min_branches": 13,
+          "max_branches": 20,
+          "branch_start_fraction": 0.2,
+          "min_branch_length": 5,
+          "max_branch_length": 7,
+          "max_branch_width": 2,
+          "secondary_branch_chance": 0.5,
+          "root_chance": 1.0,
+          "max_root_length": 4
+        },
+        "canopy": {
+          "min_radius": 5,
+          "max_radius": 7,
+          "min_blobs": 12,
+          "max_blobs": 20,
+          "density": 0.58,
+          "vertical_scale": 1.1,
+          "min_tip_radius": 2,
+          "max_tip_radius": 3
         }
       }
     ]

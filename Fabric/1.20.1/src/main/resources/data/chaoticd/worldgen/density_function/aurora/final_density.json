@@ -12,8 +12,12 @@
         "max_exclusive": 312.0,
         "when_in_range": {
           "type": "minecraft:max",
-          "argument1": "chaoticd:aurora/primary_density",
-          "argument2": "chaoticd:aurora/secondary_density"
+          "argument1": {
+            "type": "minecraft:max",
+            "argument1": "chaoticd:aurora/primary_density",
+            "argument2": "chaoticd:aurora/secondary_density"
+          },
+          "argument2": "chaoticd:aurora/isolated_density"
         },
         "when_out_of_range": -1.0
       }

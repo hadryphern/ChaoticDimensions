@@ -9,6 +9,8 @@ import net.blue.chaoticd.content.ModItemGroups;
 import net.blue.chaoticd.content.ModItems;
 import net.blue.chaoticd.content.ModPotions;
 import net.blue.chaoticd.content.ModRecipes;
+import net.blue.chaoticd.rarity.ModRarities;
+import net.blue.chaoticd.worldgen.ModWorldgenFeatures;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +25,9 @@ public final class ChaoticDimensions implements ModInitializer {
         ModEffects.initialize();
         ModItems.initialize();
         ModBlocks.initialize();
+        ModWorldgenFeatures.initialize();
         ModPotions.initialize();
+        ModRarities.bootstrap();
         ModItemGroups.initialize();
         ModRecipes.initialize();
         ModGameplayEvents.initialize();
