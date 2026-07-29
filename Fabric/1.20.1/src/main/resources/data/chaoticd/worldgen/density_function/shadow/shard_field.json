@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:noise",
+  "noise": "chaoticd:shadow_shards",
+  "xz_scale": 1.35,
+  "y_scale": 0.16
+}

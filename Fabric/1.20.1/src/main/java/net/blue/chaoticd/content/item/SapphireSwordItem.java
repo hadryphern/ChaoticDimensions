@@ -17,9 +17,14 @@ public final class SapphireSwordItem extends SwordItem {
     public static final int DIRECT_DAMAGE = 589;
     public static final float AREA_DAMAGE = 589.0F;
     public static final double AREA_RADIUS = 24.0D;
+    private static final int ATTACK_DAMAGE_MODIFIER = DIRECT_DAMAGE
+        - 1
+        - (int) SapphireTier.INSTANCE.getAttackDamageBonus();
 
     public SapphireSwordItem(Item.Properties properties) {
-        super(SapphireTier.INSTANCE, DIRECT_DAMAGE, -2.4F, properties);
+        /* Player base damage is one. Keep the displayed/direct hit at exactly 589
+         * while allowing the same Sapphire tier to make the other tools end-game. */
+        super(SapphireTier.INSTANCE, ATTACK_DAMAGE_MODIFIER, -2.4F, properties);
     }
 
     @Override

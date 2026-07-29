@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "chaoticd:ruby_nugget"
+    }
+  },
+  "result": {
+    "item": "chaoticd:ruby"
+  }
+}

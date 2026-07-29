@@ -1,0 +1,32 @@
+{
+  "parent": "chaoticd:enter_shadow",
+  "display": {
+    "icon": {
+      "item": "chaoticd:death_totem"
+    },
+    "title": {
+      "translate": "advancement.chaoticd.escape_shadow.title"
+    },
+    "description": {
+      "translate": "advancement.chaoticd.escape_shadow.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "from": "chaoticd:shadow_dimension",
+        "to": "chaoticd:aurora_dimension"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "trigger"
+    ]
+  ]
+}

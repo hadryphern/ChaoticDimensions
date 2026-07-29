@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:noise",
+  "noise": "chaoticd:shadow_corruption",
+  "xz_scale": 0.92,
+  "y_scale": 0.78
+}

@@ -4,11 +4,19 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ServerGamePacketListenerImplMixin",
+    "LivingEntityDamageAppliedMixin",
     "VanillaEnchantmentLevelMixin",
-    "BowItemMixin"
+    "BowItemMixin",
+    "InventoryDropMixin",
+    "ItemMaxStackSizeMixin",
+    "ContainerMaxStackSizeMixin",
+    "FriendlyByteBufItemStackMixin",
+    "ItemStackCountSerializationMixin",
+    "ItemEntityStackMergeMixin",
+    "StackedContentsMixin",
+    "DiggerItemMiningLevelMixin"
   ],
   "client": [
-    "EnchantedBookTooltipMixin",
     "ItemStackNameMixin",
     "ItemStackTooltipMixin",
     "client.KeyboardInputMixin",

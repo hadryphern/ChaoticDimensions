@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:rosalita_ore",
+    "chaoticd:deepslate_rosalita_ore",
+    "chaoticd:nether_rosalita_ore",
+    "chaoticd:aurora_rosalita_ore",
+    "chaoticd:rosalita_block"
+  ]
+}

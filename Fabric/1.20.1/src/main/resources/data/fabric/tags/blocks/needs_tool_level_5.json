@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:ruby_ore",
+    "chaoticd:deepslate_ruby_ore",
+    "chaoticd:nether_ruby_ore",
+    "chaoticd:aurora_ruby_ore",
+    "chaoticd:ruby_block"
+  ]
+}

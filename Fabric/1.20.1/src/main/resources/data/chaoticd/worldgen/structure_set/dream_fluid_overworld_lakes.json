@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "chaoticd:dream_fluid_cavern",
+      "weight": 4
+    },
+    {
+      "structure": "chaoticd:dream_fluid_sky_lake",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 190874613,
+    "spacing": 160,
+    "separation": 120
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "chaoticd:ruby"
+    }
+  },
+  "result": {
+    "item": "chaoticd:ruby_block"
+  }
+}

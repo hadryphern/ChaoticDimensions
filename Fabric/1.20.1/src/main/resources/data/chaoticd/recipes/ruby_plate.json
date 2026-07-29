@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "OOO",
+    "YXZ",
+    "OOO"
+  ],
+  "key": {
+    "O": {
+      "item": "chaoticd:ruby"
+    },
+    "X": {
+      "item": "chaoticd:emerald_ingot"
+    },
+    "Y": {
+      "item": "chaoticd:water_ingot"
+    },
+    "Z": {
+      "item": "chaoticd:lava_ingot"
+    }
+  },
+  "result": {
+    "item": "chaoticd:ruby_plate"
+  }
+}

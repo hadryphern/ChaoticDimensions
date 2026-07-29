@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "tag": "chaoticd:shadow_logs"
+    }
+  ],
+  "result": {
+    "item": "chaoticd:shadow_planks",
+    "count": 4
+  }
+}

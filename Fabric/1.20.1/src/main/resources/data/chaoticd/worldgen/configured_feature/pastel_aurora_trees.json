@@ -2,26 +2,55 @@
   "type": "chaoticd:aurora_tree",
   "config": {
     "trunk_state": {
-      "Name": "chaoticd:pastel_aurora_log",
+      "Name": "chaoticd:aurora_pinkko_log",
       "Properties": {
         "axis": "y"
       }
     },
     "ground_states": [
       {
-        "Name": "chaoticd:pastel_grass",
+        "Name": "chaoticd:aurora_grass_block",
         "Properties": {
           "snowy": "false"
         }
       },
       {
-        "Name": "chaoticd:pastel_soil"
+        "Name": "chaoticd:aurora_dirt"
+      }
+    ],
+    "trunk_palette": [
+      {
+        "state": {
+          "Name": "chaoticd:aurora_pinkko_log",
+          "Properties": {
+            "axis": "y"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "state": {
+          "Name": "chaoticd:aurora_souless_log",
+          "Properties": {
+            "axis": "y"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "state": {
+          "Name": "chaoticd:aurora_sky_log",
+          "Properties": {
+            "axis": "y"
+          }
+        },
+        "weight": 1
       }
     ],
     "foliage_palette": [
       {
         "state": {
-          "Name": "chaoticd:pastel_pink_leaves",
+          "Name": "chaoticd:aurora_pinkko_leaves",
           "Properties": {
             "distance": "7",
             "persistent": "false",
@@ -32,7 +61,7 @@
       },
       {
         "state": {
-          "Name": "chaoticd:pastel_purple_leaves",
+          "Name": "chaoticd:aurora_souless_leaves",
           "Properties": {
             "distance": "7",
             "persistent": "false",
@@ -43,7 +72,7 @@
       },
       {
         "state": {
-          "Name": "chaoticd:pastel_blue_leaves",
+          "Name": "chaoticd:aurora_sky_leaves",
           "Properties": {
             "distance": "7",
             "persistent": "false",

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "chaoticd:shadow_log"
+    }
+  },
+  "result": {
+    "item": "chaoticd:shadow_wood",
+    "count": 3
+  }
+}

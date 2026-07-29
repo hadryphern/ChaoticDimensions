@@ -16,14 +16,21 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 public record AuroraTreeConfiguration(
     BlockState trunkState,
     List<BlockState> groundStates,
+    List<TrunkChoice> trunkPalette,
     List<FoliageChoice> foliagePalette,
+    List<TreePalette> treePalette,
     List<TreeProfile> profiles,
     int maxHorizontalReach
 ) implements FeatureConfiguration {
     public static final Codec<AuroraTreeConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         BlockState.CODEC.fieldOf("trunk_state").forGetter(AuroraTreeConfiguration::trunkState),
         BlockState.CODEC.listOf().fieldOf("ground_states").forGetter(AuroraTreeConfiguration::groundStates),
-        FoliageChoice.CODEC.listOf().fieldOf("foliage_palette").forGetter(AuroraTreeConfiguration::foliagePalette),
+        TrunkChoice.CODEC.listOf().optionalFieldOf("trunk_palette", List.of())
+            .forGetter(AuroraTreeConfiguration::trunkPalette),
+        FoliageChoice.CODEC.listOf().optionalFieldOf("foliage_palette", List.of())
+            .forGetter(AuroraTreeConfiguration::foliagePalette),
+        TreePalette.CODEC.listOf().optionalFieldOf("tree_palette", List.of())
+            .forGetter(AuroraTreeConfiguration::treePalette),
         TreeProfile.CODEC.listOf().fieldOf("profiles").forGetter(AuroraTreeConfiguration::profiles),
         Codec.intRange(4, 12).optionalFieldOf("max_horizontal_reach", 8)
             .forGetter(AuroraTreeConfiguration::maxHorizontalReach)
@@ -31,15 +38,36 @@ public record AuroraTreeConfiguration(
 
     public AuroraTreeConfiguration {
         groundStates = List.copyOf(groundStates);
+        trunkPalette = List.copyOf(trunkPalette);
         foliagePalette = List.copyOf(foliagePalette);
+        treePalette = List.copyOf(treePalette);
         profiles = List.copyOf(profiles);
         require(!groundStates.isEmpty(), "ground_states cannot be empty");
-        require(!foliagePalette.isEmpty(), "foliage_palette cannot be empty");
         require(!profiles.isEmpty(), "profiles cannot be empty");
-        require(foliagePalette.stream().mapToInt(FoliageChoice::weight).sum() > 0,
-            "foliage_palette must have a positive total weight");
+        if (treePalette.isEmpty()) {
+            require(!foliagePalette.isEmpty(), "foliage_palette cannot be empty without tree_palette");
+            if (!trunkPalette.isEmpty()) {
+                require(trunkPalette.stream().mapToInt(TrunkChoice::weight).sum() > 0,
+                    "trunk_palette must have a positive total weight");
+            }
+            require(foliagePalette.stream().mapToInt(FoliageChoice::weight).sum() > 0,
+                "foliage_palette must have a positive total weight");
+        } else {
+            require(trunkPalette.isEmpty() && foliagePalette.isEmpty(),
+                "tree_palette is a legacy paired palette and cannot be mixed with independent palettes");
+            require(treePalette.stream().mapToInt(TreePalette::weight).sum() > 0,
+                "tree_palette must have a positive total weight");
+        }
         require(profiles.stream().mapToInt(TreeProfile::weight).sum() > 0,
             "profiles must have a positive total weight");
+    }
+
+    /** A weighted trunk choice, selected independently from foliage and shape. */
+    public record TrunkChoice(BlockState state, int weight) {
+        public static final Codec<TrunkChoice> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            BlockState.CODEC.fieldOf("state").forGetter(TrunkChoice::state),
+            Codec.intRange(1, 1000).fieldOf("weight").forGetter(TrunkChoice::weight)
+        ).apply(instance, TrunkChoice::new));
     }
 
     public record FoliageChoice(BlockState state, int weight) {
@@ -47,6 +75,19 @@ public record AuroraTreeConfiguration(
             BlockState.CODEC.fieldOf("state").forGetter(FoliageChoice::state),
             Codec.intRange(1, 1000).fieldOf("weight").forGetter(FoliageChoice::weight)
         ).apply(instance, FoliageChoice::new));
+    }
+
+    /**
+     * Legacy, paired trunk-and-leaf palette retained only for old datapacks.
+     * New Aurora content uses {@code trunk_palette} and {@code foliage_palette}
+     * so every trunk/leaf combination can occur independently.
+     */
+    public record TreePalette(BlockState trunkState, BlockState leafState, int weight) {
+        public static final Codec<TreePalette> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            BlockState.CODEC.fieldOf("trunk_state").forGetter(TreePalette::trunkState),
+            BlockState.CODEC.fieldOf("leaf_state").forGetter(TreePalette::leafState),
+            Codec.intRange(1, 1000).fieldOf("weight").forGetter(TreePalette::weight)
+        ).apply(instance, TreePalette::new));
     }
 
     public record TreeProfile(

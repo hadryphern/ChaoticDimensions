@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:min",
+  "argument1": "chaoticd:shadow/floating_footprint",
+  "argument2": {
+    "type": "minecraft:min",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:mul",
+        "argument1": -1.0,
+        "argument2": "chaoticd:shadow/floating_vertical"
+      },
+      "argument2": 0.17
+    },
+    "argument2": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:add",
+        "argument1": "chaoticd:shadow/floating_vertical",
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": 0.9,
+          "argument2": "chaoticd:shadow/floating_footprint"
+        }
+      },
+      "argument2": {
+        "type": "minecraft:add",
+        "argument1": -0.08,
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": 0.16,
+          "argument2": "chaoticd:shadow/corruption_field"
+        }
+      }
+    }
+  }
+}

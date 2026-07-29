@@ -1,0 +1,10 @@
+{
+    "type": "chaoticd:aurora_water",
+    "config": {
+      "mode": "waterfall",
+      "min_radius": 2,
+      "max_radius": 8,
+      "min_depth": 8,
+      "max_depth": 12
+    }
+  }

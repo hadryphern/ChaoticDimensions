@@ -1,105 +1,114 @@
 plugins {
-	id 'fabric-loom' version "${loom_version}"
-	id 'maven-publish'
+    id 'fabric-loom' version "${loom_version}"
+    id 'maven-publish'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex 'software\\.bernie.*'
+            includeGroup 'com.eliotlash.mclib'
+        }
+    }
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// The clean base keeps only Fabric API; new content can add its own dependencies later.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "software.bernie.geckolib:geckolib-fabric-1.20.1:4.4.9"
+    implementation "com.eliotlash.mclib:mclib:20"
 }
 
 processResources {
-	inputs.property "version", project.version
+    inputs.property "version", project.version
 
-	filesMatching("fabric.mod.json") {
-		expand "version": inputs.properties.version
-	}
+    filesMatching("fabric.mod.json") {
+        expand "version": inputs.properties.version
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+    it.options.release = 17
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
-
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
-	inputs.property "archivesName", project.base.archivesName
+    inputs.property "archivesName", project.base.archivesName
 
-	from("LICENSE") {
-		rename { "${it}_${inputs.properties.archivesName}"}
-	}
+    from("LICENSE") {
+        rename { "${it}_${inputs.properties.archivesName}" }
+    }
 }
 
-// configure the maven publication
 publishing {
-	publications {
-		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
-			from components.java
-		}
-	}
+    publications {
+        create("mavenJava", MavenPublication) {
+            artifactId = project.archives_base_name
+            from components.java
+        }
+    }
 
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
+    repositories {
+    }
 }
 
 tasks.register('validateAuroraWorldgen', JavaExec) {
-	group = 'verification'
-	description = 'Loads and statistically validates the Aurora datapack without starting a server.'
-	classpath = sourceSets.test.runtimeClasspath
-	mainClass = 'net.blue.chaoticd.validation.AuroraWorldgenValidator'
-	dependsOn testClasses
+    group = 'verification'
+    description = 'Loads and statistically validates the Aurora datapack without starting a server.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'net.blue.chaoticd.validation.AuroraWorldgenValidator'
+    dependsOn testClasses
 }
 
 tasks.register('validateAuroraAssets', JavaExec) {
-	group = 'verification'
-	description = 'Validates Aurora PNG dimensions/alpha and every local block model reference.'
-	classpath = sourceSets.test.runtimeClasspath
-	mainClass = 'net.blue.chaoticd.validation.AuroraAssetsValidator'
-	dependsOn testClasses
+    group = 'verification'
+    description = 'Validates Aurora PNG dimensions/alpha and every local block model reference.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'net.blue.chaoticd.validation.AuroraAssetsValidator'
+    dependsOn testClasses
 }
 
 tasks.register('validateAuroraTrees', JavaExec) {
-	group = 'verification'
-	description = 'Generates a large deterministic sample and validates Aurora tree structure and variety.'
-	classpath = sourceSets.test.runtimeClasspath
-	mainClass = 'net.blue.chaoticd.validation.AuroraTreeValidator'
-	dependsOn testClasses
+    group = 'verification'
+    description = 'Generates a large deterministic sample and validates Aurora tree structure and variety.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'net.blue.chaoticd.validation.AuroraTreeValidator'
+    dependsOn testClasses
 }
 
-tasks.register('validateRarityApi', JavaExec) {
-	group = 'verification'
-	description = 'Validates rarity balance, resolution priority, animations, Unicode and Component styles.'
-	classpath = sourceSets.test.runtimeClasspath
-	mainClass = 'net.blue.chaoticd.validation.RarityApiValidator'
-	dependsOn testClasses
+tasks.register('validateAuroraVisuals', JavaExec) {
+    group = 'verification'
+    description = 'Validates Aurora visual registry data, atmosphere tuning, cloud layers and rainbow geometry.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'net.blue.chaoticd.validation.AuroraVisualValidator'
+    dependsOn testClasses
+}
+
+tasks.register('validateProgression', JavaExec) {
+    group = 'verification'
+    description = 'Validates the centralized material progression and native mining tags.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'net.blue.chaoticd.validation.ProgressionValidator'
+    dependsOn testClasses
 }
 
 tasks.named('check') {
-	dependsOn validateAuroraAssets, validateAuroraWorldgen, validateAuroraTrees, validateRarityApi
+    dependsOn validateAuroraAssets, validateAuroraWorldgen, validateAuroraTrees, validateAuroraVisuals, validateProgression
 }

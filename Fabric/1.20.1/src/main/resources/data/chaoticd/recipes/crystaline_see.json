@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "chaoticd:sapphire_gem"
+    }
+  ],
+  "result": {
+    "item": "chaoticd:crystaline_see",
+    "count": 1
+  }
+}

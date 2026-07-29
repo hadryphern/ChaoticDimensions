@@ -1,0 +1,31 @@
+{
+  "parent": "minecraft:story/root",
+  "display": {
+    "icon": {
+      "item": "chaoticd:chaotic_apple"
+    },
+    "title": {
+      "translate": "advancement.chaoticd.enter_aurora.title"
+    },
+    "description": {
+      "translate": "advancement.chaoticd.enter_aurora.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "chaoticd:aurora_dimension"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "trigger"
+    ]
+  ]
+}

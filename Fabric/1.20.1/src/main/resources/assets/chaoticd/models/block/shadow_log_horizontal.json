@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "side": "chaoticd:block/shadow_log",
+    "end": "chaoticd:block/shadow_log_top"
+  }
+}

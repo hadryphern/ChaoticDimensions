@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "STS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:soul_sand"
+    },
+    "T": {
+      "item": "chaoticd:titanium_ingot"
+    }
+  },
+  "result": {
+    "item": "chaoticd:titan_sould"
+  }
+}

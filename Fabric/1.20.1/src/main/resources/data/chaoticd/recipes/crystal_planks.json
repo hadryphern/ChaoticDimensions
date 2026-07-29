@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "chaoticd:crystal_log"
+    }
+  ],
+  "result": {
+    "item": "chaoticd:crystal_planks",
+    "count": 4
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    { "item": "chaoticd:stripped_aurora_pinkko_log" }
+  ],
+  "result": { "item": "chaoticd:aurora_pinkko_planks", "count": 4 }
+}

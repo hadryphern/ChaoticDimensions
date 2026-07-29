@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": ["##", "##"],
+  "key": { "#": { "item": "chaoticd:aurora_sky_log" } },
+  "result": { "item": "chaoticd:aurora_sky_wood", "count": 3 }
+}

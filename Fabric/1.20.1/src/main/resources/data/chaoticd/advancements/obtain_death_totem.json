@@ -1,0 +1,37 @@
+{
+  "parent": "chaoticd:enter_aurora",
+  "display": {
+    "icon": {
+      "item": "chaoticd:death_totem"
+    },
+    "title": {
+      "translate": "advancement.chaoticd.obtain_death_totem.title"
+    },
+    "description": {
+      "translate": "advancement.chaoticd.obtain_death_totem.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "chaoticd:death_totem"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "trigger"
+    ]
+  ]
+}

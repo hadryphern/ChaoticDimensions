@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "chaoticd:solar_obsidian"
+  },
+  "base": {
+    "item": "chaoticd:ruby_leggings"
+  },
+  "addition": {
+    "item": "chaoticd:jaxy_gem"
+  },
+  "result": {
+    "item": "chaoticd:jaxy_leggings"
+  }
+}

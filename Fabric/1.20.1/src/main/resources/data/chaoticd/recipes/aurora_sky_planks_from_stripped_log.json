@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    { "item": "chaoticd:stripped_aurora_sky_log" }
+  ],
+  "result": { "item": "chaoticd:aurora_sky_planks", "count": 4 }
+}

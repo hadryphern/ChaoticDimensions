@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "snowy=false": {
+      "model": "chaoticd:block/shadow_grass"
+    },
+    "snowy=true": {
+      "model": "chaoticd:block/shadow_grass"
+    }
+  }
+}

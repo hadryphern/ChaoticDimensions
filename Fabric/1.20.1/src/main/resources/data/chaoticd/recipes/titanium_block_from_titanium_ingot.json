@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "chaoticd:titanium_ingot"
+    }
+  },
+  "result": {
+    "item": "chaoticd:titanium_block"
+  }
+}

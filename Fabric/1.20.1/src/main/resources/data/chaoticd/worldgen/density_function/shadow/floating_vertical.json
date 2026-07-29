@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_value": -1.0,
+    "from_y": 40,
+    "to_value": 1.0,
+    "to_y": 320
+  },
+  "argument2": {
+    "type": "minecraft:mul",
+    "argument1": 0.44,
+    "argument2": "chaoticd:shadow/elevation"
+  }
+}

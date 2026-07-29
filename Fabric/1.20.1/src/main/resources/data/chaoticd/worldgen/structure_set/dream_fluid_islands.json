@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "chaoticd:dream_fluid_island",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 173941257,
+    "spacing": 96,
+    "separation": 64
+  }
+}

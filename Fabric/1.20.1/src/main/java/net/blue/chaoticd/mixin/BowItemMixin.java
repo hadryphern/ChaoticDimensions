@@ -29,7 +29,10 @@ public abstract class BowItemMixin {
         if (bow == null) {
             return drawTicks;
         }
-        int disparada = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.DISPARADA, bow);
+        int disparada = Math.max(0, Math.min(
+            EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.DISPARADA, bow),
+            5
+        ));
         int multiplier = switch (disparada) {
             case 1 -> 2;
             case 2 -> 4;

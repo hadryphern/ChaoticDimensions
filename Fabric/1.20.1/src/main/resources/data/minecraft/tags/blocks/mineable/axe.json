@@ -2,6 +2,15 @@
   "replace": false,
   "values": [
     "#chaoticd:pastel_aurora_logs",
-    "chaoticd:pastel_aurora_planks"
+    "#chaoticd:aurora_logs",
+    "chaoticd:aurora_pinkko_planks",
+    "chaoticd:aurora_souless_planks",
+    "chaoticd:aurora_sky_planks",
+    "chaoticd:pastel_aurora_planks",
+    "#chaoticd:shadow_logs",
+    "chaoticd:shadow_planks",
+    "chaoticd:crystal_log",
+    "chaoticd:crystal_planks",
+    "chaoticd:crystal_crafting_table"
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:crystal_dirt",
+    "chaoticd:crystal_grass_block",
+    "chaoticd:crystal_log",
+    "chaoticd:crystal_planks",
+    "chaoticd:crystal_leaves_1",
+    "chaoticd:crystal_leaves_2",
+    "chaoticd:crystal_leaves_3",
+    "chaoticd:crystal_red_plant",
+    "chaoticd:crystal_yellow_plant",
+    "chaoticd:crystal_blue_plant",
+    "chaoticd:crystal_green_plant",
+    "chaoticd:crystal_furnace",
+    "chaoticd:crystal_crafting_table"
+  ]
+}

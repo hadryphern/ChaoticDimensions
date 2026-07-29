@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "chaoticd:block/crystalworkbench_bottom",
+    "up": "chaoticd:block/crystalworkbench_top",
+    "north": "chaoticd:block/crystalworkbench_side",
+    "south": "chaoticd:block/crystalworkbench_side",
+    "east": "chaoticd:block/crystalworkbench_side",
+    "west": "chaoticd:block/crystalworkbench_side",
+    "particle": "chaoticd:block/crystalworkbench_side"
+  }
+}

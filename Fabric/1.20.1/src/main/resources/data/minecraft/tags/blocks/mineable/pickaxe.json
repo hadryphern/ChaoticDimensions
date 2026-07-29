@@ -2,7 +2,28 @@
   "replace": false,
   "values": [
     "chaoticd:pastel_aurora_stone",
+    "chaoticd:aurora_stone",
+    "chaoticd:jax_ore",
+    "chaoticd:deepslate_jaxy_ore",
+    "chaoticd:nether_ruby_ore",
+    "chaoticd:nether_jax_ore",
+    "chaoticd:nether_rosalita_ore",
+    "chaoticd:aurora_ruby_ore",
+    "chaoticd:aurora_jax_ore",
+    "chaoticd:aurora_rosalita_ore",
+    "chaoticd:aurora_sapphire_ore",
     "chaoticd:sapphire_ore",
-    "chaoticd:rosalita_ore"
+    "chaoticd:rosalita_ore",
+    "chaoticd:deepslate_rosalita_ore",
+    "chaoticd:shadow_stone",
+    "chaoticd:ruby_ore",
+    "chaoticd:deepslate_ruby_ore",
+    "chaoticd:ruby_block",
+    "chaoticd:titanium_ore",
+    "chaoticd:deepslate_titanium_ore",
+    "chaoticd:titanium_block",
+    "chaoticd:jaxy_block",
+    "chaoticd:rosalita_block",
+    "chaoticd:crystal_furnace"
   ]
 }

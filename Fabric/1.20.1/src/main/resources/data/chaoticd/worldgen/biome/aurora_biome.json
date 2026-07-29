@@ -2,28 +2,38 @@
   "carvers": {},
   "downfall": 0.0,
   "effects": {
-    "fog_color": 15132390,
-    "sky_color": 10928639,
+    "fog_color": 15982058,
+    "sky_color": 15382743,
     "water_color": 11324671,
     "water_fog_color": 10619647,
-    "grass_color": 16770792,
+    "grass_color": 16769264,
     "foliage_color": 15634375
   },
   "features": [
     [],
-    [],
-    [],
-    [],
-    [],
-    [],
     [
-      "chaoticd:sapphire_ore",
-      "chaoticd:rosalita_ore"
+      "chaoticd:aurora_surface_lakes"
     ],
     [],
     [],
     [
-      "chaoticd:pastel_aurora_trees"
+      "chaoticd:aurora_pond_islands"
+    ],
+    [],
+    [
+      "chaoticd:aurora_ruby_ore",
+      "chaoticd:aurora_jax_ore",
+      "chaoticd:aurora_rosalita_ore",
+      "chaoticd:aurora_sapphire_ore"
+    ],
+    [],
+    [
+      "chaoticd:aurora_waterfalls"
+    ],
+    [
+      "chaoticd:pastel_aurora_trees",
+      "chaoticd:aurora_ground_cover",
+      "chaoticd:aurora_flowers"
     ],
     []
   ],

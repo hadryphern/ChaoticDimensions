@@ -12,19 +12,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
-/**
- * The single, ordered creative tab for this mod.
- *
- * Keep the section methods and their call order intact. New content must be added only to its matching
- * section so the tab never becomes a random collection of items.
- */
+/** Single ordered creative tab for all currently registered mod content. */
 public final class ModItemGroups {
     public static final CreativeModeTab CHAOTIC_DIMENSIONS = Registry.register(
         BuiltInRegistries.CREATIVE_MODE_TAB,
         new ResourceLocation(ChaoticDimensions.MOD_ID, "chaotic_dimensions"),
         FabricItemGroup.builder()
             .title(Component.translatable("itemGroup.chaoticd.chaotic_dimensions"))
-            .icon(ModItems::createSapphireSword)
+            .icon(() -> new ItemStack(ModItems.SAPPHIRE_SWORD))
             .displayItems((parameters, entries) -> {
                 addBlocks(entries);
                 addToolsAndWeapons(entries);
@@ -37,65 +32,225 @@ public final class ModItemGroups {
                 addSpawnEggs(entries);
                 addUsefulItems(entries);
             })
-            .build());
+            .build()
+    );
 
     private ModItemGroups() {
     }
 
-    /** First: all block items, ordered by their block family. */
     private static void addBlocks(CreativeModeTab.Output entries) {
-        entries.accept(ModBlocks.PASTEL_AURORA_LOG);
-        entries.accept(ModBlocks.PASTEL_AURORA_WOOD);
-        entries.accept(ModBlocks.STRIPPED_PASTEL_AURORA_LOG);
-        entries.accept(ModBlocks.STRIPPED_PASTEL_AURORA_WOOD);
-        entries.accept(ModBlocks.PASTEL_AURORA_PLANKS);
-        entries.accept(ModBlocks.PASTEL_PINK_LEAVES);
-        entries.accept(ModBlocks.PASTEL_PURPLE_LEAVES);
-        entries.accept(ModBlocks.PASTEL_BLUE_LEAVES);
-        entries.accept(ModBlocks.PASTEL_GRASS);
-        entries.accept(ModBlocks.PASTEL_SOIL);
-        entries.accept(ModBlocks.PASTEL_AURORA_STONE);
         entries.accept(ModBlocks.SAPPHIRE_ORE);
+        entries.accept(ModBlocks.AURORA_GRASS_BLOCK);
+        entries.accept(ModBlocks.AURORA_DIRT);
+        entries.accept(ModBlocks.AURORA_STONE);
+
+        addAuroraWood(entries,
+            ModBlocks.AURORA_PINKKO_LOG,
+            ModBlocks.AURORA_PINKKO_WOOD,
+            ModBlocks.STRIPPED_AURORA_PINKKO_LOG,
+            ModBlocks.STRIPPED_AURORA_PINKKO_WOOD,
+            ModBlocks.AURORA_PINKKO_PLANKS,
+            ModBlocks.AURORA_PINKKO_LEAVES,
+            ModBlocks.AURORA_PINKKO_SAPLING);
+        addAuroraWood(entries,
+            ModBlocks.AURORA_SOULESS_LOG,
+            ModBlocks.AURORA_SOULESS_WOOD,
+            ModBlocks.STRIPPED_AURORA_SOULESS_LOG,
+            ModBlocks.STRIPPED_AURORA_SOULESS_WOOD,
+            ModBlocks.AURORA_SOULESS_PLANKS,
+            ModBlocks.AURORA_SOULESS_LEAVES,
+            ModBlocks.AURORA_SOULESS_SAPLING);
+        addAuroraWood(entries,
+            ModBlocks.AURORA_SKY_LOG,
+            ModBlocks.AURORA_SKY_WOOD,
+            ModBlocks.STRIPPED_AURORA_SKY_LOG,
+            ModBlocks.STRIPPED_AURORA_SKY_WOOD,
+            ModBlocks.AURORA_SKY_PLANKS,
+            ModBlocks.AURORA_SKY_LEAVES,
+            ModBlocks.AURORA_SKY_SAPLING);
+
+        entries.accept(ModBlocks.RUBY_ORE);
+        entries.accept(ModBlocks.DEEPSLATE_RUBY_ORE);
+        entries.accept(ModBlocks.JAX_ORE);
+        entries.accept(ModBlocks.DEEPSLATE_JAXY_ORE);
         entries.accept(ModBlocks.ROSALITA_ORE);
+        entries.accept(ModBlocks.DEEPSLATE_ROSALITA_ORE);
+        entries.accept(ModBlocks.NETHER_RUBY_ORE);
+        entries.accept(ModBlocks.NETHER_JAX_ORE);
+        entries.accept(ModBlocks.NETHER_ROSALITA_ORE);
+        entries.accept(ModBlocks.AURORA_RUBY_ORE);
+        entries.accept(ModBlocks.AURORA_JAX_ORE);
+        entries.accept(ModBlocks.AURORA_ROSALITA_ORE);
+        entries.accept(ModBlocks.AURORA_SAPPHIRE_ORE);
+        entries.accept(ModBlocks.TITANIUM_ORE);
+        entries.accept(ModBlocks.DEEPSLATE_TITANIUM_ORE);
+        entries.accept(ModBlocks.TITANIUM_BLOCK);
+        entries.accept(ModBlocks.RUBY_BLOCK);
+        entries.accept(ModBlocks.JAXY_BLOCK);
+        entries.accept(ModBlocks.ROSALITA_BLOCK);
+
+        entries.accept(ModBlocks.SHADOW_LOG);
+        entries.accept(ModBlocks.SHADOW_WOOD);
+        entries.accept(ModBlocks.STRIPPED_SHADOW_LOG);
+        entries.accept(ModBlocks.STRIPPED_SHADOW_WOOD);
+        entries.accept(ModBlocks.SHADOW_PLANKS);
+        entries.accept(ModBlocks.SHADOW_LEAVES);
+        entries.accept(ModBlocks.SHADOW_SAPLING);
+        entries.accept(ModBlocks.SHADOW_GRASS);
+        entries.accept(ModBlocks.SHADOW_SOIL);
+        entries.accept(ModBlocks.SHADOW_STONE);
+
+        entries.accept(ModBlocks.CRYSTAL_DIRT);
+        entries.accept(ModBlocks.CRYSTAL_GRASS_BLOCK);
+        entries.accept(ModBlocks.CRYSTAL_LOG);
+        entries.accept(ModBlocks.CRYSTAL_PLANKS);
+        entries.accept(ModBlocks.CRYSTAL_LEAVES_1);
+        entries.accept(ModBlocks.CRYSTAL_LEAVES_2);
+        entries.accept(ModBlocks.CRYSTAL_LEAVES_3);
+        entries.accept(ModBlocks.CRYSTAL_RED_PLANT);
+        entries.accept(ModBlocks.CRYSTAL_YELLOW_PLANT);
+        entries.accept(ModBlocks.CRYSTAL_BLUE_PLANT);
+        entries.accept(ModBlocks.CRYSTAL_GREEN_PLANT);
+        entries.accept(ModBlocks.CRYSTAL_FURNACE);
+        entries.accept(ModBlocks.CRYSTAL_CRAFTING_TABLE);
     }
 
-    /** Second: sword, axe, pickaxe, shovel and hoe, matching the agreed visual order. */
     private static void addToolsAndWeapons(CreativeModeTab.Output entries) {
-        entries.accept(ModItems.createSapphireSword());
-        entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.AXE));
-        entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.PICKAXE));
-        entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.SHOVEL));
-        entries.accept(ModItems.createSapphireTool(ModItems.SapphireToolType.HOE));
+        entries.accept(ModItems.EMERALD_SWORD);
+        entries.accept(ModItems.EMERALD_AXE);
+        entries.accept(ModItems.EMERALD_PICKAXE);
+        entries.accept(ModItems.EMERALD_SHOVEL);
+        entries.accept(ModItems.EMERALD_HOE);
+
+        entries.accept(ModItems.RUBY_SWORD);
+        entries.accept(ModItems.RUBY_AXE);
+        entries.accept(ModItems.RUBY_PICKAXE);
+        entries.accept(ModItems.RUBY_SHOVEL);
+        entries.accept(ModItems.RUBY_HOE);
+
+        entries.accept(ModItems.JAXY_SWORD);
+        entries.accept(ModItems.JAXY_AXE);
+        entries.accept(ModItems.JAXY_PICKAXE);
+        entries.accept(ModItems.JAXY_SHOVEL);
+        entries.accept(ModItems.JAXY_HOE);
+
+        entries.accept(ModItems.CHLOROPHYTE_PICKAXE);
+
+        entries.accept(ModItems.TITANIUM_SWORD);
+        entries.accept(ModItems.TITANIUM_AXE);
+        entries.accept(ModItems.TITANIUM_PICKAXE);
+        entries.accept(ModItems.TITANIUM_SHOVEL);
+        entries.accept(ModItems.TITANIUM_HOE);
+
+        entries.accept(ModItems.HERO_SWORD);
+        entries.accept(ModItems.HERO_AXE);
+        entries.accept(ModItems.HERO_PICKAXE);
+        entries.accept(ModItems.HERO_SHOVEL);
+        entries.accept(ModItems.HERO_HOE);
+
+        entries.accept(ModItems.ROSALITA_SWORD);
+        entries.accept(ModItems.ROSALITA_AXE);
+        entries.accept(ModItems.ROSALITA_PICKAXE);
+        entries.accept(ModItems.ROSALITA_SHOVEL);
+        entries.accept(ModItems.ROSALITA_HOE);
+
+        entries.accept(ModItems.SAPPHIRE_SWORD);
+        entries.accept(ModItems.SAPPHIRE_AXE);
+        entries.accept(ModItems.SAPPHIRE_PICKAXE);
+        entries.accept(ModItems.SAPPHIRE_SHOVEL);
+        entries.accept(ModItems.SAPPHIRE_HOE);
+
+        entries.accept(ModItems.SHADOW_SWORD);
+        entries.accept(ModItems.SHADOW_PICKAXE);
     }
 
-    /** Third: gems, ingots, raw materials, then ore blocks. */
     private static void addMaterialsAndOres(CreativeModeTab.Output entries) {
         entries.accept(ModItems.SAPPHIRE_GEM);
+        entries.accept(ModItems.ROSALITA_GEM);
+        entries.accept(ModItems.DERMAN_GEM);
+        entries.accept(ModItems.HERO_GEM);
+        entries.accept(ModItems.CHLOROPHYTE_INGOT);
+        entries.accept(ModItems.VYLAM_GEM);
+        entries.accept(ModItems.SHADOW_GEM);
+        entries.accept(ModItems.SHADOW_NUGGET);
+        entries.accept(ModItems.SUN_TEAR);
+        entries.accept(ModItems.SUN_PEAK);
+        entries.accept(ModItems.SHADOW_SOUL);
+        entries.accept(ModItems.VORTEX_GEM);
+        entries.accept(ModItems.VORTEX_SOUL);
+        entries.accept(ModItems.VOID_SOUL);
+        entries.accept(ModItems.DEMONITH);
+        entries.accept(ModItems.AURORA_SOUL);
+        entries.accept(ModItems.CRYSTALINE_SOUL);
+        entries.accept(ModItems.THE_CRYSTALINE);
+        entries.accept(ModItems.DEMONIC_SOULD);
+        entries.accept(ModItems.THE_UNDERGUER);
+        entries.accept(ModItems.THE_CALICE_QUEEN);
+        entries.accept(ModItems.MONTHRA_SCALE);
+        entries.accept(ModItems.CRYSTALINE_SIGIL);
+        entries.accept(ModItems.UNDERGUER_SIGIL);
+        entries.accept(ModItems.VOID);
+        entries.accept(ModItems.TITANIUM_INGOT);
+        entries.accept(ModItems.TITAN_SOULD);
+        entries.accept(ModItems.JAXY_GEM);
+        entries.accept(ModItems.SOLAR_OBSIDIAN);
+        entries.accept(ModItems.EMERALD_INGOT);
+        entries.accept(ModItems.RUBY_NUGGET);
+        entries.accept(ModItems.RUBY);
+        entries.accept(ModItems.RUBY_PLATE);
+        entries.accept(ModItems.WATER_INGOT);
+        entries.accept(ModItems.LAVA_INGOT);
+        entries.accept(ModItems.BEDROCK_STICK);
     }
 
-    /** Fourth: all armor pieces, grouped by material. */
     private static void addArmor(CreativeModeTab.Output entries) {
-        // Future armor belongs here.
+        entries.accept(ModItems.EMERALD_HELMET);
+        entries.accept(ModItems.EMERALD_CHESTPLATE);
+        entries.accept(ModItems.EMERALD_LEGGINGS);
+        entries.accept(ModItems.EMERALD_BOOTS);
+
+        entries.accept(ModItems.RUBY_HELMET);
+        entries.accept(ModItems.RUBY_CHESTPLATE);
+        entries.accept(ModItems.RUBY_LEGGINGS);
+        entries.accept(ModItems.RUBY_BOOTS);
+
+        entries.accept(ModItems.JAXY_HELMET);
+        entries.accept(ModItems.JAXY_CHESTPLATE);
+        entries.accept(ModItems.JAXY_LEGGINGS);
+        entries.accept(ModItems.JAXY_BOOTS);
+
+        entries.accept(ModItems.TITANIUM_HELMET);
+        entries.accept(ModItems.TITANIUM_CHESTPLATE);
+        entries.accept(ModItems.TITANIUM_LEGGINGS);
+        entries.accept(ModItems.TITANIUM_BOOTS);
+
+        entries.accept(ModItems.ROSALITA_HELMET);
+        entries.accept(ModItems.ROSALITA_CHESTPLATE);
+        entries.accept(ModItems.ROSALITA_LEGGINGS);
+        entries.accept(ModItems.ROSALITA_BOOTS);
     }
 
-    /** Fifth: enchanted books. Dheathic remains an Ender Dragon reward in survival. */
     private static void addEnchantments(CreativeModeTab.Output entries) {
-        for (int level = 1; level <= ModEnchantments.SAPPHIRIC.getMaxLevel(); level++) {
-            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.SAPPHIRIC, level)));
-        }
-        for (int level = 1; level <= ModEnchantments.BIG_BERTHA.getMaxLevel(); level++) {
-            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.BIG_BERTHA, level)));
-        }
-        for (int level = 1; level <= ModEnchantments.ROYAL.getMaxLevel(); level++) {
-            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.ROYAL, level)));
-        }
-        for (int level = 1; level <= ModEnchantments.DISPARADA.getMaxLevel(); level++) {
-            entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.DISPARADA, level)));
-        }
-        entries.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.DHEATHIC, 1)));
+        addBooks(entries, ModEnchantments.SAPPHIRIC);
+        addBooks(entries, ModEnchantments.BIG_BERTHA);
+        addBooks(entries, ModEnchantments.ROYAL);
+        addBooks(entries, ModEnchantments.DISPARADA);
+        entries.accept(EnchantedBookItem.createForEnchantment(
+            new EnchantmentInstance(ModEnchantments.DHEATHIC, 1)
+        ));
     }
 
-    /** Sixth: drinkable potion, splash potion, lingering potion, then tipped arrow. */
+    private static void addBooks(
+        CreativeModeTab.Output entries,
+        net.minecraft.world.item.enchantment.Enchantment enchantment
+    ) {
+        for (int level = 1; level <= enchantment.getMaxLevel(); level++) {
+            entries.accept(EnchantedBookItem.createForEnchantment(
+                new EnchantmentInstance(enchantment, level)
+            ));
+        }
+    }
+
     private static void addPotions(CreativeModeTab.Output entries) {
         entries.accept(ModPotions.potion(Items.POTION));
         entries.accept(ModPotions.potion(Items.SPLASH_POTION));
@@ -104,22 +259,54 @@ public final class ModItemGroups {
     }
 
     private static void addNature(CreativeModeTab.Output entries) {
-        // Future natural content belongs here.
+        // Nature blocks are already listed in the ordered block section.
     }
 
     private static void addFood(CreativeModeTab.Output entries) {
-        entries.accept(ModItems.CHAOTIC_APPLE.getDefaultInstance());
+        entries.accept(ModItems.CHAOTIC_APPLE);
+        entries.accept(ModItems.GOLD_SPECIAL_APPLE);
+        entries.accept(ModItems.DIMENSION_APPLE);
     }
 
     private static void addSpawnEggs(CreativeModeTab.Output entries) {
-        // Future spawn eggs belong here.
+        entries.accept(ModItems.DIMENSION_PIG_SPAWN_EGG);
+        entries.accept(ModItems.GOLD_DIMENSION_PIG_SPAWN_EGG);
+        entries.accept(ModItems.APPLE_COW_SPAWN_EGG);
+        entries.accept(ModItems.GOLDEN_APPLE_COW_SPAWN_EGG);
+        entries.accept(ModItems.CRYSTAL_APPLE_COW_SPAWN_EGG);
+        entries.accept(ModItems.CRYSTAL_GOLDEN_APPLE_SPAWN_EGG);
+        entries.accept(ModItems.CRYSTAL_CREEPER_SPAWN_EGG);
     }
 
     private static void addUsefulItems(CreativeModeTab.Output entries) {
-        // Future utility items belong here.
+        entries.accept(ModItems.DEATH_TOTEM);
+        entries.accept(ModItems.DREAM_FLUID_BUCKET);
+        entries.accept(ModItems.CRYSTALINE_SEE);
+        entries.accept(ModItems.CRYSTALINE_EYE);
+        entries.accept(ModItems.AURORA_PEARL);
+        entries.accept(ModItems.LEATHER_BACKPACK);
+    }
+
+    private static void addAuroraWood(
+        CreativeModeTab.Output entries,
+        net.minecraft.world.level.block.Block log,
+        net.minecraft.world.level.block.Block wood,
+        net.minecraft.world.level.block.Block strippedLog,
+        net.minecraft.world.level.block.Block strippedWood,
+        net.minecraft.world.level.block.Block planks,
+        net.minecraft.world.level.block.Block leaves,
+        net.minecraft.world.level.block.Block sapling
+    ) {
+        entries.accept(log);
+        entries.accept(wood);
+        entries.accept(strippedLog);
+        entries.accept(strippedWood);
+        entries.accept(planks);
+        entries.accept(leaves);
+        entries.accept(sapling);
     }
 
     public static void initialize() {
-        // Loading this class performs the registry entry above.
+        // Static field performs registry insertion.
     }
 }

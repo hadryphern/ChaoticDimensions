@@ -1,0 +1,15 @@
+{
+  "name": "chaoticd:dream_fluid_sky_lake/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "chaoticd:dream_fluid_island",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    }
+  ]
+}

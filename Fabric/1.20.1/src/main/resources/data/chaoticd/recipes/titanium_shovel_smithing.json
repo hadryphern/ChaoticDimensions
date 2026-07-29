@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "chaoticd:titan_sould"
+  },
+  "base": {
+    "item": "chaoticd:jaxy_shovel"
+  },
+  "addition": {
+    "item": "chaoticd:titanium_ingot"
+  },
+  "result": {
+    "item": "chaoticd:titanium_shovel"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "chaoticd:ruby_plate"
+  },
+  "base": {
+    "item": "chaoticd:emerald_chestplate"
+  },
+  "addition": {
+    "item": "chaoticd:ruby"
+  },
+  "result": {
+    "item": "chaoticd:ruby_chestplate"
+  }
+}

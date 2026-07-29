@@ -1,10 +1,9 @@
 package net.blue.chaoticd.content.item;
 
-import net.blue.chaoticd.content.ModItems;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 
-/** Shared material rules for every Sapphire tool and weapon. */
+/** Compatibility facade for the centralized Sapphire progression data. */
 public final class SapphireTier implements Tier {
     public static final SapphireTier INSTANCE = new SapphireTier();
 
@@ -13,31 +12,31 @@ public final class SapphireTier implements Tier {
 
     @Override
     public int getUses() {
-        return 3000;
+        return ProgressionMaterial.SAPPHIRE.getUses();
     }
 
     @Override
     public float getSpeed() {
-        return 12.0F;
+        return ProgressionMaterial.SAPPHIRE.getSpeed();
     }
 
     @Override
     public float getAttackDamageBonus() {
-        return 0.0F;
+        return ProgressionMaterial.SAPPHIRE.getAttackDamageBonus();
     }
 
     @Override
     public int getLevel() {
-        return 4;
+        return ProgressionMaterial.SAPPHIRE.getLevel();
     }
 
     @Override
     public int getEnchantmentValue() {
-        return 25;
+        return ProgressionMaterial.SAPPHIRE.getEnchantmentValue();
     }
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.of(ModItems.SAPPHIRE_GEM);
+        return ProgressionMaterial.SAPPHIRE.getRepairIngredient();
     }
 }

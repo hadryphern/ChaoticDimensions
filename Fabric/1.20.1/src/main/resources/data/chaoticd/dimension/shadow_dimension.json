@@ -1,0 +1,11 @@
+{
+  "type": "chaoticd:shadow_dimension_type",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "chaoticd:shadow_biome"
+    },
+    "settings": "chaoticd:shadow_corruption"
+  }
+}

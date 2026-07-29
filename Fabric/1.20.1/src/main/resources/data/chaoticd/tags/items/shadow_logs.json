@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:shadow_log",
+    "chaoticd:shadow_wood",
+    "chaoticd:stripped_shadow_log",
+    "chaoticd:stripped_shadow_wood"
+  ]
+}

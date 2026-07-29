@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:clamp",
+  "input": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:mul",
+        "argument1": 1.18,
+        "argument2": "chaoticd:shadow/macro"
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": 0.36,
+        "argument2": "chaoticd:shadow/detail"
+      }
+    },
+    "argument2": -0.12
+  },
+  "min": -1.5,
+  "max": 0.95
+}

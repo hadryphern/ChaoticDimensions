@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:noise",
+    "noise": "chaoticd:shadow_detail",
+    "xz_scale": 1.15,
+    "y_scale": 0.0
+  }
+}

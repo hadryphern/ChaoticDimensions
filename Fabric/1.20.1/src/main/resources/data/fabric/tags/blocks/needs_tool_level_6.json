@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:jax_ore",
+    "chaoticd:nether_jax_ore",
+    "chaoticd:aurora_jax_ore",
+    "chaoticd:deepslate_jaxy_ore",
+    "chaoticd:jaxy_block"
+  ]
+}

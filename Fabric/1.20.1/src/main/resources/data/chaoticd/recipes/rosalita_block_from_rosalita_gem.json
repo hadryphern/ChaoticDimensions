@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "chaoticd:rosalita_gem"
+    }
+  },
+  "result": {
+    "item": "chaoticd:rosalita_block"
+  }
+}

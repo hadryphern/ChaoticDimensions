@@ -1,0 +1,31 @@
+{
+  "parent": "chaoticd:enter_aurora",
+  "display": {
+    "icon": {
+      "item": "chaoticd:shadow_stone"
+    },
+    "title": {
+      "translate": "advancement.chaoticd.enter_shadow.title"
+    },
+    "description": {
+      "translate": "advancement.chaoticd.enter_shadow.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "chaoticd:shadow_dimension"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "trigger"
+    ]
+  ]
+}

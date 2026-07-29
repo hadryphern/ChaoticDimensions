@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "chaoticd:block/stripped_shadow_log",
+    "end": "chaoticd:block/stripped_shadow_log_top"
+  }
+}

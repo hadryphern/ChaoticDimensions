@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "chaoticd:pastel_aurora_stone"
+    "Name": "chaoticd:aurora_stone"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -49,7 +49,7 @@
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "chaoticd:pastel_grass"
+            "Name": "chaoticd:aurora_grass_block"
           }
         }
       },
@@ -65,14 +65,14 @@
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "chaoticd:pastel_soil"
+            "Name": "chaoticd:aurora_dirt"
           }
         }
       },
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "chaoticd:pastel_aurora_stone"
+          "Name": "chaoticd:aurora_stone"
         }
       }
     ]

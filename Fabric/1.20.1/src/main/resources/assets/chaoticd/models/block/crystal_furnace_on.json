@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "chaoticd:block/crystalfurnace_top",
+    "front": "chaoticd:block/crystalfurnace_front_on",
+    "side": "chaoticd:block/crystalfurnace_side"
+  }
+}

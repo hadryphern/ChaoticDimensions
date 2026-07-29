@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:squeeze",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": 0.72,
+    "argument2": {
+      "type": "minecraft:interpolated",
+      "argument": {
+        "type": "minecraft:max",
+        "argument1": {
+          "type": "minecraft:max",
+          "argument1": "chaoticd:shadow/ground_density",
+          "argument2": "chaoticd:shadow/floating_density"
+        },
+        "argument2": {
+          "type": "minecraft:max",
+          "argument1": "chaoticd:shadow/corruption_density",
+          "argument2": "chaoticd:shadow/shard_density"
+        }
+      }
+    }
+  }
+}

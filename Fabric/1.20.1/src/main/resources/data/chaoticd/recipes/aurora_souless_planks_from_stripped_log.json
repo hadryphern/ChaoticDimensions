@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    { "item": "chaoticd:stripped_aurora_souless_log" }
+  ],
+  "result": { "item": "chaoticd:aurora_souless_planks", "count": 4 }
+}

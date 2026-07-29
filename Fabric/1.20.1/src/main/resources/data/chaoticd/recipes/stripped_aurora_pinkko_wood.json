@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": ["##", "##"],
+  "key": { "#": { "item": "chaoticd:stripped_aurora_pinkko_log" } },
+  "result": { "item": "chaoticd:stripped_aurora_pinkko_wood", "count": 3 }
+}

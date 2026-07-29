@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "chaoticd:block/crystaltreeleaves3",
+    "particle": "chaoticd:block/crystaltreeleaves3"
+  }
+}

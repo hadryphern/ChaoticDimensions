@@ -1,0 +1,9 @@
+{
+  "type": "chaoticd:shadow_lava",
+  "config": {
+    "min_radius": 2,
+    "max_radius": 5,
+    "min_depth": 1,
+    "max_depth": 3
+  }
+}

@@ -1,0 +1,10 @@
+{
+    "type": "chaoticd:aurora_water",
+    "config": {
+      "mode": "surface_lake",
+      "min_radius": 3,
+      "max_radius": 6,
+      "min_depth": 1,
+      "max_depth": 4
+    }
+  }

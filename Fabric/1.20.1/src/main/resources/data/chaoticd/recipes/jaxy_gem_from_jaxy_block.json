@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "chaoticd:jaxy_block"
+    }
+  ],
+  "result": {
+    "item": "chaoticd:jaxy_gem",
+    "count": 9
+  }
+}

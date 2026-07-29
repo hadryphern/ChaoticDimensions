@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "chaoticd:aurora_pinkko_log",
+    "chaoticd:aurora_pinkko_wood",
+    "chaoticd:stripped_aurora_pinkko_log",
+    "chaoticd:stripped_aurora_pinkko_wood",
+    "chaoticd:aurora_souless_log",
+    "chaoticd:aurora_souless_wood",
+    "chaoticd:stripped_aurora_souless_log",
+    "chaoticd:stripped_aurora_souless_wood",
+    "chaoticd:aurora_sky_log",
+    "chaoticd:aurora_sky_wood",
+    "chaoticd:stripped_aurora_sky_log",
+    "chaoticd:stripped_aurora_sky_wood"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.crystal_apple_cow",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Pernaesquerda",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [2, 0, -8], "size": [4, 13, 4], "uv": [28, 29]}
+					]
+				},
+				{
+					"name": "Pernadireita",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6, 0, -8], "size": [4, 13, 4], "uv": [0, 43]}
+					]
+				},
+				{
+					"name": "Pernaesquerdaatras",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [2, 0, 6], "size": [4, 13, 4], "uv": [16, 46]}
+					]
+				},
+				{
+					"name": "Pernadireitaatras",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6, 0, 6], "size": [4, 13, 4], "uv": [44, 29]}
+					]
+				},
+				{
+					"name": "Copro",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6, 13, -8], "size": [12, 11, 18], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Cabessa",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4, 18, -13], "size": [8, 8, 6], "uv": [0, 29]},
+						{"origin": [4, 24, -11], "size": [1, 3, 1], "uv": [32, 46]},
+						{"origin": [-5, 24, -11], "size": [1, 3, 1], "uv": [36, 46]}
+					]
+				}
+			]
+		}
+	]
+}

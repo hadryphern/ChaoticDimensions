@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:range_choice",
+  "input": "minecraft:y",
+  "min_inclusive": 0.0,
+  "max_exclusive": 340.0,
+  "when_in_range": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 1.1,
+      "argument2": "chaoticd:shadow/shard_field"
+    },
+    "argument2": -0.79
+  },
+  "when_out_of_range": -1.0
+}

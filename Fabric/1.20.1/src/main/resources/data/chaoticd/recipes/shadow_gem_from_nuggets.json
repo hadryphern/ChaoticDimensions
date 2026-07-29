@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "chaoticd:shadow_nugget"
+    }
+  },
+  "result": {
+    "item": "chaoticd:shadow_gem"
+  }
+}
