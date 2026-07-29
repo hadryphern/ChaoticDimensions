@@ -10,7 +10,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 /** Extends sword attack reach without changing the sword model. */
 public final class BigBerthaEnchantment extends Enchantment {
     public BigBerthaEnchantment() {
-        super(Rarity.VERY_RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.COMMON, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 
     @Override

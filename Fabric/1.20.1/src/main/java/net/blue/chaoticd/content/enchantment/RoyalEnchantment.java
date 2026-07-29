@@ -10,7 +10,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 /** A stronger Big Bertha variant: more reach and ten times sword damage. */
 public final class RoyalEnchantment extends Enchantment {
     public RoyalEnchantment() {
-        super(Rarity.VERY_RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.COMMON, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 
     @Override

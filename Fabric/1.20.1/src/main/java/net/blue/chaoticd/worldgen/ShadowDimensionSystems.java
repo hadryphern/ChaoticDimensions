@@ -1,7 +1,9 @@
 package net.blue.chaoticd.worldgen;
 
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import net.blue.chaoticd.ChaoticDimensions;
@@ -51,8 +53,11 @@ public final class ShadowDimensionSystems {
     private static final int DEATH_TOTEM_NIGHT_VISION_DURATION = 999_999;
     private static final float SHADOW_DAMAGE = 2.0F;
     private static final double DROPPED_TOTEM_SEARCH_RADIUS = 6.0D;
+    private static final int DROPPED_TOTEM_CHECK_INTERVAL_TICKS = 5;
+    private static final long VOID_ARRIVAL_RETRY_TICKS = 200L;
 
     private static final Set<UUID> CURSED_PLAYERS = new HashSet<>();
+    private static final Map<UUID, Long> NEXT_VOID_ARRIVAL_ATTEMPT = new HashMap<>();
 
     private ShadowDimensionSystems() {
     }
@@ -81,7 +86,10 @@ public final class ShadowDimensionSystems {
             enforceShadowStorm(level);
 
             for (ServerPlayer player : List.copyOf(level.players())) {
-                if (handleDroppedDeathTotem(level, player)) {
+                NEXT_VOID_ARRIVAL_ATTEMPT.remove(player.getUUID());
+
+                if (player.tickCount % DROPPED_TOTEM_CHECK_INTERVAL_TICKS == 0
+                    && handleDroppedDeathTotem(level, player)) {
                     continue;
                 }
 
@@ -100,14 +108,25 @@ public final class ShadowDimensionSystems {
         }
 
         for (ServerPlayer player : level.players()) {
+            NEXT_VOID_ARRIVAL_ATTEMPT.remove(player.getUUID());
             clearShadowCurse(player);
         }
     }
 
     private static void handleAuroraVoidFall(ServerLevel aurora, ServerPlayer player) {
         if (player.getY() >= aurora.getMinBuildHeight() - AURORA_VOID_MARGIN) {
+            NEXT_VOID_ARRIVAL_ATTEMPT.remove(player.getUUID());
             return;
         }
+
+        long now = aurora.getGameTime();
+        long nextAttempt = NEXT_VOID_ARRIVAL_ATTEMPT.getOrDefault(player.getUUID(), Long.MIN_VALUE);
+        if (now < nextAttempt) {
+            return;
+        }
+        /* A safe-arrival search can inspect/generate many chunks.  Never run it
+         * continuously while a player is falling through Aurora's void. */
+        NEXT_VOID_ARRIVAL_ATTEMPT.put(player.getUUID(), now + VOID_ARRIVAL_RETRY_TICKS);
 
         ServerLevel shadow = player.server.getLevel(SHADOW_DIMENSION);
 
@@ -120,7 +139,10 @@ public final class ShadowDimensionSystems {
         }
 
         ShadowSafeArrival.find(shadow).ifPresentOrElse(
-            arrival -> teleport(player, shadow, arrival),
+            arrival -> {
+                NEXT_VOID_ARRIVAL_ATTEMPT.remove(player.getUUID());
+                teleport(player, shadow, arrival);
+            },
             () -> player.displayClientMessage(
                 Component.translatable("message.chaoticd.shadow_no_safe_arrival"),
                 false

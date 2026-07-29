@@ -1,5 +1,8 @@
 package net.blue.chaoticd.content.item;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import net.blue.chaoticd.ChaoticDimensions;
 import net.blue.chaoticd.content.ModTags;
 import net.minecraft.core.BlockPos;
@@ -31,6 +34,8 @@ import net.minecraft.world.level.levelgen.structure.Structure;
  */
 public final class CrystalineSeeItem extends Item {
     private static final int SEARCH_RADIUS_CHUNKS = 256;
+    private static final long SEARCH_COOLDOWN_TICKS = 100L;
+    private static final Map<UUID, Long> NEXT_SEARCH_TICK = new HashMap<>();
 
     private static final ResourceKey<Level>
         AURORA_DIMENSION =
@@ -81,6 +86,19 @@ public final class CrystalineSeeItem extends Item {
                 stack
             );
         }
+
+        long now = serverLevel.getGameTime();
+        long nextSearch = NEXT_SEARCH_TICK.getOrDefault(player.getUUID(), Long.MIN_VALUE);
+        if (now < nextSearch) {
+            player.displayClientMessage(
+                Component.translatable("message.chaoticd.crystaline_see_cooldown"),
+                true
+            );
+            return InteractionResultHolder.fail(stack);
+        }
+        /* Structure lookups can scan a large portion of the world generator.
+         * Rate-limit repeated clicks without changing the item's destination. */
+        NEXT_SEARCH_TICK.put(player.getUUID(), now + SEARCH_COOLDOWN_TICKS);
 
         BlockPos target =
             serverLevel.findNearestMapStructure(

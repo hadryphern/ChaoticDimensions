@@ -9,12 +9,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 
 /**
- * Makes the bounded post-Netherite armor progression effective in vanilla.
+ * Makes the exact 2x post-Netherite armor progression effective in vanilla.
  *
  * <p>Minecraft's native armor formula caps the practical benefit of armor
- * points.  {@link ProgressionMaterial} keeps native armor in its valid range
- * and supplies a finite, monotonic full-set divisor here.  The scale applies
- * only to a complete matching set and leaves void/kill damage untouched.</p>
+ * points. {@link ProgressionMaterial} supplies the native material attributes
+ * and the matching 2x full-set divisor here. The scale applies only to a
+ * complete matching set and leaves void/kill damage untouched.</p>
  */
 public final class ProgressionArmorProtection {
     private ProgressionArmorProtection() {

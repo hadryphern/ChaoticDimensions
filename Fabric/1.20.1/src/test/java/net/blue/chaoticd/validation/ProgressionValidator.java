@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import net.blue.chaoticd.content.item.ProgressionMaterial;
 import net.blue.chaoticd.content.progression.MiningProgression;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Tiers;
 
 /**
@@ -67,7 +68,7 @@ public final class ProgressionValidator {
         validateTranslations();
 
         System.out.println(
-            "Progression validation passed: tiers, numeric caps, mining tags and ore loot rules are coherent."
+            "Progression validation passed: exact 2x tiers, mining tags and ore loot rules are coherent."
         );
     }
 
@@ -79,20 +80,20 @@ public final class ProgressionValidator {
             requireFinite(material.theoreticalMiningSpeed(), material + " theoretical speed");
             requireFinite(material.theoreticalAttackBonus(), material + " theoretical attack");
             requireFinite(material.theoreticalEnchantmentValue(), material + " theoretical enchantability");
-            require(material.getUses() > 0 && material.getUses() <= 1_500_000_000,
+            require(material.getUses() > 0 && material.getUses() <= 4_200_000,
                 material + " uses are outside the safe ItemStack range");
             require(Float.isFinite(material.getSpeed()) && material.getSpeed() > 0.0F
-                    && material.getSpeed() <= 1_000_000.0F,
+                    && material.getSpeed() <= 20_000.0F,
                 material + " mining speed is unsafe");
             require(Float.isFinite(material.getAttackDamageBonus())
                     && material.getAttackDamageBonus() > 0.0F
-                    && material.getAttackDamageBonus() <= 1_000_000.0F,
+                    && material.getAttackDamageBonus() <= 10_000.0F,
                 material + " attack bonus is unsafe");
             require(material.getEnchantmentValue() > 0
-                    && material.getEnchantmentValue() <= 100_000,
+                    && material.getEnchantmentValue() <= 40_000,
                 material + " enchantability is unsafe");
             require(material.armorDurabilityMultiplier() > 0
-                    && material.armorDurabilityMultiplier() <= 90_000_000,
+                    && material.armorDurabilityMultiplier() <= 100_000,
                 material + " armor durability multiplier is unsafe");
             require(material.armorKnockbackResistance() >= 0.0F
                     && material.armorKnockbackResistance() <= 1.0F,
@@ -103,8 +104,10 @@ public final class ProgressionValidator {
                     material + " has an incorrect predecessor");
                 require(close(
                     material.cumulativeMultiplier(),
-                    previous.cumulativeMultiplier() * material.stepMultiplier()
+                    previous.cumulativeMultiplier() * 2.0D
                 ), material + " cumulative multiplier is not based on its predecessor");
+                require(close(material.stepMultiplier(), 2.0D),
+                    material + " must be exactly 2x its predecessor");
                 require(material.getUses() > previous.getUses(),
                     material + " uses are not strictly increasing");
                 require(material.getSpeed() > previous.getSpeed(),
@@ -119,25 +122,56 @@ public final class ProgressionValidator {
                 require(material.fullSetDamageDivisor()
                         > previous.fullSetDamageDivisor(),
                     material + " full-set mitigation is not strictly increasing");
+                require(material.getUses() == previous.getUses() * 2,
+                    material + " durability must be exactly 2x its predecessor");
+                require(material.getSpeed() == previous.getSpeed() * 2.0F,
+                    material + " mining speed must be exactly 2x its predecessor");
+                require(material.getAttackDamageBonus() == previous.getAttackDamageBonus() * 2.0F,
+                    material + " attack bonus must be exactly 2x its predecessor");
+                require(material.getEnchantmentValue() == previous.getEnchantmentValue() * 2,
+                    material + " enchantability must be exactly 2x its predecessor");
+                require(material.armorDurabilityMultiplier()
+                        == previous.armorDurabilityMultiplier() * 2,
+                    material + " armor durability must be exactly 2x its predecessor");
+                require(material.fullSetDamageDivisor()
+                        == previous.fullSetDamageDivisor() * 2,
+                    material + " complete armor protection must be exactly 2x its predecessor");
+                require(material.swordAttackDamage() == previous.swordAttackDamage() * 2,
+                    material + " sword damage must be exactly 2x its predecessor");
+                require(material.pickaxeAttackDamage() == previous.pickaxeAttackDamage() * 2,
+                    material + " pickaxe damage must be exactly 2x its predecessor");
+                require(material.axeAttackDamage() == previous.axeAttackDamage() * 2,
+                    material + " axe damage must be exactly 2x its predecessor");
+                require(material.hoeAttackDamage() == previous.hoeAttackDamage() * 2,
+                    material + " hoe damage must be exactly 2x its predecessor");
+                require(close(material.armorToughness(), previous.armorToughness() * 2.0D),
+                    material + " armor toughness must be exactly 2x its predecessor");
+                require(close(
+                    material.armorKnockbackResistance(),
+                    Math.min(1.0D, previous.armorKnockbackResistance() * 2.0D)
+                ), material + " knockback resistance must double until the vanilla 100% cap");
+
+                for (ArmorItem.Type type : ArmorItem.Type.values()) {
+                    require(material.armorDefense(type) == previous.armorDefense(type) * 2,
+                        material + " " + type + " armor points must be exactly 2x its predecessor");
+                }
             }
 
             previous = material;
         }
 
         require(ProgressionMaterial.EMERALD.getUses() == 4_062,
-            "Emerald must retain the literal 2x durability");
-        require(ProgressionMaterial.RUBY.getUses() == 12_186,
-            "Ruby must be 3x Emerald, not 2x Emerald");
-        require(ProgressionMaterial.JAXY.getUses() == 24_372,
-            "Jaxy must be 2x Ruby");
-        require(ProgressionMaterial.CHLOROPHYTE.getUses() == 121_860,
-            "Chlorophyte must be 5x Jaxy");
-        require(ProgressionMaterial.TITANIUM.getUses() == 1_218_600,
-            "Titanium must be 10x Chlorophyte");
-        require(ProgressionMaterial.VYLAM.getUses() == 6_093_000,
-            "Vylam must be 5x Titanium");
-        require(ProgressionMaterial.HERO.getUses() == 152_325_000,
-            "Hero must be 25x Vylam");
+            "Emerald must be exactly 2x Netherite");
+        require(ProgressionMaterial.RUBY.getUses() == 8_124,
+            "Ruby must be exactly 2x Emerald");
+        require(ProgressionMaterial.SAPPHIRE.getUses() == 1_039_872,
+            "Sapphire must retain its exact 2x chain value");
+        require(ProgressionMaterial.VORTEX.getUses() == 4_159_488,
+            "Vortex must retain its exact 2x chain value");
+        require(ProgressionMaterial.NETHERITE.swordAttackDamage() == 8,
+            "Netherite sword baseline must remain eight damage");
+        require(ProgressionMaterial.SAPPHIRE.swordAttackDamage() == 4_096,
+            "Sapphire sword must follow the exact 2x chain");
     }
 
     private static void validateMiningMatrix() {
@@ -223,17 +257,8 @@ public final class ProgressionValidator {
             Path file = ROOT.resolve("assets/chaoticd/lang/" + language + ".json");
             try (Reader reader = Files.newBufferedReader(file)) {
                 JsonObject languageFile = JsonParser.parseReader(reader).getAsJsonObject();
-                require(languageFile.has("tooltip.chaoticd.progression_pickaxe"),
-                    language + " is missing the progression pickaxe tooltip");
-
-                for (ProgressionMaterial material : ProgressionMaterial.values()) {
-                    if (!material.materialTranslationKey().startsWith("item.chaoticd.")) {
-                        continue;
-                    }
-
-                    require(languageFile.has(material.materialTranslationKey()),
-                        language + " is missing the material label for " + material);
-                }
+                require(!languageFile.has("tooltip.chaoticd.progression_pickaxe"),
+                    language + " must not expose mining-level tooltips");
             }
         }
     }

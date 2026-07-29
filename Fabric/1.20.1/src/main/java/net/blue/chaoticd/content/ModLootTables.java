@@ -10,7 +10,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-/** Very rare Ruby Nugget injection into requested vanilla dungeon chests. */
+/** Low-chance Ruby Nugget injection into requested vanilla dungeon chests. */
 public final class ModLootTables {
     private static final float RUBY_NUGGET_CHANCE = 0.02F;
 

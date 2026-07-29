@@ -24,7 +24,8 @@ public final class DreamFluidSystems {
     private static final String START_TIME_TAG = "chaoticdDreamFluidStart";
     private static final String OWNER_TAG = "chaoticdDreamFluidOwner";
     private static final int TRANSFORMATION_TICKS = 100;
-    private static final double ITEM_SEARCH_RADIUS = 96.0D;
+    private static final int ITEM_TRANSFORM_SCAN_INTERVAL_TICKS = 10;
+    private static final double ITEM_SEARCH_RADIUS = 64.0D;
     private static final double ITEM_HORIZONTAL_DRAG = 0.55D;
     private static final double MAXIMUM_ITEM_SINK_SPEED = -0.010D;
 
@@ -40,7 +41,9 @@ public final class DreamFluidSystems {
             return;
         }
         killPlayersInsideDreamFluid(level);
-        transformItemsInsideDreamFluid(level);
+        if (level.getGameTime() % ITEM_TRANSFORM_SCAN_INTERVAL_TICKS == 0L) {
+            transformItemsInsideDreamFluid(level);
+        }
     }
 
     private static void killPlayersInsideDreamFluid(ServerLevel level) {

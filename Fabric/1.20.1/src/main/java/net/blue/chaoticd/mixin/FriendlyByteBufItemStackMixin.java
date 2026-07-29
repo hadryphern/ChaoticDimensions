@@ -2,6 +2,7 @@ package net.blue.chaoticd.mixin;
 
 import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
+import net.blue.chaoticd.stack.ExtendedStackSize;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;

@@ -1,5 +1,6 @@
 package net.blue.chaoticd.mixin;
 
+import net.blue.chaoticd.stack.ExtendedStackSize;
 import net.minecraft.world.Container;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

@@ -9,7 +9,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 /** Applies the disorienting Sapphiric effect to direct sword melee hits. */
 public final class SapphiricEnchantment extends Enchantment {
     public SapphiricEnchantment() {
-        super(Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.COMMON, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 
     @Override

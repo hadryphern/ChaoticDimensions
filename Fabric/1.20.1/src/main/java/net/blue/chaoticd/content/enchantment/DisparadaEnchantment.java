@@ -7,7 +7,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 /** Portuguese-named bow enchantment that greatly reduces draw time. */
 public final class DisparadaEnchantment extends Enchantment {
     public DisparadaEnchantment() {
-        super(Rarity.RARE, EnchantmentCategory.BOW, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.COMMON, EnchantmentCategory.BOW, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 
     @Override

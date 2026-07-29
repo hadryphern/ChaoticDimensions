@@ -1,5 +1,6 @@
 package net.blue.chaoticd.mixin;
 
+import net.blue.chaoticd.stack.ExtendedStackSize;
 import net.minecraft.world.entity.player.StackedContents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;

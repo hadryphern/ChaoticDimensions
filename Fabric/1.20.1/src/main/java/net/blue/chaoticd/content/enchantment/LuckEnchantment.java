@@ -19,7 +19,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 public final class LuckEnchantment extends Enchantment {
     public LuckEnchantment() {
         super(
-            Rarity.VERY_RARE,
+            Rarity.COMMON,
             EnchantmentCategory.BREAKABLE,
             EquipmentSlot.values()
         );

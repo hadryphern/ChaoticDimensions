@@ -10,6 +10,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,6 +18,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** Restores an entity target beyond vanilla's three-block anti-reach client clamp. */
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
+    @Unique
+    private long chaoticd$lastLongRangePickTick = Long.MIN_VALUE;
+
+    @Unique
+    private EntityHitResult chaoticd$cachedLongRangeTarget;
+
     @Inject(method = "pick", at = @At("TAIL"))
     private void chaoticd$pickLongRangeSwordTarget(float partialTick, CallbackInfo callback) {
         Minecraft minecraft = Minecraft.getInstance();
@@ -30,6 +37,17 @@ public abstract class GameRendererMixin {
             return;
         }
 
+        long gameTime = minecraft.level.getGameTime();
+        if (gameTime == chaoticd$lastLongRangePickTick) {
+            if (chaoticd$cachedLongRangeTarget != null) {
+                minecraft.hitResult = chaoticd$cachedLongRangeTarget;
+                minecraft.crosshairPickEntity = chaoticd$cachedLongRangeTarget.getEntity();
+            }
+            return;
+        }
+        chaoticd$lastLongRangePickTick = gameTime;
+        chaoticd$cachedLongRangeTarget = null;
+
         Vec3 eye = player.getEyePosition(partialTick);
         Vec3 direction = player.getViewVector(partialTick);
         double maximumReach = reach;
@@ -41,6 +59,7 @@ public abstract class GameRendererMixin {
         EntityHitResult target = ProjectileUtil.getEntityHitResult(player, eye, end, searchBox,
             candidate -> !candidate.isSpectator() && candidate.isPickable(), maximumReach * maximumReach);
         if (target != null) {
+            chaoticd$cachedLongRangeTarget = target;
             minecraft.hitResult = target;
             minecraft.crosshairPickEntity = target.getEntity();
         }

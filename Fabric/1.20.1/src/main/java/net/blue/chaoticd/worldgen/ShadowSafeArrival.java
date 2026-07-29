@@ -3,6 +3,7 @@ package net.blue.chaoticd.worldgen;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -18,11 +19,24 @@ public final class ShadowSafeArrival {
     private static final int SAFE_FOOTPRINT_RADIUS = 4;
     private static final int MAX_SURFACE_VARIATION = 4;
     private static final int MIN_ARRIVAL_Y = -32;
+    private static final Map<ServerLevel, BlockPos> CACHED_ARRIVALS = new WeakHashMap<>();
 
     private ShadowSafeArrival() {
     }
 
     public static Optional<BlockPos> find(ServerLevel level) {
+        BlockPos cached = CACHED_ARRIVALS.get(level);
+        if (cached != null && isStillSafe(level, cached)) {
+            return Optional.of(cached);
+        }
+        CACHED_ARRIVALS.remove(level);
+
+        Optional<BlockPos> found = findUncached(level);
+        found.ifPresent(position -> CACHED_ARRIVALS.put(level, position.immutable()));
+        return found;
+    }
+
+    private static Optional<BlockPos> findUncached(ServerLevel level) {
         ChunkGenerator generator = level.getChunkSource().getGenerator();
         RandomState randomState = level.getChunkSource().randomState();
         Map<Long, Integer> heightCache = new HashMap<>();
@@ -127,6 +141,20 @@ public final class ShadowSafeArrival {
         }
 
         return Optional.empty();
+    }
+
+    /** Reuses a proven landing point while still rejecting a destroyed or flooded floor. */
+    private static boolean isStillSafe(ServerLevel level, BlockPos feet) {
+        if (!isUsableHeight(level, feet.getY())) {
+            return false;
+        }
+        level.getChunk(feet.getX() >> 4, feet.getZ() >> 4);
+        BlockPos floor = feet.below();
+        return !level.getBlockState(floor).isAir()
+            && level.getFluidState(floor).isEmpty()
+            && !level.getBlockState(floor).getCollisionShape(level, floor).isEmpty()
+            && level.getBlockState(feet).isAir()
+            && level.getBlockState(feet.above()).isAir();
     }
 
     private static Optional<BlockPos> inspect(

@@ -3,6 +3,7 @@ package net.blue.chaoticd.content.worldgen;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -25,11 +26,24 @@ public final class AuroraSafeArrival {
     private static final int SAFE_FOOTPRINT_RADIUS = 7;
     private static final int MAX_SURFACE_VARIATION = 5;
     private static final int MIN_ARRIVAL_Y = 80;
+    private static final Map<ServerLevel, BlockPos> CACHED_ARRIVALS = new WeakHashMap<>();
 
     private AuroraSafeArrival() {
     }
 
     public static Optional<BlockPos> find(ServerLevel level) {
+        BlockPos cached = CACHED_ARRIVALS.get(level);
+        if (cached != null && isStillSafe(level, cached)) {
+            return Optional.of(cached);
+        }
+        CACHED_ARRIVALS.remove(level);
+
+        Optional<BlockPos> found = findUncached(level);
+        found.ifPresent(position -> CACHED_ARRIVALS.put(level, position.immutable()));
+        return found;
+    }
+
+    private static Optional<BlockPos> findUncached(ServerLevel level) {
         ChunkGenerator generator = level.getChunkSource().getGenerator();
         RandomState randomState = level.getChunkSource().randomState();
         Map<Long, Integer> heightCache = new HashMap<>();
@@ -67,6 +81,21 @@ public final class AuroraSafeArrival {
         }
 
         return Optional.empty();
+    }
+
+    /** Reuses a proven landing point while still rejecting terrain changed by players. */
+    private static boolean isStillSafe(ServerLevel level, BlockPos feet) {
+        if (!isUsableHeight(level, feet.getY())) {
+            return false;
+        }
+        level.getChunk(feet.getX() >> 4, feet.getZ() >> 4);
+        BlockPos floor = feet.below();
+        BlockState floorState = level.getBlockState(floor);
+        return !floorState.isAir()
+            && level.getFluidState(floor).isEmpty()
+            && !floorState.getCollisionShape(level, floor).isEmpty()
+            && level.getBlockState(feet).isAir()
+            && level.getBlockState(feet.above()).isAir();
     }
 
     private static Optional<BlockPos> inspect(ServerLevel level, ChunkGenerator generator, RandomState randomState,

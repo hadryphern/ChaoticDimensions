@@ -17,7 +17,6 @@
     "DiggerItemMiningLevelMixin"
   ],
   "client": [
-    "ItemStackNameMixin",
     "ItemStackTooltipMixin",
     "client.KeyboardInputMixin",
     "client.GameRendererMixin",

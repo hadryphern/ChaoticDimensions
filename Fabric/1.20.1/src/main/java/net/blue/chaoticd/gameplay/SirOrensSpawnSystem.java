@@ -211,7 +211,7 @@ public final class SirOrensSpawnSystem {
 
             if (record.auroraVisited
                 && (hint != null || gameTime % PENDING_HOME_RECHECK_TICKS == 0L)) {
-                trySpawnAtHome(player, data, record);
+                trySpawnAtHome(player, data, record, false);
             }
         }
 
@@ -232,7 +232,9 @@ public final class SirOrensSpawnSystem {
         }
 
         if (firstAuroraVisit && !record.spawned) {
-            trySpawnAtHome(player, data, record);
+            /* The first Aurora arrival is the one permitted eager house
+             * inspection. Later periodic checks never force-load the home. */
+            trySpawnAtHome(player, data, record, true);
         }
     }
 
@@ -244,13 +246,20 @@ public final class SirOrensSpawnSystem {
     private static void trySpawnAtHome(
         ServerPlayer player,
         SirOrensData data,
-        OwnerRecord record
+        OwnerRecord record,
+        boolean allowChunkLoad
     ) {
         if (record.spawned) {
             return;
         }
 
-        HomeLocation home = findCandidateHome(player.server, player, data, record);
+        HomeLocation home = findCandidateHome(
+            player.server,
+            player,
+            data,
+            record,
+            allowChunkLoad
+        );
 
         if (home == null) {
             return;
@@ -289,13 +298,20 @@ public final class SirOrensSpawnSystem {
         MinecraftServer server,
         ServerPlayer player,
         SirOrensData data,
-        OwnerRecord record
+        OwnerRecord record,
+        boolean allowChunkLoad
     ) {
         if (record.home != null) {
             ServerLevel homeLevel = server.getLevel(record.home.dimension());
 
             if (homeLevel != null) {
-                loadHomeArea(homeLevel, record.home.bedPos());
+                if (allowChunkLoad) {
+                    loadHomeArea(homeLevel, record.home.bedPos());
+                }
+
+                if (!hasLoadedChunk(homeLevel, record.home.bedPos())) {
+                    return null;
+                }
 
                 if (isBed(homeLevel, record.home.bedPos())) {
                     return record.home;
@@ -318,7 +334,13 @@ public final class SirOrensSpawnSystem {
             return null;
         }
 
-        loadHomeArea(respawnLevel, respawn);
+        if (allowChunkLoad) {
+            loadHomeArea(respawnLevel, respawn);
+        }
+
+        if (!hasLoadedChunk(respawnLevel, respawn)) {
+            return null;
+        }
 
         if (!isBed(respawnLevel, respawn)) {
             return null;
@@ -358,7 +380,7 @@ public final class SirOrensSpawnSystem {
                 for (int zOffset = -BED_SEARCH_RADIUS; zOffset <= BED_SEARCH_RADIUS; zOffset++) {
                     BlockPos candidate = center.offset(xOffset, yOffset, zOffset);
 
-                    if (level.hasChunkAt(candidate) && isBed(level, candidate)) {
+                    if (hasLoadedChunk(level, candidate) && isBed(level, candidate)) {
                         return canonicalBedFoot(level, candidate);
                     }
                 }
@@ -369,7 +391,7 @@ public final class SirOrensSpawnSystem {
     }
 
     private static boolean isSuitableHouseBed(ServerLevel level, BlockPos bedPos) {
-        if (!level.hasChunkAt(bedPos) || !isBed(level, bedPos)) {
+        if (!hasLoadedChunk(level, bedPos) || !isBed(level, bedPos)) {
             return false;
         }
 
@@ -418,10 +440,8 @@ public final class SirOrensSpawnSystem {
     }
 
     /**
-     * The player is normally far away in Aurora when this runs, so their home
-     * chunk is often not ticking. Loading this tiny fixed area is necessary to
-     * inspect the existing bed and place Sir. Orens at the actual house rather
-     * than silently waiting for the player to return to the Overworld.
+     * This is only used for the initial Aurora-arrival check. Periodic checks
+     * and ordinary ticks must never force-load a distant player home.
      */
     private static void loadHomeArea(ServerLevel level, BlockPos bedPos) {
         level.getChunkAt(bedPos.offset(-3, 0, -3));
@@ -468,7 +488,7 @@ public final class SirOrensSpawnSystem {
     }
 
     private static boolean isSafeStandingSpace(ServerLevel level, BlockPos pos) {
-        return level.hasChunkAt(pos)
+        return hasLoadedChunk(level, pos)
             && isSolid(level, pos.below())
             && isEmptyCollision(level, pos)
             && isEmptyCollision(level, pos.above());
@@ -499,6 +519,15 @@ public final class SirOrensSpawnSystem {
 
     private static boolean isSolid(ServerLevel level, BlockPos pos) {
         return !level.getBlockState(pos).getCollisionShape(level, pos).isEmpty();
+    }
+
+    /**
+     * Reads the server chunk cache directly, without the deprecated
+     * {@code LevelReader.hasChunkAt} convenience methods and without loading
+     * a chunk just to inspect a possible home.
+     */
+    private static boolean hasLoadedChunk(ServerLevel level, BlockPos pos) {
+        return level.getChunkSource().hasChunk(pos.getX() >> 4, pos.getZ() >> 4);
     }
 
     private static boolean isEmptyCollision(ServerLevel level, BlockPos pos) {
@@ -570,7 +599,7 @@ public final class SirOrensSpawnSystem {
             ServerLevel homeLevel = server.getLevel(record.home.dimension());
 
             if (homeLevel == null
-                || !homeLevel.hasChunkAt(record.home.bedPos())
+                || !hasLoadedChunk(homeLevel, record.home.bedPos())
                 || !isSuitableHouseBed(homeLevel, record.home.bedPos())) {
                 continue;
             }

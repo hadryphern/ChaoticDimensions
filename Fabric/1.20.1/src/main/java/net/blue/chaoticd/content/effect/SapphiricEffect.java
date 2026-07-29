@@ -15,7 +15,10 @@ public final class SapphiricEffect extends MobEffect {
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return duration % 10 == 0;
+        // Pathfinding is expensive for a large Sapphiric V wave. Once per
+        // second still keeps mobs visibly disoriented without scheduling two
+        // navigation searches per second for every affected mob.
+        return duration % 20 == 0;
     }
 
     @Override

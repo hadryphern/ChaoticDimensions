@@ -1,5 +1,13 @@
 # Progressão de ferramentas, armaduras e mineração — 2026-07-29
 
+> **Histórico — substituído.** Este relatório descreve a revisão anterior,
+> que continha multiplicadores irregulares, compressão de valores e tooltip de
+> nível de picareta. A especificação vigente é
+> [`PROGRESSION_REBALANCE_AND_STABILITY_2026-07-29.md`](PROGRESSION_REBALANCE_AND_STABILITY_2026-07-29.md):
+> cada material sobe exatamente 2× em relação ao anterior, não há interface de
+> raridades e os níveis de mineração continuam mecânicos, sem aparecer no
+> tooltip.
+
 ## Diagnóstico inicial
 
 Os tiers pós-Netherite estavam distribuídos em várias classes (`EmeraldTier`,

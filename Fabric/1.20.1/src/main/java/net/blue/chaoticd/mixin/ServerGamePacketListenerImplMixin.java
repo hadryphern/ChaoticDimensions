@@ -1,10 +1,11 @@
 package net.blue.chaoticd.mixin;
 
 import net.blue.chaoticd.content.ModCombatEnchantments;
+import net.blue.chaoticd.network.InteractionPacketInspector;
+import net.blue.chaoticd.stack.ExtendedStackSize;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -28,36 +29,12 @@ public abstract class ServerGamePacketListenerImplMixin {
         ServerboundInteractPacket packet
     ) {
         double actualSquaredDistance = targetBounds.distanceToSqr(eyePosition);
-        if (!chaoticd$isAttackPacket(packet)) {
+        if (!InteractionPacketInspector.isAttack(packet)) {
             return actualSquaredDistance;
         }
         float reach = ModCombatEnchantments.attackReach(player.getMainHandItem());
         // Vanilla compares this value to a fixed 36.0 (six blocks); normalize our custom reach to it.
         return reach > 0.0F ? actualSquaredDistance * 36.0D / (reach * reach) : actualSquaredDistance;
-    }
-
-    /**
-     * The packet exposes its action through dispatch rather than a public
-     * getter. Dispatching to this no-op probe is side-effect free and ensures
-     * Big Bertha/Royal extend attacks only, never arbitrary entity interaction.
-     */
-    private static boolean chaoticd$isAttackPacket(ServerboundInteractPacket packet) {
-        boolean[] attack = {false};
-        packet.dispatch(new ServerboundInteractPacket.Handler() {
-            @Override
-            public void onInteraction(InteractionHand hand) {
-            }
-
-            @Override
-            public void onInteraction(InteractionHand hand, Vec3 position) {
-            }
-
-            @Override
-            public void onAttack() {
-                attack[0] = true;
-            }
-        });
-        return attack[0];
     }
 
     /**

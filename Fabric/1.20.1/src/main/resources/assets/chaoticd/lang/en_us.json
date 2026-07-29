@@ -17,6 +17,7 @@
   "enchantment.chaoticd.disparada": "Disparada",
   "tooltip.chaoticd.attack_reach": "Attack Reach",
   "itemGroup.chaoticd.chaotic_dimensions": "Chaotic Dimensions",
+  "itemGroup.chaoticd.chaotic_test": "Chaotic Test",
   "enchantment.level.11": "XI",
   "enchantment.level.12": "XII",
   "enchantment.level.13": "XIII",
@@ -116,6 +117,7 @@
   "item.chaoticd.crystaline_see": "Crystaline See",
   "message.chaoticd.crystaline_see_wrong_dimension": "The Crystaline See only reacts in the Overworld or Aurora Dimension.",
   "message.chaoticd.crystaline_see_not_found": "No Dream Fluid Lake was found within range.",
+  "message.chaoticd.crystaline_see_cooldown": "The Crystaline See is still searching. Please wait a moment.",
   "structure.chaoticd.dream_fluid_cavern": "Dream Fluid Cavern",
   "structure.chaoticd.dream_fluid_sky_lake": "Dream Fluid Sky Lake",
   "item.chaoticd.crystaline_eye": "Crystaline Eye",
@@ -293,6 +295,5 @@
   "command.chaoticd.sir_orens.no_space": "There is not enough safe space to summon Sir. Orens.",
   "command.chaoticd.sir_orens.players_only": "This command can only be used by a player.",
   "disconnect.chaoticd.stack_protocol_required": "Chaotic Dimensions stack compatibility is required to join this server.",
-  "disconnect.chaoticd.stack_protocol_version": "Chaotic Dimensions stack protocol mismatch (server: %s, client: %s).",
-  "tooltip.chaoticd.progression_pickaxe": "%s · Mining level: %s"
+  "disconnect.chaoticd.stack_protocol_version": "Chaotic Dimensions stack protocol mismatch (server: %s, client: %s)."
 }

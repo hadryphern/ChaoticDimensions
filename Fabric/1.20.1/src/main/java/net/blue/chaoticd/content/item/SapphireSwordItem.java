@@ -2,29 +2,23 @@ package net.blue.chaoticd.content.item;
 
 import net.blue.chaoticd.content.ModItems;
 import net.blue.chaoticd.content.ModCombatEnchantments;
-import net.blue.chaoticd.content.ModEnchantments;
-import net.blue.chaoticd.content.ModEffects;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
 
-/** 589-damage sword with a 24-block-radius damage wave after a direct melee hit. */
+/** Sapphire sword with a 24-block-radius damage wave after a direct melee hit. */
 public final class SapphireSwordItem extends SwordItem {
-    public static final int DIRECT_DAMAGE = 589;
-    public static final float AREA_DAMAGE = 589.0F;
     public static final double AREA_RADIUS = 24.0D;
-    private static final int ATTACK_DAMAGE_MODIFIER = DIRECT_DAMAGE
-        - 1
-        - (int) SapphireTier.INSTANCE.getAttackDamageBonus();
 
     public SapphireSwordItem(Item.Properties properties) {
-        /* Player base damage is one. Keep the displayed/direct hit at exactly 589
-         * while allowing the same Sapphire tier to make the other tools end-game. */
-        super(SapphireTier.INSTANCE, ATTACK_DAMAGE_MODIFIER, -2.4F, properties);
+        super(
+            SapphireTier.INSTANCE,
+            ProgressionMaterial.SAPPHIRE.swordAttackModifier(),
+            -2.4F,
+            properties
+        );
     }
 
     @Override
@@ -35,15 +29,13 @@ public final class SapphireSwordItem extends SwordItem {
         }
 
         AABB area = target.getBoundingBox().inflate(AREA_RADIUS);
-        int sapphiricLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.SAPPHIRIC, stack);
-        float areaDamage = AREA_DAMAGE * ModCombatEnchantments.damageMultiplier(stack);
+        float areaDamage = ProgressionMaterial.SAPPHIRE.swordAttackDamage()
+            * ModCombatEnchantments.damageMultiplier(stack);
         for (LivingEntity nearby : attacker.level().getEntitiesOfClass(LivingEntity.class, area,
             candidate -> candidate != attacker && candidate != target && candidate.isAlive())) {
-            // A magic source has no melee attacker, so Sapphiric never propagates via the area wave.
+            // Sapphiric effects are applied once by ModGameplayEvents to the original melee hit.
+            // The wave only deals damage, avoiding a second 24-block entity scan on every hit.
             nearby.hurt(attacker.damageSources().magic(), areaDamage);
-            if (sapphiricLevel >= 5) {
-                nearby.addEffect(new MobEffectInstance(ModEffects.SAPPHIRIC, 20 * 45), attacker);
-            }
         }
         return used;
     }

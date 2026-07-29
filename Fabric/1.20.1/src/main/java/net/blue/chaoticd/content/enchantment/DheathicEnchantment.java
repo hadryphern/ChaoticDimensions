@@ -10,7 +10,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 /** A treasure-only repair enchantment for tiered tools and weapons. */
 public final class DheathicEnchantment extends Enchantment {
     public DheathicEnchantment() {
-        super(Rarity.VERY_RARE, EnchantmentCategory.BREAKABLE, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.COMMON, EnchantmentCategory.BREAKABLE, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 
     @Override
