@@ -14,7 +14,7 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.block.Block;
 
 /**
- * Ordered creative tabs for released content and explicitly unfinished content.
+ * Ordered creative tabs for released content and visual placeholders.
  *
  * <p>The main tab deliberately follows one stable inventory order: blocks,
  * tools grouped by their concrete type, armor grouped by slot, progression
@@ -48,17 +48,16 @@ public final class ModItemGroups {
     );
 
     /**
-     * Separate laboratory tab for registered content that is not ready for
-     * survival progression yet.  An item belongs here only while it is missing
-     * a real source, a complete progression specification or is retained as a
-     * legacy compatibility block.
+     * Separate laboratory tab for registered content with a deliberately
+     * provisional texture/model. Missing survival progression alone is never
+     * enough to put an otherwise finished item in this tab.
      */
     public static final CreativeModeTab CHAOTIC_TEST = Registry.register(
         BuiltInRegistries.CREATIVE_MODE_TAB,
         new ResourceLocation(ChaoticDimensions.MOD_ID, "chaotic_test"),
         FabricItemGroup.builder()
             .title(Component.translatable("itemGroup.chaoticd.chaotic_test"))
-            .icon(() -> new ItemStack(ModItems.CHLOROPHYTE_PICKAXE))
+            .icon(() -> new ItemStack(ModItems.VORTEX_SOUL))
             .displayItems((parameters, entries) -> addTestItems(entries))
             .build()
     );
@@ -148,17 +147,22 @@ public final class ModItemGroups {
         entries.accept(ModItems.RUBY_SWORD);
         entries.accept(ModItems.JAXY_SWORD);
         entries.accept(ModItems.TITANIUM_SWORD);
+        entries.accept(ModItems.HERO_SWORD);
         entries.accept(ModItems.ROSALITA_SWORD);
         entries.accept(ModItems.SAPPHIRE_SWORD);
+        entries.accept(ModItems.SHADOW_SWORD);
     }
 
     private static void addReleasedPickaxes(CreativeModeTab.Output entries) {
         entries.accept(ModItems.EMERALD_PICKAXE);
         entries.accept(ModItems.RUBY_PICKAXE);
         entries.accept(ModItems.JAXY_PICKAXE);
+        entries.accept(ModItems.CHLOROPHYTE_PICKAXE);
         entries.accept(ModItems.TITANIUM_PICKAXE);
+        entries.accept(ModItems.HERO_PICKAXE);
         entries.accept(ModItems.ROSALITA_PICKAXE);
         entries.accept(ModItems.SAPPHIRE_PICKAXE);
+        entries.accept(ModItems.SHADOW_PICKAXE);
     }
 
     private static void addReleasedAxes(CreativeModeTab.Output entries) {
@@ -166,6 +170,7 @@ public final class ModItemGroups {
         entries.accept(ModItems.RUBY_AXE);
         entries.accept(ModItems.JAXY_AXE);
         entries.accept(ModItems.TITANIUM_AXE);
+        entries.accept(ModItems.HERO_AXE);
         entries.accept(ModItems.ROSALITA_AXE);
         entries.accept(ModItems.SAPPHIRE_AXE);
     }
@@ -175,6 +180,7 @@ public final class ModItemGroups {
         entries.accept(ModItems.RUBY_SHOVEL);
         entries.accept(ModItems.JAXY_SHOVEL);
         entries.accept(ModItems.TITANIUM_SHOVEL);
+        entries.accept(ModItems.HERO_SHOVEL);
         entries.accept(ModItems.ROSALITA_SHOVEL);
         entries.accept(ModItems.SAPPHIRE_SHOVEL);
     }
@@ -184,6 +190,7 @@ public final class ModItemGroups {
         entries.accept(ModItems.RUBY_HOE);
         entries.accept(ModItems.JAXY_HOE);
         entries.accept(ModItems.TITANIUM_HOE);
+        entries.accept(ModItems.HERO_HOE);
         entries.accept(ModItems.ROSALITA_HOE);
         entries.accept(ModItems.SAPPHIRE_HOE);
     }
@@ -225,11 +232,18 @@ public final class ModItemGroups {
         entries.accept(ModItems.RUBY);
         entries.accept(ModItems.RUBY_PLATE);
         entries.accept(ModItems.JAXY_GEM);
-        entries.accept(ModItems.SOLAR_OBSIDIAN);
+        entries.accept(ModItems.CHLOROPHYTE_INGOT);
         entries.accept(ModItems.TITANIUM_INGOT);
-        entries.accept(ModItems.TITAN_SOULD);
+        entries.accept(ModItems.VYLAM_GEM);
+        entries.accept(ModItems.HERO_GEM);
         entries.accept(ModItems.ROSALITA_GEM);
         entries.accept(ModItems.SAPPHIRE_GEM);
+        entries.accept(ModItems.SHADOW_GEM);
+        entries.accept(ModItems.SHADOW_NUGGET);
+        entries.accept(ModItems.DERMAN_GEM);
+        entries.accept(ModItems.VORTEX_GEM);
+        entries.accept(ModItems.SUN_TEAR);
+        entries.accept(ModItems.SUN_PEAK);
 
         // Souls intentionally remain consecutive instead of being scattered
         // among every material used by Sir. Orens.
@@ -238,19 +252,10 @@ public final class ModItemGroups {
         entries.accept(ModItems.DEMONIC_SOULD);
         entries.accept(ModItems.SHADOW_SOUL);
         entries.accept(ModItems.VOID_SOUL);
-        entries.accept(ModItems.VORTEX_SOUL);
 
         // Existing quest and merchant materials.
         entries.accept(ModItems.WATER_INGOT);
         entries.accept(ModItems.LAVA_INGOT);
-        entries.accept(ModItems.DEMONITH);
-        entries.accept(ModItems.THE_CRYSTALINE);
-        entries.accept(ModItems.THE_UNDERGUER);
-        entries.accept(ModItems.THE_CALICE_QUEEN);
-        entries.accept(ModItems.MONTHRA_SCALE);
-        entries.accept(ModItems.CRYSTALINE_SIGIL);
-        entries.accept(ModItems.UNDERGUER_SIGIL);
-        entries.accept(ModItems.VOID);
     }
 
     private static void addUsefulItems(CreativeModeTab.Output entries) {
@@ -308,40 +313,7 @@ public final class ModItemGroups {
     }
 
     private static void addTestItems(CreativeModeTab.Output entries) {
-        // Legacy Aurora blocks stay accessible for old development worlds but
-        // are not part of the current Aurora generation palette.
-        entries.accept(ModBlocks.PASTEL_GRASS);
-        entries.accept(ModBlocks.PASTEL_SOIL);
-        entries.accept(ModBlocks.PASTEL_AURORA_STONE);
-        entries.accept(ModBlocks.PASTEL_AURORA_LOG);
-        entries.accept(ModBlocks.PASTEL_AURORA_WOOD);
-        entries.accept(ModBlocks.STRIPPED_PASTEL_AURORA_LOG);
-        entries.accept(ModBlocks.STRIPPED_PASTEL_AURORA_WOOD);
-        entries.accept(ModBlocks.PASTEL_AURORA_PLANKS);
-        entries.accept(ModBlocks.PASTEL_PINK_LEAVES);
-        entries.accept(ModBlocks.PASTEL_PURPLE_LEAVES);
-        entries.accept(ModBlocks.PASTEL_BLUE_LEAVES);
-
-        // Registered future materials without a released survival source.
-        entries.accept(ModItems.SHADOW_GEM);
-        entries.accept(ModItems.SHADOW_NUGGET);
-        entries.accept(ModItems.VYLAM_GEM);
-        entries.accept(ModItems.CHLOROPHYTE_INGOT);
-        entries.accept(ModItems.HERO_GEM);
-        entries.accept(ModItems.DERMAN_GEM);
-        entries.accept(ModItems.VORTEX_GEM);
-        entries.accept(ModItems.SUN_TEAR);
-        entries.accept(ModItems.SUN_PEAK);
-
-        // Tools whose material chain is still not released in survival.
-        entries.accept(ModItems.SHADOW_SWORD);
-        entries.accept(ModItems.HERO_SWORD);
-        entries.accept(ModItems.CHLOROPHYTE_PICKAXE);
-        entries.accept(ModItems.SHADOW_PICKAXE);
-        entries.accept(ModItems.HERO_PICKAXE);
-        entries.accept(ModItems.HERO_AXE);
-        entries.accept(ModItems.HERO_SHOVEL);
-        entries.accept(ModItems.HERO_HOE);
+        PlaceholderCatalog.addToCreativeTab(entries);
     }
 
     private static void addWoodFamily(

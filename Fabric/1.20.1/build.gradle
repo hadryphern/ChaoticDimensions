@@ -109,6 +109,22 @@ tasks.register('validateProgression', JavaExec) {
     dependsOn testClasses
 }
 
+tasks.register('validateOrespawnTest', JavaExec) {
+    group = 'verification'
+    description = 'Validates the isolated, authored Orespawn local-test harness and its resource boundaries.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'net.blue.chaoticd.validation.OrespawnTestIsolationValidator'
+    dependsOn testClasses
+}
+
+tasks.register('validatePlaceholderCatalog', JavaExec) {
+    group = 'verification'
+    description = 'Validates that Chaotic Test contains only central visual placeholders.'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'net.blue.chaoticd.validation.PlaceholderCatalogValidator'
+    dependsOn testClasses
+}
+
 tasks.named('check') {
-    dependsOn validateAuroraAssets, validateAuroraWorldgen, validateAuroraTrees, validateAuroraVisuals, validateProgression
+    dependsOn validateAuroraAssets, validateAuroraWorldgen, validateAuroraTrees, validateAuroraVisuals, validateProgression, validateOrespawnTest, validatePlaceholderCatalog
 }

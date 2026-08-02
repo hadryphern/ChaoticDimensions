@@ -9,6 +9,7 @@ import net.blue.chaoticd.content.ModBlocks;
 import net.blue.chaoticd.content.ModEntities;
 import net.blue.chaoticd.content.ModFluids;
 import net.blue.chaoticd.content.ModMenus;
+import net.blue.chaoticd.test.orespawn.client.OrespawnTestClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
@@ -103,5 +104,7 @@ public final class ChaoticDimensionsClient implements ClientModInitializer {
         );
 
         MenuScreens.register(ModMenus.SIR_ORENS_TRADES, SirOrensTradeScreen::new);
+
+        OrespawnTestClient.initialize();
     }
 }

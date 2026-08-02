@@ -1,0 +1,3 @@
+# Infraestrutura temporária de referência local do Orespawn.
+# Nunca habilite em um mundo importante. Cliente e servidor devem coincidir.
+enableOrespawnTestContent=false
